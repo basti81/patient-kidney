@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,12 @@ public class PatienteServiceImpl implements PatienteService {
     public PatienteServiceImpl(PatienteRepository patienteRepository){
         this.patienteRepository = patienteRepository;
     }
+
+    @Override
+    public List<Patiente> listOfPatiente() {
+       return patienteRepository.findAll();
+    }
+
     @Override
     public Patiente savePatiente(Patiente patiente) {
         return patienteRepository.save(patiente);

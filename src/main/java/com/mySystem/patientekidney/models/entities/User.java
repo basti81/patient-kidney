@@ -3,6 +3,7 @@ package com.mySystem.patientekidney.models.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 @Entity
 @Table(name = "users")
@@ -13,6 +14,13 @@ public class User implements Serializable {
     private Long id;
     private String rut;
     private String name;
+    @Column(name="last_name")
+    private String lastName;
+    private String mail;
+    private String password;
+    private String img;
+    private Instant
+    private Boolean enabled;
 
     public User() {
     }
@@ -46,12 +54,43 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", rut='" + rut + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

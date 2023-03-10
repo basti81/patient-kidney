@@ -1,14 +1,10 @@
 package com.mySystem.patientekidney.controllers;
-
 import com.mySystem.patientekidney.models.entities.Patiente;
 import com.mySystem.patientekidney.services.PatienteServiceImpl;
-import jakarta.servlet.annotation.HttpConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,7 +26,7 @@ public class PatienteController {
     @GetMapping("/listOfPatients")
     @ResponseStatus(HttpStatus.OK)
     public List<Patiente> getAllPatiente(){
-        return new ArrayList<>();
+        return patienteService.listOfPatiente();
     }
 
     @GetMapping("{id}")
