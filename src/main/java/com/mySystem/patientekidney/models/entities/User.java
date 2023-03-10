@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "user_id")
     private Long id;
     private String rut;
     private String name;
