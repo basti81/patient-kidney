@@ -7,22 +7,25 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "records")
 public class Record {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "record_id")
     private Long id;
     @Column(name="birth_date")
     private LocalDate birthDate;
-    @JoinColumn(name="patiente_id")
     @OneToOne
-    private Patiente patiente;
+    @JoinColumn(name="patiente_id")
+    private Patient patient;
 
 
-    /*
+   /*
     private List<Examn> examns;
     private List<Anthropometry> anthropometrys;
-    private List<VitalSign> vitalSigns;
+    privte List<italSign> vitalSigns;
     private Antecedent antecedent;
     */
+
+    public Record() {
+    }
 
     public Record(LocalDate birthDate) {
         this.birthDate = birthDate;
@@ -36,11 +39,11 @@ public class Record {
         this.birthDate = birthDate;
     }
 
-    public Patiente getPatiente() {
-        return patiente;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatiente(Patiente patiente) {
-        this.patiente = patiente;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

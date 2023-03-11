@@ -22,19 +22,20 @@ public class WorkerServiceImpl implements WorkerService {
     public List<Worker> findAllWorker() {
         return workerRepository.findAll();
     }
-
     @Override
     public Worker saveWorker(Worker worker) {
         return workerRepository.save(worker);
     }
-
     @Override
     public Optional<Worker> getWorkerById(Long idWorker) {
         return Optional.of(workerRepository.getById(idWorker));
     }
-
     @Override
     public void deleteWorkerById(Long idWorker) {
         workerRepository.deleteById(idWorker);
+    }
+    @Override
+    public List<Worker> saveAllWorker(List<Worker> workers) {
+        return workerRepository.saveAll(workers);
     }
 }

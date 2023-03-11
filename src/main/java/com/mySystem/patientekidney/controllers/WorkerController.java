@@ -23,8 +23,14 @@ public class WorkerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Worker createWorker(@RequestBody Worker patiente){
-        return workerService.saveWorker(patiente);
+    public Worker createWorker(@RequestBody Worker worker){
+        return workerService.saveWorker(worker);
+    }
+
+    @PostMapping("/saveAll")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Worker> saveAllWarkers(@RequestBody List<Worker> listOfWorker){
+        return workerService.saveAllWorker(listOfWorker);
     }
 
     @GetMapping("/listOfWorker")

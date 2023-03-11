@@ -9,9 +9,10 @@ import java.util.List;
 @Entity
 @Table(name = "patients")
 @PrimaryKeyJoinColumn(referencedColumnName = "user_id")
-public class Patiente extends User {
+public class Patient extends User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="patient_id")
     private Long id;
 
    /*
@@ -23,15 +24,16 @@ public class Patiente extends User {
     private Prevision prevision;
     private State state;
 
-    @OneToOne(mappedBy = "patients",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "patient",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Record record;
 
-    public Patiente() {
+    public Patient() {
     }
 
-    public Patiente(String rut, String name, Prevision prevision) {
+    public Patient(String rut, String name, Prevision prevision, State state) {
         super(rut, name);
         this.prevision = prevision;
+        this.state = state;
     }
 
     @Override
@@ -57,6 +59,13 @@ public class Patiente extends User {
     }
 
     public void setRecord(Record record) {
+        if(record == null){
+            if(this.record != null){
+                this.record.setPatient(null);
+            }
+        }else{
+            record.setPatient(this);
+        }
         this.record = record;
     }
 

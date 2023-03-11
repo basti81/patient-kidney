@@ -11,5 +11,5 @@ public interface WorkerService {
     Worker saveWorker(Worker worker);
     Optional<Worker> getWorkerById(Long idWorker);
     void deleteWorkerById(Long idWorker);
-
+    List<Worker> saveAllWorker(List<Worker> workers);
 }

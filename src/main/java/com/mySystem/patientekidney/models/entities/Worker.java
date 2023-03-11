@@ -9,10 +9,9 @@ import java.util.List;
 @Table(name = "workers")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Worker  extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="worker_id")
     private Long id;
-
     /*@OneToMany(mappedBy = "workers", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Meeting> meeting; */
     private Specialty specialty;
