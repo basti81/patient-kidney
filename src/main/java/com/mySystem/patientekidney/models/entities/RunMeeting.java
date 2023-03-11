@@ -1,4 +1,5 @@
 package com.mySystem.patientekidney.models.entities;
 
-public class Meeting {
+public class RunMeeting {
+
 }
