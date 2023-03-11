@@ -1,6 +1,6 @@
 package com.mySystem.patientekidney.controllers;
 import com.mySystem.patientekidney.models.entities.Patiente;
-import com.mySystem.patientekidney.services.PatienteServiceImpl;
+import com.mySystem.patientekidney.services.interfaces.PatienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +11,9 @@ import java.util.List;
 @RequestMapping("/api/patiente")
 public class PatienteController {
     @Autowired
-    private PatienteServiceImpl patienteService;
+    private PatienteService patienteService;
 
-    public PatienteController(PatienteServiceImpl patienteService){
+    public PatienteController(PatienteService patienteService){
         this.patienteService = patienteService;
     }
 
@@ -23,10 +23,10 @@ public class PatienteController {
         return patienteService.savePatiente(patiente);
     }
 
-    @GetMapping("/listOfPatients")
+    @GetMapping("/listOfPatiente")
     @ResponseStatus(HttpStatus.OK)
     public List<Patiente> getAllPatiente(){
-        return patienteService.listOfPatiente();
+        return patienteService.findAllPatiente();
     }
 
     @GetMapping("{id}")
@@ -51,7 +51,7 @@ public class PatienteController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deletePatienteById(@PathVariable("id") Long id){
-        //patienteService.deletePatiente(id);
+        patienteService.deletePatienteById(id);
         return new ResponseEntity<>("Patiente deleted with successfully!",HttpStatus.OK);
     }
 

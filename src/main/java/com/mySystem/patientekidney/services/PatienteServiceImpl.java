@@ -20,8 +20,8 @@ public class PatienteServiceImpl implements PatienteService {
     }
 
     @Override
-    public List<Patiente> listOfPatiente() {
-       return patienteRepository.findAll();
+    public List<Patiente> findAllPatiente() {
+        return patienteRepository.findAll();
     }
 
     @Override
@@ -30,12 +30,12 @@ public class PatienteServiceImpl implements PatienteService {
     }
 
     @Override
-    public Optional<Patiente> getPatienteById(Long idPaciente) {
-        return Optional.of(patienteRepository.getById(idPaciente));
+    public Optional<Patiente> getPatienteById(Long idPatiente) {
+        return Optional.of(patienteRepository.getById(idPatiente));
     }
 
     @Override
-    public void deletePatienteById(Long idPaciente) {
-        patienteRepository.deleteById(idPaciente);
+    public void deletePatienteById(Long idPatiente) {
+        patienteRepository.deleteById(idPatiente);
     }
 }
