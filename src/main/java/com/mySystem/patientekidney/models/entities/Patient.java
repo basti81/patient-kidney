@@ -11,11 +11,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(referencedColumnName = "user_id")
 public class Patient extends User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="patient_id")
-    private Long id;
-
-   /*
+     /*
     private String country;
     private String region;
     private String city;
@@ -36,15 +32,7 @@ public class Patient extends User {
         this.state = state;
     }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Prevision getPrevision() {
         return prevision;

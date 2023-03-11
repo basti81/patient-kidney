@@ -9,9 +9,7 @@ import java.util.List;
 @Table(name = "workers")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Worker  extends User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="worker_id")
-    private Long id;
+
     /*@OneToMany(mappedBy = "workers", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Meeting> meeting; */
     private Specialty specialty;
@@ -22,16 +20,6 @@ public class Worker  extends User {
     public Worker(String rut, String name, Specialty specialty) {
         super(rut, name);
         this.specialty = specialty;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Specialty getSpecialty() {
