@@ -14,12 +14,13 @@ public class User implements Serializable {
     private Long id;
     private String rut;
     private String name;
-    @Column(name="last_name")
+   /* @Column(name="last_name")
     private String lastName;
     private String mail;
     private String password;
     private String img;
-    private Instant
+    @Column(name = "start_date")*/
+    private Instant startDate;
     private Boolean enabled;
 
     public User() {
@@ -54,36 +55,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Instant getStartDate() {
+        return startDate;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
+    public void setStartDate(Instant startDate) {
+        this.startDate = startDate;
     }
 
     public Boolean getEnabled() {

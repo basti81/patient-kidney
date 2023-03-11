@@ -1,19 +1,26 @@
 package com.mySystem.patientekidney.models.entities;
 
+import com.mySystem.patientekidney.librery.Specialty;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "workers")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Worker  extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String specialty;
+
+    /*@OneToMany(mappedBy = "workers", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Meeting> meeting; */
+    private Specialty specialty;
 
     public Worker() {
     }
 
-    public Worker(String rut, String name, String specialty) {
+    public Worker(String rut, String name, Specialty specialty) {
         super(rut, name);
         this.specialty = specialty;
     }
@@ -28,11 +35,11 @@ public class Worker  extends User {
         this.id = id;
     }
 
-    public String getSpecialty() {
+    public Specialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(String specialty) {
+    public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
     }
 }

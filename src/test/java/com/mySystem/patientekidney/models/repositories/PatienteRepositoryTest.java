@@ -1,5 +1,6 @@
 package com.mySystem.patientekidney.models.repositories;
 
+import com.mySystem.patientekidney.librery.Prevision;
 import com.mySystem.patientekidney.models.entities.Patiente;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class PatienteRepositoryTest {
     @Test
     public void givenPatiente_whenSavePatiente_thenSavedPatiente(){
         //Given - precondition or setup
-        Patiente patiente = new Patiente("20.088.634-8","Bastian Astudillo","Fonasa");
+        Patiente patiente = new Patiente("20.088.634-8","Bastian Astudillo", Prevision.FONASA);
         //Patiente savedPatiente = patienteRepository.save(patiente);
         //assertThat(patiente, CoreMatchers.is(savedPatiente));
         System.out.println(patiente.toString());
