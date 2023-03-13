@@ -15,7 +15,5 @@ class UserServiceTest {
     @Test
     public void givenUser_whenSaveUser_thenReturnSavedUser(){
         //Given - precondition or setup
-        User user = new User("xxxx","bastian");
-        System.out.println(user.toString());
     }
 }

@@ -8,4 +8,5 @@ public interface UserService{
     User saveUser(User user);
     Optional<User> getUserById(Long idUser);
     void deleteUserById(Long idUser);
+
 }

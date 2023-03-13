@@ -1,8 +1,11 @@
 package com.mySystem.patientekidney.models.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
+import java.time.Clock;
 import java.time.Instant;
 
 @Entity
@@ -12,22 +15,29 @@ public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "user_id")
     private Long id;
+    @Column(name = "rut", columnDefinition = "varchar(150)")
     private String rut;
+    @Column(columnDefinition = "varchar(100)")
     private String name;
-    @Column(name="last_name")
+
+   /* @Column(name="last_name")
     private String lastName;
     private String mail;
     private String password;
-    private String img;
+
+    private String img;*/
+   @NonNull
+    @Column(name = "start_date")
     private Instant startDate;
     private Boolean enabled;
 
     public User() {
     }
 
-    public User(String rut, String name) {
+    public User(String rut, String name, Boolean enabled) {
         this.rut = rut;
         this.name = name;
+        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -54,36 +64,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Instant getStartDate() {
+        return startDate;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
+    public void setStartDate(Instant startDate) {
+        this.startDate = startDate;
     }
 
     public Boolean getEnabled() {
