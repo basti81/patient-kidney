@@ -1,4 +1,4 @@
-package com.mySystem.patientekidney.controllers;
+package com.mySystem.patientekidney.restcontrollers;
 import com.mySystem.patientekidney.models.entities.Patient;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/patient")
-public class PatientController {
+public class PatientRestController {
     @Autowired
     private PatientService patientService;
 
-    public PatientController(PatientService patientService){
+    public PatientRestController(PatientService patientService){
         this.patientService = patientService;
     }
 
@@ -61,6 +61,11 @@ public class PatientController {
         return new ResponseEntity<>("Patient deleted with successfully!",HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAllPatient(){
+        patientService.deleteAllPatient();
+        return new ResponseEntity<>("Patients deleted with successfully",HttpStatus.OK);
+    }
 
 
 

@@ -1,10 +1,8 @@
 package com.mySystem.patientekidney.models.entities;
 
 import com.mySystem.patientekidney.librery.Prevision;
-import com.mySystem.patientekidney.librery.State;
+import com.mySystem.patientekidney.librery.StatePatient;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -18,7 +16,8 @@ public class Patient extends User {
     private List<Meeting> meetings;
     */
     private Prevision prevision;
-    private State state;
+    @Column(name = "state_patient")
+    private StatePatient statePatient;
 
     @OneToOne(mappedBy = "patient",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Record record;
@@ -26,13 +25,18 @@ public class Patient extends User {
     public Patient() {
     }
 
-    public Patient(String rut, String name, Prevision prevision, State state) {
-        super(rut, name);
+    public Patient(String rut, String name, Boolean enabled, Prevision prevision, StatePatient statePatient) {
+        super(rut, name, enabled);
         this.prevision = prevision;
-        this.state = state;
+        this.statePatient = statePatient;
     }
 
-
+    public Patient(String rut, String name, Boolean enabled, Prevision prevision, StatePatient statePatient, Record record) {
+        super(rut, name, enabled);
+        this.prevision = prevision;
+        this.statePatient = statePatient;
+        this.record = record;
+    }
 
     public Prevision getPrevision() {
         return prevision;
@@ -57,11 +61,11 @@ public class Patient extends User {
         this.record = record;
     }
 
-    public State getState() {
-        return state;
+    public StatePatient getStatePatient() {
+        return statePatient;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setStatePatient(StatePatient statePatient) {
+        this.statePatient = statePatient;
     }
 }

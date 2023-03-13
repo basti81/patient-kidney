@@ -1,6 +1,7 @@
 package com.mySystem.patientekidney.models.entities;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -11,6 +12,7 @@ public class Record {
     @Column(name = "record_id")
     private Long id;
     @Column(name="birth_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     @OneToOne
     @JoinColumn(name="patiente_id")

@@ -1,0 +1,64 @@
+package com.mySystem.patientekidney.models.entities;
+
+import com.mySystem.patientekidney.librery.StateMeeting;
+import jakarta.persistence.Column;
+import org.w3c.dom.Text;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+
+public class Meeting {
+    private Long id;
+    @Column(name = "date_time_meeting")
+    private LocalDateTime dateTimeMeeting;
+    @Column(name = "state_meeting")
+    private StateMeeting stateMeeting;
+    @Column(name = "note_meeting",columnDefinition = "TEXT")
+    private String noteMeeting;
+    @Column(name = "meeting_date")
+    private Instant meetingDate;
+
+    public Meeting(){
+        this.meetingDate = Instant.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateMeeting() {
+        return dateTimeMeeting;
+    }
+
+    public void setDateMeeting(LocalDateTime dateTimeMeeting) {
+        this.dateTimeMeeting = dateTimeMeeting;
+    }
+
+    public StateMeeting getStateMeeting() {
+        return stateMeeting;
+    }
+
+    public void setStateMeeting(StateMeeting stateMeeting) {
+        this.stateMeeting = stateMeeting;
+    }
+
+    public String getNoteMeeting() {
+        return noteMeeting;
+    }
+
+    public void setNoteMeeting(String noteMeeting) {
+        this.noteMeeting = noteMeeting;
+    }
+
+    public Instant getMeetingDate() {
+        return meetingDate;
+    }
+
+    public void setMeetingDate(Instant meetingDate) {
+        this.meetingDate = meetingDate;
+    }
+}

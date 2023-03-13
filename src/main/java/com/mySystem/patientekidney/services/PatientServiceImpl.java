@@ -40,4 +40,9 @@ public class PatientServiceImpl implements PatientService {
     public List<Patient> saveAllPatient(List<Patient> patients) {
         return patientRepository.saveAll(patients);
     }
+
+    @Override
+    public void deleteAllPatient() {
+        patientRepository.deleteAll();
+    }
 }

@@ -11,4 +11,5 @@ public interface PatientService {
     Optional<Patient> getPatientById(Long idPatient);
     void deletePatientById(Long idPatient);
     List<Patient> saveAllPatient(List<Patient> patients);
+    void deleteAllPatient();
 }

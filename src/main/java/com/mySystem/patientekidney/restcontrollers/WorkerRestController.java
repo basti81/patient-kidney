@@ -1,4 +1,4 @@
-package com.mySystem.patientekidney.controllers;
+package com.mySystem.patientekidney.restcontrollers;
 
 
 import com.mySystem.patientekidney.models.entities.Worker;
@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/worker")
-public class WorkerController {
+public class WorkerRestController {
 
     @Autowired
     private WorkerService workerService;
 
-    public WorkerController(WorkerService workerService){
+    public WorkerRestController(WorkerService workerService){
         this.workerService = workerService;
     }
 

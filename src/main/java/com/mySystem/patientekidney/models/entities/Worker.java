@@ -13,12 +13,11 @@ public class Worker  extends User {
     /*@OneToMany(mappedBy = "workers", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Meeting> meeting; */
     private Specialty specialty;
-
     public Worker() {
     }
 
-    public Worker(String rut, String name, Specialty specialty) {
-        super(rut, name);
+    public Worker(String rut, String name, Boolean enabled, Specialty specialty) {
+        super(rut, name, enabled);
         this.specialty = specialty;
     }
 

@@ -1,8 +1,11 @@
 package com.mySystem.patientekidney.models.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
+import java.time.Clock;
 import java.time.Instant;
 
 @Entity
@@ -12,23 +15,27 @@ public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "user_id")
     private Long id;
+    @Column(name = "user_rut", columnDefinition = "varchar(100)")
     private String rut;
+    @Column(columnDefinition = "varchar(100)")
     private String name;
    /* @Column(name="last_name")
     private String lastName;
     private String mail;
     private String password;
-    private String img;
-    @Column(name = "start_date")*/
+    private String img;*/
+   @NonNull
+    @Column(name = "start_date")
     private Instant startDate;
     private Boolean enabled;
 
     public User() {
     }
 
-    public User(String rut, String name) {
+    public User(String rut, String name, Boolean enabled) {
         this.rut = rut;
         this.name = name;
+        this.enabled = enabled;
     }
 
     public Long getId() {
