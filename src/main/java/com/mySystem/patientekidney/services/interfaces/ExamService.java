@@ -12,5 +12,7 @@ public interface ExamService {
     Exam saveExam (Exam patient);
     Optional<Exam> getExamById(Long idExam);
     void deleteExamById(Long idExam);
+    void deleteAllExam();
     List<Exam> saveAllExam(List<Exam> patients);
+
 }

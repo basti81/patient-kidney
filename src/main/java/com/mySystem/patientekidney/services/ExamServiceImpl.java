@@ -39,6 +39,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public void deleteAllExam() {
+        examRepository.deleteAll();
+    }
+
+    @Override
     public List<Exam> saveAllExam(List<Exam> exams) {
         return examRepository.saveAll(exams);
     }

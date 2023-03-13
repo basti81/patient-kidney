@@ -15,10 +15,11 @@ public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "user_id")
     private Long id;
-    @Column(name = "user_rut", columnDefinition = "varchar(100)")
+    @Column(name = "rut", columnDefinition = "varchar(150)")
     private String rut;
     @Column(columnDefinition = "varchar(100)")
     private String name;
+
    /* @Column(name="last_name")
     private String lastName;
     private String mail;

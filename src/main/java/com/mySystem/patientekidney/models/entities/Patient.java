@@ -4,6 +4,8 @@ import com.mySystem.patientekidney.librery.Prevision;
 import com.mySystem.patientekidney.librery.StatePatient;
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "patients")
 @PrimaryKeyJoinColumn(referencedColumnName = "user_id")
@@ -23,12 +25,11 @@ public class Patient extends User {
     private Record record;
 
     public Patient() {
+        this.setStartDate(Instant.now());
     }
 
     public Patient(String rut, String name, Boolean enabled, Prevision prevision, StatePatient statePatient) {
-        super(rut, name, enabled);
-        this.prevision = prevision;
-        this.statePatient = statePatient;
+        this(rut,name,enabled,prevision,statePatient,null);
     }
 
     public Patient(String rut, String name, Boolean enabled, Prevision prevision, StatePatient statePatient, Record record) {

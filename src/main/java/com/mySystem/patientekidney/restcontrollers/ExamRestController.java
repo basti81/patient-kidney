@@ -64,5 +64,11 @@ public class ExamRestController {
         return new ResponseEntity<>("Exam deleted with successfully!", HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAllExam(){
+        examService.deleteAllExam();
+        return new ResponseEntity<>("All Exams deleted with successfully!", HttpStatus.OK);
+    }
+
 
 }

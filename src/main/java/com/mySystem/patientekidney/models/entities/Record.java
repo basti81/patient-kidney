@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @Table(name = "records")
 public class Record {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "record_id")
     private Long id;
     @Column(name="birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

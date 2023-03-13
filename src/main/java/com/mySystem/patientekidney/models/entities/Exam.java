@@ -16,6 +16,7 @@ public class Exam {
     private Double potassium;
     private Double sodium;
     private Double ma;
+    @Column(name = "cl_cr")
     private Double clCr;
     private Double rac;
     private Boolean viewed;

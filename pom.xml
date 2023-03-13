@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mySystem</groupId>
-	<artifactId>patiente-kidney</artifactId>
+	<artifactId>patient-kidney</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>patiente-kidney</name>
 	<description>Proyecto en Java Spring</description>
