@@ -91,29 +91,9 @@
                             </h6>
 
                             <table width="100%" cellspacing="0" >
-                                <tbody>
-                                <tr th:each="examen : ${examenes}">
-                                    <td>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small" th:text="${examen.filiacion.paciente.usuario.getOnlyName}"></div>
-                                        <div class="small text-left" >
-                                            <span th:if="${examen.estado == 3}"> <div class="btn btn-warning btn-sm" style="--bs-text-opacity: .5;"> Moderado</div></span>
-                                            <span th:if="${examen.estado == 4}"> <div class="btn btn-warning btn-sm">Grave</div></span>
-                                            <span th:if="${examen.estado >= 5}"> <div class="btn btn-danger btn-sm">Muy Grave</div></span>
-                                        </div>
-                                    </div>
-                                    </a>
-                                    </td>
-                                </tr>
-                                </tbody>
+                                
                             </table>
-                            <a class="dropdown-item text-center small text-gray-500" th:href="@{/examen/criticList}">Mostrar todo</a>
+                            <a class="dropdown-item text-center small text-gray-500">Mostrar todo</a>
                         </div>
                     </li>
                 </div>
@@ -126,51 +106,13 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         <div class="card border-0">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.getPrincipal().getNombre()}">Douglas McGee</span>
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="principal.authorities">Admin</span>
-                        </div>
-
-
-                        <div  sec:authorize="hasAuthority('ADMINISTRADOR')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/ADMIN.png}">
-                        </div>
-                        <div  sec:authorize="hasAuthority('CLIENTE')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/PACIENTE.png}">
-                        </div>
-                        <div  sec:authorize="hasAuthority('DOCTOR')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/DOCTOR.png}">
-                        </div>
-                        <div  sec:authorize="hasAuthority('ENFERMERIA')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/ENFERMERIA.png}">
-                        </div>
-                        <div  sec:authorize="hasAuthority('GES')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/GES.png}">
-                        </div>
-                        <div  sec:authorize="hasAuthority('LABORATORISTA')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/LABORATORISTA.png}">
-                        </div>
-                        <div  sec:authorize="hasAuthority('ESTADISTICAS')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/ESTADISTICA.png}">
-                        </div>
-                        <div  sec:authorize="hasAuthority('TENS')">
-                            <img class="img-profile rounded-circle" th:src="@{/img/TENS.png}">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" >First Name</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" >Role</span>
                         </div>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                          aria-labelledby="userDropdown">
-<!--                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">-->
-<!--                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
-<!--                            Profile-->
-<!--                        </a>-->
-<!--                        <a class="dropdown-item" href="#">-->
-<!--                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
-<!--                            Settings-->
-<!--                        </a>-->
-<!--                        <a class="dropdown-item" href="#">-->
-<!--                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>-->
-<!--                            Activity Log-->
-<!--                        </a>-->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -187,17 +129,17 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLogout">Cerrar sesion?</h5>
+                        <h5 class="modal-title" id="exampleModalLogout">Sign off?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Seleccione "Salir" para cerrar la sesion.</div>
+                    <div class="modal-body">Select "Exit" to confirm.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                         <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
                             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                                <i class="fas fa-sign-out-alt"></i> Exit
                             </button>
                         </form>
                     </div>
@@ -216,22 +158,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/paciente/create}" th:object="${usuario}" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Nombre de usuario:</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-pass" class="col-form-label">Contraseña:</label>
-                                <input type="text" class="form-control" id="recipient-pass">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-photo" class="col-form-label">Foto de perfil:</label>
-                                <input type="file" class="form-control" name="fileProfile" id="recipient-photo" aria-describedby="helpId" placeholder="">
-                            </div>
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" type="submit" >Ingresar</a>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -239,6 +166,7 @@
 
 
     </div>
+
     <!--SIDE-BAR FRAGMENT-->
     <div th:fragment = "sidebar">
 
@@ -272,33 +200,17 @@
             <div id="collapsePersonal" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" th:href="@{/personal/lista}"><i class="fas fa-fw fa-list"></i> Lista Personal</a>
-                    <a class="collapse-item" th:href="@{/personal/nuevo}"><i class="fas fa-fw fa-plus"></i> Nuevo Personal</a>
+                  
                 </div>
             </div>
         </li>
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePaciente"
-               aria-expanded="true" aria-controls="collapsePaciente">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Gestión Pacientes</span>
-            </a>
-            <div id="collapsePaciente" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" th:href="@{/paciente/lista}"><i class="fas fa-fw fa-list"></i> Lista Pacientes</a>
-                    <a class="collapse-item" th:href="@{/paciente/nuevo}"><i class="fas fa-fw fa-plus"></i> Nuevo Paciente</a>
-                </div>
-            </div>
-        </li>
-
+      
 
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/examen/critico}">
+            <a class="nav-link">
                 <i class="fas fa-fw fa-exclamation"></i>
-                <span>Pacientes Criticos</span>
+                <span>List Critic Patient</span>
             </a>
         </li>
 
@@ -307,21 +219,11 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCita"
                aria-expanded="true" aria-controls="collapseCita">
                 <i class="fas fa-fw fa-calendar"></i>
-                <span>Citas Médicas</span>
+                <span>My meeting </span>
             </a>
             <div id="collapseCita" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <div sec:authorize="hasAuthority('DOCTOR')">
-                        <a class="collapse-item" th:href = "@{/index(principalId_usuario = ${#authentication.getPrincipal().getId_usuario()})}">
-                            <i class="fas fa-fw fa-list"></i> Mis Citas Médicas</a>
-                    </div>
-<!--                    <div sec:authorize="hasAuthority('CLIENTE')">-->
-<!--                        <a th:href = "@{/index(principalId_usuario = ${#authentication.getPrincipal().getId_usuario()})}">-->
-<!--                            <i class="fas fa-fw fa-list"></i> Citas Médicas</a>-->
-<!--                    </div>-->
-
-
                 </div>
             </div>
         </li>
@@ -334,6 +236,7 @@
 <!--        </div>-->
 
     </div>
+
     <!-- FOOTER FRAGMENT -->
     <footer th:fragment="footer" class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -342,6 +245,7 @@
             </div>
         </div>
     </footer>
+
     <!-- SCRIPTS FRAGMENT -->
     <div th:fragment= "scripts">
         <!-- Bootstrap core JavaScript-->
@@ -362,8 +266,9 @@
         <!-- Page level custom scripts -->
         <script src="/js/demo/datatables-demo.js"></script>
         <!--functions js-->
-        <script th:src="@{/js/functions.js}"></script>
+        <script th:src="@{/js/myFunctions.js}"></script>
     </div>
+
 </body>
 
 </html>

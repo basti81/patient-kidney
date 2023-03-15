@@ -12,9 +12,10 @@ import java.time.Instant;
 public class Patient extends User {
 
      /*
-    private String country;
+    private String nationality;
     private String region;
     private String city;
+    private String address;
     private List<Meeting> meetings;
     */
     private Prevision prevision;
@@ -28,12 +29,12 @@ public class Patient extends User {
         this.setStartDate(Instant.now());
     }
 
-    public Patient(String rut, String name, Boolean enabled, Prevision prevision, StatePatient statePatient) {
-        this(rut,name,enabled,prevision,statePatient,null);
+    public Patient(String rut, String name, String lastName, String mail, Boolean enabled, Prevision prevision, StatePatient statePatient) {
+        this(rut, name, lastName, mail, enabled, prevision, statePatient, null);
     }
 
-    public Patient(String rut, String name, Boolean enabled, Prevision prevision, StatePatient statePatient, Record record) {
-        super(rut, name, enabled);
+    public Patient(String rut, String name, String lastName, String mail, Boolean enabled, Prevision prevision, StatePatient statePatient, Record record) {
+        super(rut, name, lastName, mail, enabled);
         this.prevision = prevision;
         this.statePatient = statePatient;
         this.record = record;

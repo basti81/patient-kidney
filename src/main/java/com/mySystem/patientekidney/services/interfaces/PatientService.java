@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PatientService {
+    Patient updatePatient (Patient patient);
+    Boolean existsById(Long id);
+    Boolean existsByRut(String rut);
     List<Patient> findAllPatient();
     Patient savePatient (Patient patient);
     Optional<Patient> getPatientById(Long idPatient);

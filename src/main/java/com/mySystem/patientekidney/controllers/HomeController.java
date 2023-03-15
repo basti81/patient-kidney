@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeController {
-   @GetMapping("/")
-    public ModelAndView getHome(){
-       ModelAndView  mv = new ModelAndView();
-       mv.setViewName("/home");
-       return mv;
+   @GetMapping(value = {"/", "/index"})
+   public String getHome(){
+      System.out.println("Entre a HomeCotroller");
+      return "home";
    }
 }

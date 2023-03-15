@@ -18,10 +18,9 @@ public class Worker  extends User {
         this.setStartDate(Instant.now());
     }
 
-    public Worker(String rut, String name, Boolean enabled, Specialty specialty) {
-        super(rut, name, enabled);
+    public Worker(String rut, String name, String lastName, String mail, Boolean enabled, Specialty specialty) {
+        super(rut, name, lastName, mail, enabled);
         this.specialty = specialty;
-
     }
 
     public Specialty getSpecialty() {

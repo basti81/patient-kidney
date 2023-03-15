@@ -3,7 +3,11 @@ package com.mySystem.patientekidney.models.entities;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "records")
@@ -13,6 +17,8 @@ public class Record {
     @Column(name="birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
+    @Transient
+    private Integer age;
     @OneToOne
     @JoinColumn(name="patiente_id")
     private Patient patient;
@@ -30,6 +36,26 @@ public class Record {
 
     public Record(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getAgeInteger() {
+        return Period.between(birthDate,LocalDate.now()).getYears();
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+    public String getAgeString(){
+        Period period = Period.between(birthDate,LocalDate.now());
+        return period.getYears()+" years, "+period.getMonths()+" month, " +period.getDays()+" days";
     }
 
     public LocalDate getBirthDate() {

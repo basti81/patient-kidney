@@ -19,12 +19,12 @@ public class User implements Serializable {
     private String rut;
     @Column(columnDefinition = "varchar(100)")
     private String name;
-
-   /* @Column(name="last_name")
+    @Column(name="last_name" , columnDefinition = "varchar(100)")
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String mail;
-    private String password;
 
+   /* private String password;
     private String img;*/
    @NonNull
     @Column(name = "start_date")
@@ -34,10 +34,28 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String rut, String name, Boolean enabled) {
+    public User(String rut, String name, String lastName, String mail, Boolean enabled) {
         this.rut = rut;
         this.name = name;
+        this.lastName = lastName;
+        this.mail = mail;
         this.enabled = enabled;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Long getId() {

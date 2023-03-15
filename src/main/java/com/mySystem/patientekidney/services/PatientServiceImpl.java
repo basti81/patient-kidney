@@ -21,6 +21,21 @@ public class PatientServiceImpl implements PatientService {
 
 
     @Override
+    public Patient updatePatient(Patient patient) {
+        return patientRepository.save(patient);
+    }
+
+    @Override
+    public Boolean existsById(Long id) {
+        return patientRepository.existsById(id);
+    }
+
+    @Override
+    public Boolean existsByRut(String rut) {
+        return patientRepository.existsByRut(rut);
+    }
+
+    @Override
     public List<Patient> findAllPatient() {
         return patientRepository.findAll();
     }

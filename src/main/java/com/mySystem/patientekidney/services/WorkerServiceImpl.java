@@ -19,6 +19,16 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
+    public Boolean existsById(Long id) {
+        return workerRepository.existsById(id);
+    }
+
+    @Override
+    public Boolean existsByRut(String rut) {
+        return workerRepository.existsByRut(rut);
+    }
+
+    @Override
     public List<Worker> findAllWorker() {
         return workerRepository.findAll();
     }
@@ -37,5 +47,9 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public List<Worker> saveAllWorker(List<Worker> workers) {
         return workerRepository.saveAll(workers);
+    }
+    @Override
+    public void deleteAllWorker() {
+        workerRepository.deleteAll();
     }
 }
