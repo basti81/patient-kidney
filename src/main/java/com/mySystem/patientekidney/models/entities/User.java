@@ -7,6 +7,7 @@ import org.springframework.lang.NonNull;
 import java.io.Serializable;
 import java.time.Clock;
 import java.time.Instant;
+import java.util.Collection;
 
 @Entity
 @Table(name = "users")
@@ -30,6 +31,15 @@ public class User implements Serializable {
     @Column(name = "start_date")
     private Instant startDate;
     private Boolean enabled;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public User() {
     }
