@@ -29,7 +29,7 @@ public class WorkerRestController {
 
     @PostMapping("/saveAll")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Worker> saveAllWarkers(@RequestBody List<Worker> listOfWorker){
+    public List<Worker> saveAllWorker(@RequestBody List<Worker> listOfWorker){
         return workerService.saveAllWorker(listOfWorker);
     }
 

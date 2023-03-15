@@ -20,7 +20,7 @@ public class Record {
     @Transient
     private Integer age;
     @OneToOne
-    @JoinColumn(name="patiente_id")
+    @JoinColumn(name="patient_id")
     private Patient patient;
 
 

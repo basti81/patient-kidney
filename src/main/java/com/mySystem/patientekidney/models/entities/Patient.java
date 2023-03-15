@@ -25,9 +25,7 @@ public class Patient extends User {
     @OneToOne(mappedBy = "patient",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Record record;
 
-    public Patient() {
-        this.setStartDate(Instant.now());
-    }
+    public Patient() { }
 
     public Patient(String rut, String name, String lastName, String mail, Boolean enabled, Prevision prevision, StatePatient statePatient) {
         this(rut, name, lastName, mail, enabled, prevision, statePatient, null);

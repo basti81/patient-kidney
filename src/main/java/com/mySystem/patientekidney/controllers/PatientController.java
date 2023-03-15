@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +61,7 @@ public class PatientController {
         }*/
 
         if(!patientService.existsByRut(patient.getRut())){
+            patient.setStartDate(Instant.now());
             Patient savedPatient = patientService.savePatient(patient);
             mv.addObject("patient",savedPatient);
             attributes.addFlashAttribute("msg",

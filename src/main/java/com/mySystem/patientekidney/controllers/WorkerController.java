@@ -37,8 +37,7 @@ public class WorkerController {
 
     /** Save and Update Worker*/
     @PostMapping("/create")
-    public ModelAndView create(Worker worker, BindingResult result, RedirectAttributes attributes,
-                               @RequestParam("fileProfile") MultipartFile multiPart) {
+    public ModelAndView create(Worker worker, BindingResult result, RedirectAttributes attributes ) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/worker/new");
 
@@ -48,14 +47,6 @@ public class WorkerController {
             return mv;
         }
 
-        /*if (!multiPart.isEmpty()) {
-            String ruta = "C:/Users/basti/Documents/Trabajo/appWebSirere/sistema_registro_renal/src/main/resources/static/img/users/";
-            String nombreImagen = Utility.saveFile(multiPart, ruta);
-            if (nombreImagen != null){ // La imagen si se subio
-                // Procesamos la variable nombreImagen
-                usuario.setImg(nombreImagen);
-            }
-        }*/
 
         if(!workerService.existsByRut(worker.getRut())){
             Worker savedWorker = workerService.saveWorker(worker);
