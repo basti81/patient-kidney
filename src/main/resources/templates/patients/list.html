@@ -42,13 +42,14 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header">
-                        <div class="d-flex justify-content-between">
+                        <a  th:href="@{/patient/new}"> <i class="fas fa-plus-circle fa-sm"></i> New </a>
+                        <!-- <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-start">
                             <a  th:href="@{/patient/new}"> <i class="fas fa-plus-circle fa-sm"></i> New </a>
                         </div>
                         <h6 class="m-0 font-weight "><i class="fas fa-book-medical"></i> List of Patient</h6>
                         <div></div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card-body">
                     <div class="table-responsive">
@@ -75,7 +76,7 @@
                         <tr th:each="patient : ${listPatient}">
                             <td th:text="${patient.id}"></td>
                             <td th:text="${patient.rut}"></td>
-                            <td th:text="${patient.name}"></td>
+                            <td th:text="${patient.name} +' '+ ${patient.lastName}"></td>
                             <td th:text="${patient.record.getAgeInteger()} + ' years'"></td>
 
                             <td>

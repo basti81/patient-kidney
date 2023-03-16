@@ -19,16 +19,14 @@ public class Exam {
     @Column(name = "cl_cr")
     private Double clCr;
     private Double rac;
-    @ManyToOne()
-    @JoinColumn(name = "record_id")
+    @ManyToOne
+    @JoinColumn(name = "record_id", nullable = false)
     private Record record;
     private Boolean viewed;
     @Column(name ="exam_date")
     private Instant examDate;
 
     public Exam() {
-        this.examDate = Instant.now();
-        this.viewed = false;
     }
 
     public Boolean getViewed() {
@@ -117,5 +115,13 @@ public class Exam {
 
     public void setExamDate(Instant examDate) {
         this.examDate = examDate;
+    }
+
+    public Record getRecord() {
+        return record;
+    }
+
+    public void setRecord(Record record) {
+        this.record = record;
     }
 }

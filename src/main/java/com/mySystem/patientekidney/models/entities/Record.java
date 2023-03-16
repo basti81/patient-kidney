@@ -24,7 +24,7 @@ public class Record {
     @JoinColumn(name="patient_id")
     private Patient patient;
 
-    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Exam> exams;
 
    /* private List<Anthropometry> anthropometrys;
@@ -37,11 +37,6 @@ public class Record {
 
     public Record(LocalDate birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public Record(LocalDate birthDate, List<Exam> exams) {
-        this.birthDate = birthDate;
-        this.exams = exams;
     }
 
     public List<Exam> getExams() {
@@ -87,4 +82,6 @@ public class Record {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
+
 }

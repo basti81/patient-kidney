@@ -68,4 +68,13 @@ public class Patient extends User {
     public void setStatePatient(StatePatient statePatient) {
         this.statePatient = statePatient;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "prevision=" + prevision +
+                ", statePatient=" + statePatient +
+                ", record=" + record +
+                "} " + super.toString();
+    }
 }

@@ -102,4 +102,6 @@ public class User implements Serializable {
         String[] newName = name.trim().split("\\s+");
         return newName[0];
     }
+
+
 }
