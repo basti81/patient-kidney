@@ -95,7 +95,7 @@ public class ExamController {
         Optional<Record> record = recordService.getRecordById(idRecord);
         if(!record.isPresent()){
             mv.addObject("exam", null);
-            attributes.addFlashAttribute("exam", "The exam was not admitted");
+            attributes.addFlashAttribute("msg", "The exam was not admitted");
         }
 
         if (examService.existsById(exam.getId())) {
