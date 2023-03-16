@@ -19,6 +19,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public Boolean existsById(Long id) {
+        return examRepository.existsById(id);
+    }
+
+    @Override
     public List<Exam> findAllExam() {
         return examRepository.findAll();
     }

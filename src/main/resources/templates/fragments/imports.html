@@ -38,6 +38,29 @@
 
 </head>
 <body>
+    <!-- Card Patient -->
+    <div th:fragment = "card-patient">
+        <div class= "card-body">
+        <table class ="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Rut</th>
+            <th scope="col">Name</th>
+            <th scope="col">Birth Date</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row" th:text="${patient.id}"></th>
+                <td th:text="${patient.rut}"></td>
+                <td th:text="${patient.name}+' '+${patient.lastName}"></td>
+                <td th:text="${patient.record.birthDate}"></td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+    </div>
 
     <!-- TOP-BAR FRAGMENT -->
     <div th:fragment = "topbar">
@@ -123,6 +146,7 @@
             </ul>
         </nav>
     </div>
+
     <!-- LOG-OUT FRAGMENT-->
     <div th:fragment = "display-topbar">
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLogout" aria-hidden="true">

@@ -19,6 +19,9 @@ public class Exam {
     @Column(name = "cl_cr")
     private Double clCr;
     private Double rac;
+    @ManyToOne()
+    @JoinColumn(name = "record_id")
+    private Record record;
     private Boolean viewed;
     @Column(name ="exam_date")
     private Instant examDate;

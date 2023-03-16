@@ -97,4 +97,9 @@ public class User implements Serializable {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
+    public String getForename(){
+        String[] newName = name.trim().split("\\s+");
+        return newName[0];
+    }
 }

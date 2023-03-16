@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ExamService {
+    Boolean existsById(Long id);
     List<Exam> findAllExam();
     Exam saveExam (Exam patient);
     Optional<Exam> getExamById(Long idExam);

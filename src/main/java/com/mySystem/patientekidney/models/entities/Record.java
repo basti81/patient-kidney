@@ -8,6 +8,7 @@ import java.text.Format;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Entity
 @Table(name = "records")
@@ -23,10 +24,10 @@ public class Record {
     @JoinColumn(name="patient_id")
     private Patient patient;
 
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Exam> exams;
 
-   /*
-    private List<Examn> examns;
-    private List<Anthropometry> anthropometrys;
+   /* private List<Anthropometry> anthropometrys;
     privte List<italSign> vitalSigns;
     private Antecedent antecedent;
     */
@@ -36,6 +37,19 @@ public class Record {
 
     public Record(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Record(LocalDate birthDate, List<Exam> exams) {
+        this.birthDate = birthDate;
+        this.exams = exams;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
     }
 
     public Long getId() {

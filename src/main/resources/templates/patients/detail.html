@@ -54,10 +54,11 @@
                                   <h6 class="m-0 font-weight-bold"><i class="fas fa-user-md"></i> Personal information</h6>
                               </div>
                               <div>
-                                  <a class="btn btn-sm btn-warning" th:href="@{/patient/update(id = ${patient.id})}"><i class="fas fa-pen"></i></a>
-                                  <!-- <a class="btn btn-sm btn-danger" th:href="@{/vitalSign/(id = ${patient.id})}" type="button"><i class="fas fa-heart" aria-hidden="true"></i> </a>
-                                  <a class="btn btn-sm btn-success" th:href = "@{/exam/(id = ${patient.id})}" type="button"><i class="fas fa-vials" aria-hidden="true"></i></a>
-                                  <a class="btn btn-sm btn-warning" th:href="@{/meeting/(id_paciente = ${paciente.id_paciente})}" type="button"><i class="fas fa-book" aria-hidden="true"></i></a> -->
+                                  <a class="btn btn-sm btn-warning" th:href="@{/patient/update(id = ${patient.id})}" type="button"  title="Update patient"><i class="fas fa-pen"></i></a>
+                                  <a class="btn btn-sm btn-success" th:href="@{/exam/(id = ${patient.id})}" type="button"  title="Exams of patient"><i class="fas fa-vials" aria-hidden="true"></i></a>
+                                  <a class="btn btn-sm btn-warning" th:href="@{/meeting/(id = ${patient.id})}" type="button" title="Meeting of patient" ><i class="fas fa-book" aria-hidden="true"></i></a>
+                                    
+                                  <!-- <a class="btn btn-sm btn-danger" th:href="@{/vitalSign/(id = ${patient.id})}" type="button"><i class="fas fa-heart" aria-hidden="true"></i> </a> -->
                               </div>
                           </div>
                       </div>
