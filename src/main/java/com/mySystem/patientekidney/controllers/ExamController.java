@@ -75,7 +75,7 @@ public class ExamController {
      * Save and Update Exam
      */
     @PostMapping("/create")
-    public ModelAndView create(Exam exam, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView create(@RequestParam("id") Long idRecord, Exam exam, BindingResult result, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/exam/new");
 
@@ -85,6 +85,7 @@ public class ExamController {
             return mv;
         }
 
+        
         if (examService.existsById(exam.getId())) {
             Exam updatedExam = examService.saveExam(exam);
             mv.addObject("exam", updatedExam);
@@ -94,7 +95,9 @@ public class ExamController {
             return mv;
         }
 
+        System.out.println("before save Exam");
         Exam savedExam = examService.saveExam(exam);
+        System.out.println("after save Exam");
         mv.addObject("exam", savedExam);
         attributes.addFlashAttribute("msg", "The exam has been successfully modified!");
 
