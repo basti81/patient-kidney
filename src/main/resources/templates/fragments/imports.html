@@ -147,6 +147,43 @@
         </nav>
     </div>
 
+    <!-- ALERT - MSG -->
+    <div th:fragment = "alert-msg">
+        <div th:if="${msgDelete != null}" >
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong th:text="${msgDelete}"></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>     
+        </div>
+        <div th:if="${msgUpdate != null}" >
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong th:text="${msgUpdate}"></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>       
+        </div>
+        <div th:if="${msgSave != null}" >
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong th:text="${msgSave}"></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>     
+        </div>
+
+        <div th:if="${msgWarning != null}" >
+            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+            <strong th:text="${msgSave}"></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>     
+        </div>
+    </div>
+
     <!-- LOG-OUT FRAGMENT-->
     <div th:fragment = "display-topbar">
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLogout" aria-hidden="true">

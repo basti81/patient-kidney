@@ -64,7 +64,7 @@ public class PatientController {
             patient.setStartDate(Instant.now());
             Patient savedPatient = patientService.savePatient(patient);
             mv.addObject("patient",savedPatient);
-            attributes.addFlashAttribute("msg",
+            attributes.addFlashAttribute("msgSave",
                     "The patient "+patient.getName()+" has been entered successfully!");
             return mv;
         }
@@ -72,12 +72,12 @@ public class PatientController {
         if(patientService.existsById(patient.getId())){
             Patient updatedPatient = patientService.savePatient(patient);
             mv.addObject("patient",updatedPatient);
-            attributes.addFlashAttribute("msg",
+            attributes.addFlashAttribute("msgUpdate",
                     "The patient "+patient.getName()+" has been successfully modified!");
             return mv;
         }
         mv.addObject("patient",null);
-        attributes.addFlashAttribute("patient", "The patient was not admitted");
+        attributes.addFlashAttribute("msgDelete", "The patient was not admitted");
         return mv;
     }
 
@@ -107,16 +107,15 @@ public class PatientController {
     /** Delete by Id Patient */
     //    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping("/delete")
-    public ModelAndView delete(@RequestParam("id") Long idUser, RedirectAttributes attributes) {
+    public ModelAndView delete(@RequestParam("id") Long id, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/patient/");
-        if(patientService.existsById(idUser)){
-            System.out.println(("Entre a delete exists"));
-            patientService.deletePatientById(idUser);
-            attributes.addFlashAttribute("msg","Patient successfully removed!");
+        if(patientService.existsById(id)){
+            patientService.deletePatientById(id);
+            attributes.addFlashAttribute("msgDelete","Patient successfully removed!");
             return mv;
         }
-        attributes.addFlashAttribute("msg","Patient not eliminated");
+        attributes.addFlashAttribute("msgWarning","Patient not eliminated");
         return mv;
     }
 

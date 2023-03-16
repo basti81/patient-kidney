@@ -37,11 +37,11 @@ public class ExamController {
      * New
      */
     @GetMapping("/new")
-    public ModelAndView newForm(@RequestParam("id") Long id, Exam exam) {
+    public ModelAndView newForm(@RequestParam("id") Long idRecord, Exam exam) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/exams/new");
-        Optional<Patient> patient = patientService.getPatientById(id);
-        mv.addObject("patient", patient.get());
+        Optional<Record> record = recordService.getRecordById(idRecord);
+        mv.addObject("patient", record.get().getPatient());
         mv.addObject("exam", exam);
         return mv;
     }
@@ -50,15 +50,12 @@ public class ExamController {
      * List Exam Patient
      */
     @GetMapping("/byRecord")
-    public ModelAndView patientExamList(@RequestParam("id") Long id) {
-        System.out.println("Entre a by record");
+    public ModelAndView patientExamList(@RequestParam("id") Long idRecord) {
         ModelAndView mv = new ModelAndView();
-        Optional<Patient> patient = patientService.getPatientById(id);
-        //System.out.println("Entre a patientExamList "+patient.get().toString());
-        if (patient.isPresent()) {
-            long idRecod = patient.get().getRecord().getId();
-            patient.get().getRecord().setExams(examService.findAllByIdRecord(idRecod));
-            mv.addObject("patient", patient.get());
+        Optional<Record> record = recordService.getRecordById(idRecord);
+        if (record.isPresent()) {
+            record.get().setExams(examService.findAllByIdRecord(idRecord));
+            mv.addObject("patient", record.get().getPatient());
             mv.setViewName("/patients/listExam");
             return mv;
         }
@@ -82,34 +79,34 @@ public class ExamController {
      * Save and Update Exam
      */
     @PostMapping("/create")
-    public ModelAndView create(@RequestParam("id") Long idRecord, Exam exam, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView create(
+            @RequestParam("idRecord") Long idRecord, Exam exam,
+            BindingResult result, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:/exam/new");
 
         if (result.hasErrors()) {
             System.out.println("There are mistakes");
             attributes.addFlashAttribute("exam", "The exam was not admitted");
             return mv;
         }
-        System.out.println("ID RECORD -  > "+idRecord);
         Optional<Record> record = recordService.getRecordById(idRecord);
         if(!record.isPresent()){
             mv.addObject("exam", null);
             attributes.addFlashAttribute("msg", "The exam was not admitted");
         }
-
+        mv.setViewName("redirect:/exam/new?id=" + record.get().getId());
         if (examService.existsById(exam.getId())) {
             Exam updatedExam = examService.saveExam(exam);
             mv.addObject("exam", updatedExam);
-            attributes.addFlashAttribute("msg", "The exam has been successfully modified!");
+            attributes.addFlashAttribute("msgUpdate", "The exam has been successfully modified!");
             return mv;
         }
-        System.out.println("before save Exam");
+
         exam.setRecord(record.get());
         Exam savedExam = examService.saveExam(exam);
-        System.out.println("after save Exam");
+
         mv.addObject("exam", savedExam);
-        attributes.addFlashAttribute("msg",
+        attributes.addFlashAttribute("msgSave",
                 "The exam has been entered successfully!");
         return mv;
     }
@@ -126,7 +123,7 @@ public class ExamController {
             mv.addObject("exam", exam.get());
             return mv;
         }
-        attributes.addFlashAttribute("msg", "Exam not found ;(");
+        attributes.addFlashAttribute("msgWarning", "Exam not found ");
         return mv;
     }
 
@@ -136,16 +133,17 @@ public class ExamController {
      */
     //    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping("/delete")
-    public ModelAndView delete(@RequestParam("id") Long idUser, RedirectAttributes attributes) {
+    public ModelAndView delete(@RequestParam("idExam") Long idExam,
+                               @RequestParam("idRecord") Long idRecord,
+                               RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:/exam/");
-        if (examService.existsById(idUser)) {
-            System.out.println(("Entre a delete exists"));
-            examService.deleteExamById(idUser);
-            attributes.addFlashAttribute("msg", "Exam successfully removed!");
+        mv.setViewName("redirect:/exam/byRecord?id=" + idRecord);
+        if (examService.existsById(idExam)) {
+            examService.deleteExamById(idExam);
+            attributes.addFlashAttribute("msgDelete", "Exam successfully removed!");
             return mv;
         }
-        attributes.addFlashAttribute("msg", "Exam not eliminated");
+        attributes.addFlashAttribute("msgWarning", "Exam not eliminated");
         return mv;
     }
 
