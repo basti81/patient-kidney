@@ -2,8 +2,10 @@ package com.mySystem.patientekidney.controllers;
 
 import com.mySystem.patientekidney.models.entities.Exam;
 import com.mySystem.patientekidney.models.entities.Patient;
+import com.mySystem.patientekidney.models.entities.Record;
 import com.mySystem.patientekidney.services.interfaces.ExamService;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
+import com.mySystem.patientekidney.services.interfaces.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,8 +23,13 @@ public class ExamController {
     @Autowired
     private PatientService patientService;
 
-    public ExamController(ExamService examService) {
+    @Autowired
+    private RecordService recordService;
+
+    public ExamController(ExamService examService, PatientService patientService, RecordService recordService) {
         this.examService = examService;
+        this.patientService = patientService;
+        this.recordService = recordService;
     }
 
 
@@ -84,26 +91,26 @@ public class ExamController {
             attributes.addFlashAttribute("exam", "The exam was not admitted");
             return mv;
         }
+        System.out.println("ID RECORD -  > "+idRecord);
+        Optional<Record> record = recordService.getRecordById(idRecord);
+        if(!record.isPresent()){
+            mv.addObject("exam", null);
+            attributes.addFlashAttribute("exam", "The exam was not admitted");
+        }
 
-        
         if (examService.existsById(exam.getId())) {
             Exam updatedExam = examService.saveExam(exam);
             mv.addObject("exam", updatedExam);
-            attributes.addFlashAttribute("msg",
-                    "The exam has been entered successfully!");
-
+            attributes.addFlashAttribute("msg", "The exam has been successfully modified!");
             return mv;
         }
-
         System.out.println("before save Exam");
+        exam.setRecord(record.get());
         Exam savedExam = examService.saveExam(exam);
         System.out.println("after save Exam");
         mv.addObject("exam", savedExam);
-        attributes.addFlashAttribute("msg", "The exam has been successfully modified!");
-
-
-        //mv.addObject("exam", null);
-        //attributes.addFlashAttribute("exam", "The exam was not admitted");
+        attributes.addFlashAttribute("msg",
+                "The exam has been entered successfully!");
         return mv;
     }
 
