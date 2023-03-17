@@ -9,7 +9,8 @@ import java.time.Instant;
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Long idExam;
     private Double creatine;
     private Double albumin;
     private Double chlorine;
@@ -37,12 +38,12 @@ public class Exam {
         this.viewed = viewed;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdExam() {
+        return idExam;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdExam(Long idExam) {
+        this.idExam = idExam;
     }
 
     public Double getCreatine() {
@@ -128,12 +129,15 @@ public class Exam {
     @Override
     public String toString() {
         return "Exam{" +
-                "id=" + id +
+                "idExam=" + idExam +
                 ", creatine=" + creatine +
                 ", albumin=" + albumin +
                 ", chlorine=" + chlorine +
                 ", potassium=" + potassium +
                 ", sodium=" + sodium +
+                ", ma=" + ma +
+                ", clCr=" + clCr +
+                ", rac=" + rac +
                 ", viewed=" + viewed +
                 ", examDate=" + examDate +
                 '}';

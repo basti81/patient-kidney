@@ -131,12 +131,13 @@ public class PatientController {
 
     /** Update Patient*/
     @GetMapping("/update")
-    public ModelAndView update(@RequestParam("id") Long idUser) {
+    public ModelAndView update(@RequestParam("id") Long id, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        if(patientService.existsById(idUser)){
-            Optional<Patient> patient = patientService.getPatientById(idUser);
-            mv.setViewName("/patients/new");
+        if(patientService.existsById(id)){
+            Optional<Patient> patient = patientService.getPatientById(id);
+            mv.setViewName("redirect:/patient/new");
             mv.addObject("patient", patient.get());
+            attributes.addFlashAttribute("msgWarning", "Modifying the Patient ...");
             return mv;
         }
         mv.setViewName("redirect:/patient/");

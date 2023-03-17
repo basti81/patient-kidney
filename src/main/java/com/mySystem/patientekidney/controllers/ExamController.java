@@ -39,7 +39,6 @@ public class ExamController {
     @GetMapping("/new")
     public ModelAndView newForm(@RequestParam("id") Long idRecord, Exam exam) {
         ModelAndView mv = new ModelAndView();
-        System.out.println(exam.toString());
         mv.setViewName("/exams/new");
         Optional<Record> record = recordService.getRecordById(idRecord);
         mv.addObject("patient", record.get().getPatient());
@@ -65,14 +64,15 @@ public class ExamController {
     }
 
 
-
     /**
      * Save and Update Exam
      */
     @PostMapping("/create")
     public ModelAndView create(
-            @RequestParam("id") Long idRecord, Exam exam,
-            BindingResult result, RedirectAttributes attributes) {
+            @RequestParam("id") Long idRecord,
+            Exam exam,
+            BindingResult result,
+            RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
 
         if (result.hasErrors()) {
@@ -81,23 +81,24 @@ public class ExamController {
             return mv;
         }
         Optional<Record> record = recordService.getRecordById(idRecord);
-        if(!record.isPresent()){
+        if (!record.isPresent()) {
             mv.addObject("exam", null);
             attributes.addFlashAttribute("msg", "The exam was not admitted");
         }
         mv.setViewName("redirect:/exam/new?id=" + record.get().getId());
         exam.setRecord(record.get());
-        if(examService.existsById(exam.getId())) {
-            System.out.println("Entre a exists exam id");
-            Exam updatedExam = examService.saveExam(exam);
-            mv.addObject("exam", updatedExam);
-            attributes.addFlashAttribute("msgUpdate", "The exam has been successfully modified!");
+
+        if (exam.getIdExam() == null) {
+            Exam savedExam = examService.saveExam(exam);
+            mv.addObject("exam", savedExam);
+            attributes.addFlashAttribute("msgSave",
+                    "The exam has been entered successfully!");
             return mv;
         }
-        Exam savedExam = examService.saveExam(exam);
-        mv.addObject("exam", savedExam);
-        attributes.addFlashAttribute("msgSave",
-                "The exam has been entered successfully!");
+
+        Exam updatedExam = examService.saveExam(exam);
+        mv.addObject("exam", updatedExam);
+        attributes.addFlashAttribute("msgUpdate", "The exam has been successfully modified!");
         return mv;
     }
 
@@ -162,7 +163,7 @@ public class ExamController {
             Optional<Exam> exam = examService.getExamById(idExam);
             mv.setViewName("redirect:/exam/new?id=" + idRecord);
             mv.addObject("exam", exam.get());
-            attributes.addFlashAttribute("msgWarning","Modifying the exam ...");
+            attributes.addFlashAttribute("msgWarning", "Modifying the exam ...");
             return mv;
         }
         mv.setViewName("redirect:/exam/");

@@ -78,17 +78,17 @@
                 </tfoot>
                 <tbody>
                     <tr th:each="exam : ${patient.record.exams}">
-                    <td th:text="'#'+${exam.id}"></td>
+                    <td th:text="'#'+${exam.idExam}"></td>
                     <td> Sanguineo </td>
                     <td th:text="${exam.examDate}"></td>
                     <td th:text= "${exam.viewed}"></td>
             
                     <td>
-                    <a th:href="@{/exam/detail(id=${exam.id})}" class="btn btn-success btn-sm" title="Detail">
+                    <a th:href="@{/exam/detail(id=${exam.idExam})}" class="btn btn-success btn-sm" title="Detail">
                         <i class="fas fa-eye" aria-hidden="true"></i></a>
-                    <a th:href="@{/exam/update(idExam=${exam.id} ,idRecord=${patient.record.id})}" class="btn btn-warning btn-sm" title="Update">
+                    <a th:href="@{/exam/update(idExam=${exam.idExam}, idRecord=${patient.record.id})}" class="btn btn-warning btn-sm" title="Update">
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
-                    <a th:href="@{/exam/delete(idExam=${exam.id} ,idRecord=${patient.record.id})}" class="btn btn-danger btn-sm" title="Delete"
+                    <a th:href="@{/exam/delete(idExam=${exam.idExam}, idRecord=${patient.record.id})}" class="btn btn-danger btn-sm" title="Delete"
                         onclick="return confirm('¿Are you sure you want to delete?')">
                             <i class="fas fa-trash" aria-hidden="true"></i> </a>
                     </td>
