@@ -11,24 +11,26 @@ public class VitalSign {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long idVitalSign;
-    private Integer pHigh;
-    private Integer pLow;
+    @Column(name = "p_high")
+    private Integer pressureHigh;
+    @Column(name = "p_low")
+    private Integer pressureLow;
     private Integer breathing;
     private Double temperature;
     private Integer pulse;
     private Double saturation;
     @Column(name = "vital_sign_date")
     private Instant vitalSignDate;
+    private Boolean viewed;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "record_id", nullable = false)
     private Record record;
 
 
+
     public VitalSign() {
     }
-
-    private Boolean viewed;
 
     public Long getIdVitalSign() {
         return idVitalSign;
@@ -38,20 +40,20 @@ public class VitalSign {
         this.idVitalSign = idVitalSign;
     }
 
-    public Integer getpHigh() {
-        return pHigh;
+    public Integer getPressureHigh() {
+        return pressureHigh;
     }
 
-    public void setpHigh(Integer pHigh) {
-        this.pHigh = pHigh;
+    public void setPressureHigh(Integer pressureHigh) {
+        this.pressureHigh = pressureHigh;
     }
 
-    public Integer getpLow() {
-        return pLow;
+    public Integer getPressureLow() {
+        return pressureLow;
     }
 
-    public void setpLow(Integer pLow) {
-        this.pLow = pLow;
+    public void setPressureLow(Integer pressureLow) {
+        this.pressureLow = pressureLow;
     }
 
     public Integer getBreathing() {
@@ -108,5 +110,20 @@ public class VitalSign {
 
     public void setRecord(Record record) {
         this.record = record;
+    }
+
+    @Override
+    public String toString() {
+        return "VitalSign{" +
+                "idVitalSign=" + idVitalSign +
+                ", pressureHigh=" + pressureHigh +
+                ", pressureLow=" + pressureLow +
+                ", breathing=" + breathing +
+                ", temperature=" + temperature +
+                ", pulse=" + pulse +
+                ", saturation=" + saturation +
+                ", vitalSignDate=" + vitalSignDate +
+                ", viewed=" + viewed +
+                '}';
     }
 }

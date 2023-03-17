@@ -15,7 +15,7 @@ import java.util.Optional;
 public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientRepository patientRepository;
-    public PatientServiceImpl(PatientRepository patienteRepository){
+    public PatientServiceImpl(PatientRepository patientRepository){
         this.patientRepository = patientRepository;
     }
 

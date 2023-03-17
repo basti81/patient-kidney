@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="en">
 <head>
-    <title>New Exam</title>
+    <title>New vitalSign</title>
     <div th:insert="~{fragments/imports :: head}"></div>
 </head>
 
@@ -29,7 +29,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
                         <li class="breadcrumb-item active"><a th:href="@{/patient/}">List of Patient</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form of Exam</li>
+                        <li class="breadcrumb-item active" aria-current="page">Form of Vital Sign <i class="fas fa-heart"></i></li>
                     </ol>
                 </nav>
 
@@ -45,82 +45,73 @@
                 <div class="d-flex justify-content-center">
                     <!-- Content Row -->
                     <div class="row">
-                        <!-- form exam  -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header text-center">
-                                <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-vials"></i>Exam</h6>
-                            </div>
-                            <div class="card-body">
-                                <form th:action="@{/exam/create(id = ${patient.record.id})}" th:object="${exam}" method="post">
+                    <!-- form vitalSign  -->
+                    <div class="card shadow mb-4">
+                        <!-- <div class="card-header text-center">
+                            <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-vials"></i>vitalSign</h6>
+                        </div> -->
+                        <div class="card-body">
+                            <form th:action="@{/vitalSign/create(id = ${patient.record.id})}" th:object="${vitalSign}" method="post">
+                                <!-- Warning messege-->
+                                <div th:if="${#fields.hasErrors('*')}">
+                                    <h2> Please checkout this errors</h2>
+                                    <ul>
+                                        <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                    </ul>
+                                </div>
 
-                                    <!-- Warning messege-->
-                                    <div th:if="${#fields.hasErrors('*')}">
-                                        <h2> Please checkout this errors</h2>
-                                        <ul>
-                                            <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
-                                        </ul>
-                                    </div>
-
-                                    <!--Id exam-->
-                                    <input type="hidden" th:field="*{idExam}">
-                                    <!-- <input type="hidden" th:field="*{autoDiagnostico.id_autoDiagnostico}"> -->
-
-
-                                    <!--creatine-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="input-group col-md-8">
-                                            <input placeholder="creatine" class="form-control" type="text" th:field="*{creatine}"  id="creatine"  required="required"/>
-                                            <span class="input-group-text">mg/dL</span>
+                                <!--Id Vital Sign-->
+                                <input type="text" th:field="*{idVitalSign}">
+                                <input type="text" th:value="'id record =  '+${patient.record.id}">
+                                <!--Pressure high/low-->
+                                <div class="d-flex justify-content-center">
+                                    <div class="form-group col-md-10">
+                                        <label class="col-form-label col-form-label-sm">Pressure</label>
+                                        <div class="input-group">
+                                            <input type="number" id="pressureHigh" placeholder="mmHg" max ="200" class="form-control-sm form-control text-right" th:field="*{pressureHigh}">
+                                            <input type="number" id="pressureLow" placeholder="mmHg" max="200" class="form-control-sm form-control text-right" th:field="*{pressureLow}">
                                         </div>
                                     </div>
-                                    <br>
-
-                                    <!--chlorine-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="input-group col-md-8">
-                                            <input placeholder="chlorine" type="text" class="form-control" th:field="*{chlorine}"  id="chlorine"  required="required" />
-                                            <span class="input-group-text">mEq/L</span>
-                                        </div>
+                                </div>
+                        
+                                <!--Breathing-->
+                                <div class="d-flex justify-content-center">
+                                    <div class="form-group col-md-10">
+                                        <label class="col-form-label col-form-label" for="inputBreathing">Breathing</label>
+                                        <input placeholder="x min"  type="number" class="form-control form-control text-right" th:field="*{breathing}"  id="inputBreathing"  required="required" />
                                     </div>
-                                    <br>
-
-                                    <!--albumin-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="input-group col-md-8">
-                                            <input placeholder="albumin" class="form-control" type="text" th:field="*{albumin}"  id="albumin"  required="required"/>
-                                            <span class="input-group-text">g/L</span>
-                                        </div>
+                                </div>
+    
+                                <!--Temperature-->
+                                <div class="d-flex justify-content-center">
+                                    <div class="form-group col-md-10">
+                                        <label class="col-form-label col-form-label-sm" for="inputTemperature">Temperature</label>
+                                        <input placeholder="°C"  type="number" class="form-control-sm form-control text-right" th:field="*{temperature}"  id="inputTemperature" required="required" />
                                     </div>
-                                    <br>
-
-                                    <!--potassium-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="input-group col-md-8">
-                                            <input placeholder="potassium" class="form-control" type="text" th:field="*{potassium}"  id="potassium"  required="required" />
-                                            <span class="input-group-text">mmol/L</span>
-                                        </div>
+                                </div>
+    
+                                <!--Pulse-->
+                                <div class="d-flex justify-content-center">
+                                    <div class="form-group col-md-10">
+                                        <label class="col-form-label col-form-label-sm" for="inputPulse">Pulse</label>
+                                        <input placeholder="x min"  type="number" class="form-control-sm form-control text-right" th:field="*{pulse}"  id="inputPulse"   required="required" />
                                     </div>
-                                    <br>
-
-                                    <!--sodium-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="input-group col-md-8">
-                                            <input placeholder="sodium" class="form-control" type="text" th:field="*{sodium}"  id="sodium" required="required" />
-                                            <span class="input-group-text">mEq/L</span>
-                                        </div>
+                                </div>
+    
+                                <!--Saturation-->
+                                <div class="d-flex justify-content-center">
+                                    <div class="form-group col-md-10">
+                                        <label class="col-form-label col-form-label-sm" for="inputSaturation">Saturación</label>
+                                        <input placeholder="%"  type="number" class="form-control-sm form-control text-right" th:field="*{saturation}"  id="inputSaturation" name="saturation"  required="required" />
                                     </div>
-                                    <br>
-
-                                    <div class="d-flex justify-content-between">
-                                        <a th:href = "@{/exam/byRecord(id = ${patient.record.id})}" class="btn btn-secondary" title="Back to list Exam">
-                                            Back</a>
-
-                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                    </div>
-
-                                </form>
-                            </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-secondary" href="javascript: history.go(-1)">Cancel</a>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </form>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

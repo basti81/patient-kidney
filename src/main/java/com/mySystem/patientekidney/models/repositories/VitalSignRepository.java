@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Repository
+@Repository
 public interface VitalSignRepository extends JpaRepository<VitalSign, Long> {
     @Query(value = "SELECT * FROM vital_signs WHERE record_id = ?1", nativeQuery = true)
     List<VitalSign> findAllVitalSignByIdRecord(Long id);

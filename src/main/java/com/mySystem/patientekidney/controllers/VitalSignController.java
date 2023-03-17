@@ -90,20 +90,21 @@ public class VitalSignController {
             mv.addObject("vitalSign", null);
             attributes.addFlashAttribute("msg", "The vitalSign was not admitted");
         }
-        mv.setViewName("redirect:/vitalSign/new?id=" + record.get().getId());
+        mv.setViewName("redirect:/vitalSign/new?id=" + idRecord);
         vitalSign.setRecord(record.get());
-
         if (vitalSign.getIdVitalSign() == null) {
+            System.out.println(vitalSign.toString());
             VitalSign savedVitalSign = vitalSignService.saveVitalSign(vitalSign);
             mv.addObject("vitalSign", savedVitalSign);
             attributes.addFlashAttribute("msgSave",
                     "The vitalSign has been entered successfully!");
+
             return mv;
         }
-
         VitalSign updatedVitalSign = vitalSignService.saveVitalSign(vitalSign);
         mv.addObject("vitalSign", updatedVitalSign);
-        attributes.addFlashAttribute("msgUpdate", "The vitalSign has been successfully modified!");
+        attributes.addFlashAttribute("msgUpdate",
+                "The vitalSign has been successfully modified!");
         return mv;
     }
 
