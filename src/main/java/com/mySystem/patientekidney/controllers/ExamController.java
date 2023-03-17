@@ -39,6 +39,7 @@ public class ExamController {
     @GetMapping("/new")
     public ModelAndView newForm(@RequestParam("id") Long idRecord, Exam exam) {
         ModelAndView mv = new ModelAndView();
+        System.out.println(exam.toString());
         mv.setViewName("/exams/new");
         Optional<Record> record = recordService.getRecordById(idRecord);
         mv.addObject("patient", record.get().getPatient());
@@ -63,16 +64,6 @@ public class ExamController {
         return mv;
     }
 
-    /**
-     * List Exam
-     */
-    @GetMapping("/")
-    public ModelAndView list() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/exams/list");
-        mv.addObject("listExam", examService.findAllExam());
-        return mv;
-    }
 
 
     /**
@@ -80,7 +71,7 @@ public class ExamController {
      */
     @PostMapping("/create")
     public ModelAndView create(
-            @RequestParam("idRecord") Long idRecord, Exam exam,
+            @RequestParam("id") Long idRecord, Exam exam,
             BindingResult result, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
 
@@ -95,16 +86,15 @@ public class ExamController {
             attributes.addFlashAttribute("msg", "The exam was not admitted");
         }
         mv.setViewName("redirect:/exam/new?id=" + record.get().getId());
-        if (examService.existsById(exam.getId())) {
+        exam.setRecord(record.get());
+        if(examService.existsById(exam.getId())) {
+            System.out.println("Entre a exists exam id");
             Exam updatedExam = examService.saveExam(exam);
             mv.addObject("exam", updatedExam);
             attributes.addFlashAttribute("msgUpdate", "The exam has been successfully modified!");
             return mv;
         }
-
-        exam.setRecord(record.get());
         Exam savedExam = examService.saveExam(exam);
-
         mv.addObject("exam", savedExam);
         attributes.addFlashAttribute("msgSave",
                 "The exam has been entered successfully!");
@@ -163,12 +153,16 @@ public class ExamController {
      * Update Exam
      */
     @GetMapping("/update")
-    public ModelAndView update(@RequestParam("id") Long idUser) {
+    public ModelAndView update(@RequestParam("idExam") Long idExam,
+                               @RequestParam("idRecord") Long idRecord,
+                               RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        if (examService.existsById(idUser)) {
-            Optional<Exam> exam = examService.getExamById(idUser);
-            mv.setViewName("/exams/new");
+        if (examService.existsById(idExam)) {
+            System.out.println("Entre a update y existe el examen");
+            Optional<Exam> exam = examService.getExamById(idExam);
+            mv.setViewName("redirect:/exam/new?id=" + idRecord);
             mv.addObject("exam", exam.get());
+            attributes.addFlashAttribute("msgWarning","Modifying the exam ...");
             return mv;
         }
         mv.setViewName("redirect:/exam/");

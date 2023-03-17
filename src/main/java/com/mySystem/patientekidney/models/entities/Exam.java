@@ -124,4 +124,18 @@ public class Exam {
     public void setRecord(Record record) {
         this.record = record;
     }
+
+    @Override
+    public String toString() {
+        return "Exam{" +
+                "id=" + id +
+                ", creatine=" + creatine +
+                ", albumin=" + albumin +
+                ", chlorine=" + chlorine +
+                ", potassium=" + potassium +
+                ", sodium=" + sodium +
+                ", viewed=" + viewed +
+                ", examDate=" + examDate +
+                '}';
+    }
 }
