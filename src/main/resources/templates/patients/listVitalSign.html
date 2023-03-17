@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+    <title>List of Exam</title>
+    <div th:insert="~{fragments/imports :: head}"></div>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div th:insert="~{fragments/imports :: sidebar}"></div>
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Top bar -->
+            <div th:insert="~{fragments/imports :: topbar}"></div>
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+                        <li class="breadcrumb-item active"><a th:href="@{/patient/}">List of Patient</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" >List of Vital Signs</li>
+                    </ol>
+                </nav>
+
+                <!-- Messege  -->
+                <div th:insert="~{fragments/imports :: alert-msg}"></div>
+
+                <!--  Personal Information -->
+                <div class= "card shadow mb-4">
+                    <div th:insert = "~{fragments/imports :: card-patient}"></div>
+                </div>
+
+                <!-- DataTales Exam -->
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-start">
+                                <a class="btn-sm" th:href="@{/vitalSign/new(id = ${patient.record.id})}"> <i class="fas fa-plus"></i> New </a>
+                                <a class="btn-sm" th:href="@{/patient/}">   <i class="fas fa-arrow-left" aria-hidden="true"></i> Back</a>
+                                <!-- <a  class="btn-sm" th:href="@{/examen/simulation(id = ${patient.id})}"> <i class="fas fa-list-ol"></i> Simulación </a> -->
+                            </div>
+                            <h6 class="m-0 font-weight "><i class="fas fa-vials"></i> My Exams</h6>
+                            <a class="btn-sm" th:href="@{/exam/report(id = ${patient.id})}"> <i class="fas fa-chart-line"></i> Reports </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                        <table class="table-sm table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Presión</th>
+                                <th>Pulso</th>
+                                <th>Resp.</th>
+                                <th>Satu.</th>
+                                <th>Tem°</th>
+                                <th>Fecha Emitida</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Presión</th>
+                                <th>Pulso</th>
+                                <th>Resp.</th>
+                                <th>Satu.</th>
+                                <th>Tem°</th>
+                                <th>Fecha Emitida</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                        <tr th:each="vitalSign : ${patient.record.vitalSigns}">
+                            <td th:text="${vitalSign.idVitalSign}"></td>
+                            <td th:text="${vitalSign.p_alta}+'/'+${vitalSign.p_baja}+'mmHg.'"></td>
+                            <td th:text="${vitalSign.pulso} +'x min.'"></td>
+                            <td th:text="${vitalSign.respiracion}+'x min.'"></td>
+                            <td th:text="${vitalSign.saturacion}+'%'"></td>
+                            <td th:text="${vitalSign.temperatura}+'°C'"></td>
+                            <td th:text="${vitalSign.fecha_vitalSign}"></td>
+                            <td>
+                                <a th:href = "@{/vitalSign/detail(id_filiacion = ${filiacion.id_filiacion},id_vitalSign = ${vitalSign.id_vitalSign})}" class="btn btn-success btn-sm" title="Ver">
+                                    <i class="fas fa-eye" aria-hidden="true"></i></a>
+                                <a th:href = "@{/vitalSign/update(id_filiacion = ${filiacion.id_filiacion},id_vitalSign = ${vitalSign.id_vitalSign})}"class="btn btn-success btn-sm" title="Actualizar">
+                                    <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
+                                <a th:href = "@{/vitalSign/delete(id_filiacion = ${filiacion.id_filiacion},id_vitalSign = ${vitalSign.id_vitalSign})}" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Está seguro de eliminar?')">
+                                    <i class="fas fa-trash" aria-hidden="true"></i> </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer th:insert="~{fragments/imports :: footer}"></footer>
+        <!-- End Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<div th:insert ="~{fragments/imports :: display-topbar}"></div>
+<div th:insert = "~{fragments/imports :: scripts}"></div>
+</body>
+</html>
