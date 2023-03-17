@@ -40,12 +40,12 @@ public class VitalSignController {
      * New
      */
     @GetMapping("/new")
-    public ModelAndView newForm(@RequestParam("id") Long idRecord, VitalSign exam) {
+    public ModelAndView newForm(@RequestParam("id") Long idRecord, VitalSign vitalSign) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/vitalSigns/new");
         Optional<Record> record = recordService.getRecordById(idRecord);
         mv.addObject("patient", record.get().getPatient());
-        mv.addObject("exam", exam);
+        mv.addObject("vitalSign", vitalSign);
         return mv;
     }
 
@@ -53,15 +53,17 @@ public class VitalSignController {
      * List VitalSign Patient
      */
     @GetMapping("/byRecord")
-    public ModelAndView patientVitalSignList(@RequestParam("id") Long idRecord) {
+    public ModelAndView patientVitalSignList(@RequestParam("id") Long idRecord,
+                                             RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
         Optional<Record> record = recordService.getRecordById(idRecord);
-        if (record.isPresent()) {
+        if(record.isPresent()){
             record.get().setVitalSigns(vitalSignService.findAllByIdRecord(idRecord));
-            mv.addObject("patient", record.get().getPatient());
+            mv.addObject("patient",record.get().getPatient());
             mv.setViewName("/patients/listVitalSign");
             return mv;
         }
+        attributes.addFlashAttribute("msg","Patient not found");
         mv.addObject("patient", null);
         return mv;
     }

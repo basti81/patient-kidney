@@ -29,12 +29,12 @@ public class User implements Serializable {
    @NonNull
     @Column(name = "start_date")
     private Instant startDate;
-    private Boolean enabled;
+    private boolean enabled;
 
     public User() {
     }
 
-    public User(String rut, String name, String lastName, String mail, Boolean enabled) {
+    public User(String rut, String name, String lastName, String mail, boolean enabled) {
         this.rut = rut;
         this.name = name;
         this.lastName = lastName;
@@ -90,11 +90,11 @@ public class User implements Serializable {
         this.startDate = startDate;
     }
 
-    public Boolean getEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 

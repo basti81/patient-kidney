@@ -27,11 +27,11 @@ public class Patient extends User {
 
     public Patient() { }
 
-    public Patient(String rut, String name, String lastName, String mail, Boolean enabled, Prevision prevision, StatePatient statePatient) {
+    public Patient(String rut, String name, String lastName, String mail, boolean enabled, Prevision prevision, StatePatient statePatient) {
         this(rut, name, lastName, mail, enabled, prevision, statePatient, null);
     }
 
-    public Patient(String rut, String name, String lastName, String mail, Boolean enabled, Prevision prevision, StatePatient statePatient, Record record) {
+    public Patient(String rut, String name, String lastName, String mail, boolean enabled, Prevision prevision, StatePatient statePatient, Record record) {
         super(rut, name, lastName, mail, enabled);
         this.prevision = prevision;
         this.statePatient = statePatient;

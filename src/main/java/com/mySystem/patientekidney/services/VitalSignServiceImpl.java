@@ -1,5 +1,6 @@
 package com.mySystem.patientekidney.services;
 
+import com.mySystem.patientekidney.models.entities.Exam;
 import com.mySystem.patientekidney.models.entities.VitalSign;
 import com.mySystem.patientekidney.models.repositories.VitalSignRepository;
 import com.mySystem.patientekidney.services.interfaces.VitalSignService;
@@ -19,9 +20,10 @@ public class VitalSignServiceImpl implements VitalSignService {
         this.vitalSignRepository = vitalSignRepository;
     }
 
+
     @Override
     public List<VitalSign> findAllByIdRecord(Long id) {
-        return vitalSignRepository.findAllByIdRecord(id);
+        return vitalSignRepository.findAllVitalSignByIdRecord(id);
     }
 
     @Override
