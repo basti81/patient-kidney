@@ -82,18 +82,18 @@
                             <tbody>              
                                 <tr th:each="vitalSign : ${patient.record.vitalSigns}">
                                     <td th:text="${vitalSign.idVitalSign}"></td>
-                                    <td th:text="${vitalSign.pHigh}+'/'+${vitalSign.pLow}+'mmHg.'"></td>
+                                    <td th:text="${vitalSign.pressureHigh}+'/'+${vitalSign.pressureLow}+'mmHg.'"></td>
                                     <td th:text="${vitalSign.pulse} +'x min.'"></td>
                                     <td th:text="${vitalSign.breathing}+'x min.'"></td>
                                     <td th:text="${vitalSign.saturation}+'%'"></td>
                                     <td th:text="${vitalSign.temperature}+'°C'"></td>
                                     <td th:text="${vitalSign.vitalSignDate}"></td>
                                     <td>
-                                        <a th:href = "@{/vitalSign/detail(id=$(patient.record.id))}" class="btn btn-success btn-sm" title="Detail">
+                                        <a th:href = "@{/vitalSign/detail(id=${vitalSign.idVitalSign})}" class="btn btn-success btn-sm" title="Detail">
                                             <i class="fas fa-eye" aria-hidden="true"></i></a>
-                                        <a th:href = "@{/vitalSign/update(idVitalSign=${vitalSign.id}, idRecord=$(patient.record.id))}" class="btn btn-warning btn-sm" title="Update">
+                                        <a th:href = "@{/vitalSign/update(idVitalSign=${vitalSign.idVitalSign}, idRecord=${patient.record.id})}" class="btn btn-warning btn-sm" title="Update">
                                              <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
-                                        <a th:href = "@{/vitalSign/delete(idVitalSign=${vitalSign.id}, idRecord=$(patient.record.id))}" class="btn btn-danger btn-sm" title="Delete" onclick="return confirm('¿Are you sure you want to delete?')">
+                                        <a th:href = "@{/vitalSign/delete(idVitalSign=${vitalSign.idVitalSign}, idRecord=${patient.record.id})}" class="btn btn-danger btn-sm" title="Delete" onclick="return confirm('¿Are you sure you want to delete?')">
                                             <i class="fas fa-trash" aria-hidden="true"></i> </a>
                                     </td>
                                 </tr>

@@ -104,7 +104,7 @@ public class VitalSignController {
         VitalSign updatedVitalSign = vitalSignService.saveVitalSign(vitalSign);
         mv.addObject("vitalSign", updatedVitalSign);
         attributes.addFlashAttribute("msgUpdate",
-                "The vitalSign has been successfully modified!");
+                "The Vital sign has been successfully modified!");
         return mv;
     }
 
@@ -120,7 +120,7 @@ public class VitalSignController {
             mv.addObject("vitalSign", vitalSign.get());
             return mv;
         }
-        attributes.addFlashAttribute("msgWarning", "VitalSign not found ");
+        attributes.addFlashAttribute("msgWarning", "Vital sign not found ");
         return mv;
     }
 
@@ -137,10 +137,10 @@ public class VitalSignController {
         mv.setViewName("redirect:/vitalSign/byRecord?id=" + idRecord);
         if (vitalSignService.existsById(idVitalSign)) {
             vitalSignService.deleteVitalSignById(idVitalSign);
-            attributes.addFlashAttribute("msgDelete", "VitalSign successfully removed!");
+            attributes.addFlashAttribute("msgDelete", "Vital sign successfully removed!");
             return mv;
         }
-        attributes.addFlashAttribute("msgWarning", "VitalSign not eliminated");
+        attributes.addFlashAttribute("msgWarning", "Vital sign not eliminated");
         return mv;
     }
 
@@ -152,7 +152,7 @@ public class VitalSignController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/vitalSign/");
         vitalSignService.deleteAllVitalSign();
-        attributes.addFlashAttribute("msg", "All vitalSigns removed successfully");
+        attributes.addFlashAttribute("msg", "All vital signs removed successfully");
         return mv;
     }
 
@@ -165,11 +165,10 @@ public class VitalSignController {
                                RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
         if (vitalSignService.existsById(idVitalSign)) {
-            System.out.println("Entre a update y existe el vitalSign");
             Optional<VitalSign> vitalSign = vitalSignService.getVitalSignById(idVitalSign);
             mv.setViewName("redirect:/vitalSign/new?id=" + idRecord);
             mv.addObject("vitalSign", vitalSign.get());
-            attributes.addFlashAttribute("msgWarning", "Modifying the vitalSign ...");
+            attributes.addFlashAttribute("msgWarning", "Modifying the vital sign ...");
             return mv;
         }
         mv.setViewName("redirect:/vitalSign/");

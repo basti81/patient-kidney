@@ -16,7 +16,7 @@ public class VitalSignServiceImpl implements VitalSignService {
     @Autowired
     private VitalSignRepository vitalSignRepository;
 
-    public VitalSignServiceImpl(VitalSignRepository vitalSignRepository){
+    public VitalSignServiceImpl(VitalSignRepository vitalSignRepository) {
         this.vitalSignRepository = vitalSignRepository;
     }
 
@@ -26,43 +26,39 @@ public class VitalSignServiceImpl implements VitalSignService {
         return vitalSignRepository.findAllVitalSignByIdRecord(id);
     }
 
-    @Override
-    public List<VitalSign> findAllByIdVitalSign(Long id) {
-        return null;
-    }
 
     @Override
     public Boolean existsById(Long id) {
-        return null;
+        return vitalSignRepository.existsById(id);
     }
 
     @Override
     public List<VitalSign> findAllVitalSign() {
-        return null;
+        return vitalSignRepository.findAll();
     }
 
     @Override
     public VitalSign saveVitalSign(VitalSign vitalSign) {
-        return null;
+        return vitalSignRepository.save(vitalSign);
     }
 
     @Override
     public Optional<VitalSign> getVitalSignById(Long idVitalSign) {
-        return Optional.empty();
+        return Optional.of(vitalSignRepository.getById(idVitalSign));
     }
 
     @Override
     public void deleteVitalSignById(Long idVitalSign) {
-
+        vitalSignRepository.deleteById(idVitalSign);
     }
 
     @Override
     public void deleteAllVitalSign() {
-
+        vitalSignRepository.deleteAll();
     }
 
     @Override
     public List<VitalSign> saveAllVitalSign(List<VitalSign> vitalSigns) {
-        return null;
+        return vitalSignRepository.saveAll(vitalSigns);
     }
 }

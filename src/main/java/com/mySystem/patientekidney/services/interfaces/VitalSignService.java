@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface VitalSignService {
 
     List<VitalSign> findAllByIdRecord(Long id);
-    List<VitalSign> findAllByIdVitalSign(Long id);
     Boolean existsById(Long id);
     List<VitalSign> findAllVitalSign();
     VitalSign saveVitalSign (VitalSign vitalSign);

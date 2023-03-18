@@ -11,4 +11,6 @@ import java.util.List;
 public interface ExamRepository extends JpaRepository<Exam,Long> {
     @Query(value = "SELECT * FROM exams WHERE record_id = ?1", nativeQuery = true)
     List<Exam> findAllExamByIdRecord(Long id);
+
+
 }
