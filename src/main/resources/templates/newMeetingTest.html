@@ -22,15 +22,13 @@
 
         <!-- Custom styles for this page -->
         <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <script>
-        $(function(){
-            $("#calender").datepicker();
-        });
-        </script>
+        
+        <!-- Libraries Stylesheet -->
+    <link href="/static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        
+
+       
         <style>
            a:link{
              text-decoration:none
@@ -99,7 +97,8 @@
 
                   <!-- Widgets Start -->
             <div class="">
-                <p>Date: <input type="text" id="calender"></p>
+                <div id="calender"></div>
+                 
             </div>
             <!-- Widgets End -->
 
@@ -125,23 +124,25 @@
     <i class="fas fa-angle-up"></i>
 </a>
 <div th:insert ="~{fragments/imports :: display-topbar}"></div>
-<!-- Bootstrap core JavaScript-->
-<script src="/static/vendor/jquery/jquery.min.js"></script>
-<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- Core plugin JavaScript-->
 <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Custom scripts for all pages-->
 <script src="/static/js/sb-admin-2.min.js"></script>
+<script>
+    $( function() {
+        $('#calender').datetimepicker({
+        inline: true,
+        format: 'L'
+         });
+    });
+</script>
 
-<!-- Page level plugins -->
-<script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<!-- Page level custom scripts -->
-<script src="/static/js/demo/datatables-demo.js"></script>
 <!--functions js-->
 <script src="/static/js/myFunctions.js"></script>
-
-
+<script src="/static/lib/waypoints/waypoints.min.js"></script>
+<script src="/static/lib/tempusdominus/js/moment.min.js"></script>
+<script src="/static/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 </body>
 </html>
