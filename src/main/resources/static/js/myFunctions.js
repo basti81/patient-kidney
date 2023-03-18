@@ -32,16 +32,15 @@ $(".btn_viewConsulta").on("click", function() {
     }
 });
 
-// -- index --
-// Abrir modal de bienvenida inicio
-//$('#myModal').on('shown.bs.modal', function () {
-//    $('#myInput').trigger('focus')
-//})
 
 
+// Modal
 $(document ).ready(function() {
     $('#myModal').modal('toggle')
 });
+
+
+
 
 function checkRut(rut) {
     // Despejar Puntos

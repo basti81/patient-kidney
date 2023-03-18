@@ -1,10 +1,8 @@
 package com.mySystem.patientekidney.controllers;
 
 import com.mySystem.patientekidney.models.entities.Meeting;
-import com.mySystem.patientekidney.models.entities.Record;
 import com.mySystem.patientekidney.services.interfaces.MeetingService;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
-import com.mySystem.patientekidney.services.interfaces.RecordService;
 import com.mySystem.patientekidney.services.interfaces.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/meeting")
@@ -121,7 +118,7 @@ public class MeetingController {
                                @RequestParam("idRecord") Long idRecord,
                                RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-       
+
         return mv;
     }
 }
