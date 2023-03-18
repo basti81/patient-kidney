@@ -12,7 +12,7 @@ public interface ExamService {
     List<Exam> findAllByIdRecord(Long id);
     Boolean existsById(Long id);
     List<Exam> findAllExam();
-    Exam saveExam (Exam patient);
+    Exam saveExam (Exam exam);
     Optional<Exam> getExamById(Long idExam);
     void deleteExamById(Long idExam);
     void deleteAllExam();

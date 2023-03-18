@@ -1,14 +1,17 @@
 package com.mySystem.patientekidney.models.entities;
 
 import com.mySystem.patientekidney.librery.StateMeeting;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import org.w3c.dom.Text;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 
+@Entity
+@Table( name= "meeting")
 public class Meeting {
-    private Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idMeeting;
     @Column(name = "date_time_meeting")
     private LocalDateTime dateTimeMeeting;
     @Column(name = "state_meeting")
@@ -18,16 +21,47 @@ public class Meeting {
     @Column(name = "meeting_date")
     private Instant meetingDate;
 
+    @ManyToOne
+    @JoinColumn(name = "worker_id", nullable = false)
+    private Worker worker;
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
     public Meeting(){
-        this.meetingDate = Instant.now();
+
     }
 
-    public Long getId() {
-        return id;
+
+    public Long getIdMeeting() {
+        return idMeeting;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdMeeting(Long idMeeting) {
+        this.idMeeting = idMeeting;
+    }
+
+    public LocalDateTime getDateTimeMeeting() {
+        return dateTimeMeeting;
+    }
+
+    public void setDateTimeMeeting(LocalDateTime dateTimeMeeting) {
+        this.dateTimeMeeting = dateTimeMeeting;
+    }
+
+    public Worker getWorker() {
+        return worker;
+    }
+
+    public void setWorker(Worker worker) {
+        this.worker = worker;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public LocalDateTime getDateMeeting() {
