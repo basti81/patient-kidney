@@ -30,10 +30,11 @@ public class Record {
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<VitalSign> vitalSigns;
 
-   /* private List<Anthropometry> anthropometrys;
-    privte List<italSign> vitalSigns;
-    private Antecedent antecedent;
-    */
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Anthropometry> anthropometries;
+
+    //private Antecedent antecedent;
+
 
     public Record() {
     }
@@ -92,5 +93,13 @@ public class Record {
 
     public void setVitalSigns(List<VitalSign> vitalSigns) {
         this.vitalSigns = vitalSigns;
+    }
+
+    public List<Anthropometry> getAnthropometries() {
+        return anthropometries;
+    }
+
+    public void setAnthropometries(List<Anthropometry> anthropometries) {
+        this.anthropometries = anthropometries;
     }
 }
