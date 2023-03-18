@@ -47,10 +47,9 @@
                 <div class="d-flex justify-content-between">
                     <div class="d-flex justify-content-start">
                         <a class="btn-sm" th:href="@{/exam/new(id = ${patient.record.id})}"> <i class="fas fa-plus"></i> New </a>
-                        <a class="btn-sm" th:href="@{/patient/}">   <i class="fas fa-arrow-left" aria-hidden="true"></i> Back</a>
+                        <a class="btn-sm" th:href="@{/patient/detail(id = ${patient.id})}">   <i class="fas fa-arrow-left" aria-hidden="true"></i> Back</a>
                         <!-- <a  class="btn-sm" th:href="@{/examen/simulation(id = ${patient.id})}"> <i class="fas fa-list-ol"></i> Simulación </a> -->
                     </div>
-                    <h6 class="m-0 font-weight">My Exams</h6>
                     <a class="btn-sm" th:href="@{/exam/report(id = ${patient.id})}"> <i class="fas fa-chart-line"></i> Reports </a>
                 </div>
                 </div>
