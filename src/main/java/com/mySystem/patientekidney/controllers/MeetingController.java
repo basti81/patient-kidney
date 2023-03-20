@@ -35,12 +35,24 @@ public class MeetingController {
 
 
     /**
-     * New
+     * New Time Meeting
      */
-    @GetMapping("/new")
-    public ModelAndView newForm(@RequestParam("id") Long idMeeting, Meeting meeting) {
+    @GetMapping("/newTime")
+    public ModelAndView newFormTime(@RequestParam(name = "id", required = false) Long idMeeting, Meeting meeting) {
         ModelAndView mv = new ModelAndView();
+        mv.setViewName("/meetings/time");
+        mv.addObject("meeting",meeting);
+        return mv;
+    }
 
+    /**
+     * New Running Meeting
+     */
+    @GetMapping("/newRunning")
+    public ModelAndView newFormRunning(@RequestParam("id") Long idMeeting, Meeting meeting) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/meetings/running");
+        mv.addObject("meeting",meeting);
         return mv;
     }
 
@@ -76,29 +88,65 @@ public class MeetingController {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors()) {
             System.out.println("There are mistakes");
-            attributes.addFlashAttribute("meeting", "The meeting was not admitted");
+            attributes.addFlashAttribute("msgDelete", "The meeting was not admitted");
             return mv;
         }
-        Optional<Patient> patient = patientService.getPatientById(idPatient);
-        Optional<Worker> worker = workerService.getWorkerById(idWorker);
-        if(patient.isPresent() && worker.isPresent()){
-            meeting.setPatient(patient.get());
-            meeting.setWorker(worker.get());
-            meetingService.saveMeeting(meeting);
+        meeting.setPatient(patientService.getPatientById(idPatient).get());
+        meeting.setWorker(workerService.getWorkerById(idWorker).get());
+
+        /**
+         * Save Meeting
+         */
+        if (meeting.getIdMeeting() == null) {
+            Meeting meetingSaved = meetingService.saveMeeting(meeting);
+            if (!meetingSaved.equals(null)) {
+                mv.setViewName("redirect:/meeting/new?id=" + meetingSaved.getIdMeeting());
+                attributes.addFlashAttribute("msgSave",
+                        "The Meeting has been entered successfully!");
+                mv.addObject("meeting", meetingSaved);
+            }
+            return mv;
+        }
+
+        /**
+         * Update Meeting
+         */
+        if (meeting.getIdMeeting() != null) {
+            Meeting meetingUpdate = meetingService.saveMeeting(meeting);
+            if (!meetingUpdate.equals(null)) {
+                attributes.addFlashAttribute("msgUpdate", "The meeting has been successfully modified!");
+                mv.setViewName("redirect:/meeting/new?id=" + meetingUpdate.getIdMeeting());
+                mv.addObject("meeting", meetingUpdate);
+            }
+            return mv;
         }
         return mv;
     }
 
 
+
+
     /**
-     * Update Meeting
+     * Update Time Meeting
      */
-    @GetMapping("/update")
-    public ModelAndView update(@RequestParam("idMeeting") Long idMeeting,
+    @GetMapping("/time/update")
+    public ModelAndView timeUpdate(@RequestParam("idMeeting") Long idMeeting,
                                @RequestParam("idRecord") Long idRecord,
                                RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
+        mv.setViewName("/meetings/time");
+        return mv;
+    }
 
+    /**
+     * Update Running Meeting
+     */
+    @GetMapping("/running/update")
+    public ModelAndView runningUpdate(@RequestParam("idMeeting") Long idMeeting,
+                               @RequestParam("idRecord") Long idRecord,
+                               RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/meeting/running");
         return mv;
     }
 
@@ -124,9 +172,8 @@ public class MeetingController {
 
 
     /**
-     * Delete by Id Meeting
+     * Delete by idMeeting
      */
-    //    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping("/delete")
     public ModelAndView delete(@RequestParam("idMeeting") Long idMeeting,
                                @RequestParam("idRecord") Long idRecord,
