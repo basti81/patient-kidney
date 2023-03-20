@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -62,6 +63,13 @@ public class MeetingController {
     @GetMapping("/byPatient")
     public ModelAndView patientMeetingList(@RequestParam("id") Long idPatient) {
         ModelAndView mv = new ModelAndView();
+        Optional<Patient> patient = patientService.getPatientById(idPatient);
+        if(patient.isPresent()){
+            patient.get().setMeetings(
+                    meetingService.findAllByIdPatient(idPatient));
+            mv.addObject("patient",patient.get());
+            mv.setViewName("/patients/listMeeting");
+        }
         return mv;
     }
 

@@ -32,24 +32,19 @@
           </ol>
         </nav>
 
-        <!-- Page Heading -->
-        <div class="alert alert-success alert-dismissible fade show" th:if="${msg != null}"   role="alert">
-          <strong th:text="${msg}"></strong>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+      <!-- Page Heading -->
+      <div th:insert="~{fragments/imports :: alert-msg}"></div>
 
        <!-- Personal information -->
        <div class= "card shadow mb-4">     
         <div class="card-header d-flex justify-content-between">
             <div class="font-weight-bold"><i class="fas fa-user"></i> Personal information</div>
             <div></div>
-            <div id = "packButtoms">
+            <div id = "packBottoms">
                 <a class="btn btn-sm btn-warning" th:href="@{/patient/update(id = ${patient.id})}" type="button"  title="Meetings of patient"><i class="fas fa-pen"></i></a>
                 <a class="btn btn-sm btn-success" th:href="@{/exam/byRecord(id = ${patient.record.id})}" type="button"  title="Exams of patient"><i class="fas fa-vials" aria-hidden="true"></i></a>
                 <a class="btn btn-sm btn-danger" th:href="@{/vitalSign/byRecord(id = ${patient.record.id})}" type="button"  title="Vital signs of patient"><i class="fas fa-heart" aria-hidden="true"></i></a>
-                <a class="btn btn-sm btn-secondary" th:href="@{/meeting/(id = ${patient.id})}" type="button" title="Meeting of patient" ><i class="fas fa-book" aria-hidden="true"></i></a>  
+                <a class="btn btn-sm btn-secondary" th:href="@{/meeting/byPatient/(id = ${patient.id})}" type="button" title="Meeting of patient" ><i class="fas fa-book" aria-hidden="true"></i></a>
             </div>
         </div>
 
