@@ -103,5 +103,15 @@ public class User implements Serializable {
         return newName[0];
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "rut='" + rut + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", startDate=" + startDate +
+                ", enabled=" + enabled +
+                '}';
+    }
 }

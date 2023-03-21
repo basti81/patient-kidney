@@ -30,7 +30,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
                         <li class="breadcrumb-item active"><a th:href="@{/patient/}">List of Patient</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form of Meeting <i class="fas fa-heart"></i></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form of Meeting <i class="fas fa-book"></i></li>
                     </ol>
                 </nav>
 
@@ -93,7 +93,7 @@
                     <div class="col-md-7">
                         <div class="card shadow mb-4">
                             <div class="card-header text-center">
-                              <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-user"></i> Personal disponible</h6>
+                              <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-user"></i> Doctors available</h6>
                             </div>
                             <div class="card-body">
                               <div class="table-responsive">
@@ -109,7 +109,7 @@
                                   </tr>
                                   </thead>
                                   <tbody>
-                                  <tr th:each="worker : ${listOfdoctor}">
+                                  <tr th:each="worker : ${listOfDoctor}">
                                     <!-- <td style="display:none;" th:text="${worker.id}">idWorker</td> -->
                                     <td th:text="${worker.id}">idWorker</td>
                                     <td th:text="${worker.rut}" >12345678-9</td>
@@ -126,7 +126,7 @@
                           
                         </div>
                     </div>
-                    <script src="/static/js/toolsMeetings.js"></script>                    
+                    <script src="/js/toolsMeetings.js"></script>                    
                 </div>
             </div>
             <!-- /.container-fluid -->

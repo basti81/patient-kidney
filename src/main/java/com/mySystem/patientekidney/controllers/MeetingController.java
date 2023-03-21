@@ -45,7 +45,9 @@ public class MeetingController {
         mv.addObject("meeting",meeting);
         Optional<Patient> patient = patientService.getPatientById(idPatient);
         if(patient.isPresent()){
-            mv.addObject("listOfDoctor", workerService.getListOfDoctor());
+            List<Worker> workers = workerService.getListOfDoctor();
+            System.out.println(workers);
+            mv.addObject("listOfDoctor", workers);
             mv.addObject("patient",patient.get());
             return mv;
         }

@@ -39,4 +39,11 @@ public class Worker  extends User {
     public void setMeeting(List<Meeting> meeting) {
         this.meeting = meeting;
     }
+
+    @Override
+    public String toString() {
+        return "Worker{" +
+                "specialty=" + specialty +
+                "} " + super.toString();
+    }
 }

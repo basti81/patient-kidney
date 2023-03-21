@@ -1,7 +1,6 @@
 //-- Meeting/time/new --
-//Extrae e incorpora doctor al form
+// Get a row table to input form meeting
 $(".btn_getDoctor").on("click", function() {
-    console.log("entre al metodo")
     const idWorker =$(this).closest('tr').children()[0].textContent;
     const rut = $(this).closest('tr').children()[1].textContent;
     const name = $(this).closest('tr').children()[2].textContent;
