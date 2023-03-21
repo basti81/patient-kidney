@@ -3,6 +3,7 @@ package com.mySystem.patientekidney.controllers;
 
 import com.mySystem.patientekidney.models.entities.Patient;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
+import com.mySystem.patientekidney.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,12 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
+    @Autowired
+    private UserService userService;
 
-    public PatientController(PatientService patientService){
+    public PatientController(PatientService patientService, UserService userService){
         this.patientService = patientService;
+        this.userService = userService;
     }
 
 
@@ -43,8 +47,6 @@ public class PatientController {
     public ModelAndView create(Patient patient, BindingResult result, RedirectAttributes attributes,
                                @RequestParam("fileProfile") MultipartFile multiPart) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:/patient/new");
-
         if (result.hasErrors()) {
             System.out.println("There are mistakes");
             attributes.addFlashAttribute("patient", "The patient was not admitted");
@@ -60,24 +62,46 @@ public class PatientController {
             }
         }*/
 
-        if(!patientService.existsByRut(patient.getRut())){
+        /**
+         * Save Patient
+         */
+        if(patient.getId() == null){
+            mv.setViewName("/patients/new");
+            if(userService.existsByRut(patient.getRut())){
+                mv.addObject("msgDelete",
+                        "'Rut - "+patient.getRut()+"' is already registered in the system");
+                mv.addObject("patient",patient);
+                return mv;
+            }
+            if(userService.existsByMail(patient.getMail())){
+                mv.addObject("msgDelete",
+                        "'Mail - "+patient.getMail()+"' is already registered in the system");
+                mv.addObject("patient",patient);
+                return mv;
+            }
+
             patient.setStartDate(Instant.now());
             Patient savedPatient = patientService.savePatient(patient);
             mv.addObject("patient",savedPatient);
-            attributes.addFlashAttribute("msgSave",
-                    "The patient "+patient.getName()+" has been entered successfully!");
+            mv.addObject("msgSave",
+                    "The patient "+patient.getForename()+" has been entered successfully!");
+            return mv;
+        }
+        /**
+         * Update Patient
+         */
+        if(patient.getId() !=  null){
+            mv.setViewName("redirect:/patient/new");
+            Patient updatedPatient = patientService.savePatient(patient);
+            mv.addObject("patient",updatedPatient);
+            mv.addObject("msgUpdate",
+                    "The patient "+patient.getForename()+" has been successfully modified!");
             return mv;
         }
 
-        if(patientService.existsById(patient.getId())){
-            Patient updatedPatient = patientService.savePatient(patient);
-            mv.addObject("patient",updatedPatient);
-            attributes.addFlashAttribute("msgUpdate",
-                    "The patient "+patient.getName()+" has been successfully modified!");
-            return mv;
-        }
-        mv.addObject("patient",null);
-        attributes.addFlashAttribute("msgDelete", "The patient was not admitted");
+        mv.setViewName("redirect:/patient/new");
+        mv.addObject("patient",patient);
+        attributes.addFlashAttribute("msgWarning", "The worker was not admitted");
         return mv;
     }
 

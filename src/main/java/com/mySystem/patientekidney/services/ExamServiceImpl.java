@@ -22,7 +22,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public List<Exam> findAllByIdRecord(Long id) {
-        return examRepository.findAllExamByIdRecord(id);
+        return examRepository.findAllByIdRecord(id);
     }
 
     @Override

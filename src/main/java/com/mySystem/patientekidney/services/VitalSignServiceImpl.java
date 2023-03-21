@@ -23,9 +23,8 @@ public class VitalSignServiceImpl implements VitalSignService {
 
     @Override
     public List<VitalSign> findAllByIdRecord(Long id) {
-        return vitalSignRepository.findAllVitalSignByIdRecord(id);
+        return vitalSignRepository.findAllByIdRecord(id);
     }
-
 
     @Override
     public Boolean existsById(Long id) {

@@ -32,152 +32,139 @@
           </ol>
         </nav>
 
-        <!-- Page Heading -->
-        <div class="alert alert-success alert-dismissible fade show" th:if="${msg != null}"   role="alert">
-          <strong th:text="${msg}"></strong>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <!-- Page Heading -->
+      <div th:insert="~{fragments/imports :: alert-msg}"></div>
+
+       <!-- Personal information -->
+       <div class= "card shadow mb-4">     
+        <div class="card-header d-flex justify-content-between">
+            <div class="font-weight-bold"><i class="fas fa-user"></i> Personal information</div>
+            <div></div>
+            <div id = "packBottoms">
+                <a class="btn btn-sm btn-warning" th:href="@{/patient/update(id = ${patient.id})}" type="button"  title="Meetings of patient"><i class="fas fa-pen"></i></a>
+                <a class="btn btn-sm btn-success" th:href="@{/exam/byRecord(id = ${patient.record.id})}" type="button"  title="Exams of patient"><i class="fas fa-vials" aria-hidden="true"></i></a>
+                <a class="btn btn-sm btn-danger" th:href="@{/vitalSign/byRecord(id = ${patient.record.id})}" type="button"  title="Vital signs of patient"><i class="fas fa-heart" aria-hidden="true"></i></a>
+                <a class="btn btn-sm btn-secondary" th:href="@{/meeting/byPatient(id = ${patient.id})}" type="button" title="Meeting of patient" ><i class="fas fa-book" aria-hidden="true"></i></a>
+            </div>
         </div>
 
-        <!-- Datos Personales, Contacto -->
-        <div class= "card shadow mb-4">
-          <div class= "card-body">
-              <div class="row">
-                  <div class="col-sm-2">
-                      <!-- <img class="img-thumbnail"  width="250" th:src="@{${'/img/users/' + paciente.usuario.img}}" alt="Responsive image"> -->
-                  </div>
-                  <div class="col-sm-10">
-                      <div class="card-header">
-                          <div class="d-flex justify-content-between">
-                              <div class="d-flex align-items-center">
-                                  <h6 class="m-0 font-weight-bold"><i class="fas fa-user-md"></i> Personal information</h6>
-                              </div>
-                              <div>
-                                  <a class="btn btn-sm btn-warning" th:href="@{/patient/update(id = ${patient.id})}" type="button"  title="Update patient"><i class="fas fa-pen"></i></a>
-                                  <a class="btn btn-sm btn-success" th:href="@{/exam/byRecord(id = ${patient.record.id})}" type="button"  title="Exams of patient"><i class="fas fa-vials" aria-hidden="true"></i></a>
-                                  <a class="btn btn-sm btn-success" th:href="@{/vitalSign/byRecord(id = ${patient.record.id})}" type="button"  title="Vital signs of patient"><i class="fas fa-heart" aria-hidden="true"></i></a>
-                                  <a class="btn btn-sm btn-warning" th:href="@{/meeting/(id = ${patient.id})}" type="button" title="Meeting of patient" ><i class="fas fa-book" aria-hidden="true"></i></a>
-                                    
-                                  <!-- <a class="btn btn-sm btn-danger" th:href="@{/vitalSign/(id = ${patient.id})}" type="button"><i class="fas fa-heart" aria-hidden="true"></i> </a> -->
-                              </div>
-                          </div>
-                      </div>
-                      <div class="card-body">
-                          <div class="table-responsive">
-                              <table class ="table table-sm">
-                                  <thead>
-                                  <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">Rut</th>
-                                      <th scope="col">Name</th>
-                                      <th scope="col">Birth date</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr>
-                                      <th scope="row" th:text="'ID: '+${patient.id}"></th>
-                                      <td th:text="${patient.rut}"></td>
-                                      <td th:text="${patient.name}+' '+${patient.lastName}"></td>
-                                      <td th:text="${patient.record.birthDate}"></td>
-                                  </tr>
-                                  </tbody>
-                              </table>
-                              <table class ="table table-sm">
-                                  <thead>
-                                  <tr>
-                                      <th style="display:none;" scope="col">#</th>
-                                      <th scope="col">Genre</th>
-                                      <th scope="col">Ethnicity</th>
-                                      <th scope="col">Age.</th>
-                                      <th scope="col">Start Date</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr>
-                                      <th style="display:none;" th:text="${patient.record.id}">0</th>
-                                      <!-- <td th:text="${patient.record.genre}"></td>
-                                      <td th:text="${patient.record.race}"></td>
-                                      <td th:text="${patient.record.getAgeString()}" ></td>-->
-                                      <td th:text="${patient.startDate}"></td> 
-                                  </tr>
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-                  </div>
+        <div class = "card-body"> 
+            <div class="row">
+            <div class="col-md-2">
+                <!-- <img class="img-thumbnail"  width="250" th:src="@{${'/img/users/' + paciente.usuario.img}}" alt="Responsive image"> -->
+            </div>
+            <div class="col-md-10">
+            <div class="table-responsive">
+                <table class ="table table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Rut</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Birth date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row" th:text="'ID: '+${patient.id}"></th>
+                    <td th:text="${patient.rut}"></td>
+                    <td th:text="${patient.name}+' '+${patient.lastName}"></td>
+                    <td th:text="${patient.record.birthDate}"></td>
+                </tr>
+                </tbody>
+                </table>
+                <table class ="table table-sm">
+                    <thead>
+                    <tr>
+                        <th style="display:none;" scope="col">#</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Ethnicity</th>
+                        <th scope="col">Age.</th>
+                        <th scope="col">Start Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th style="display:none;" th:text="${patient.record.id}">0</th>
+                        <!-- <td th:text="${patient.record.genre}"></td>
+                        <td th:text="${patient.record.race}"></td>
+                        <td th:text="${patient.record.getAgeString()}" ></td>-->
+                        <td th:text="${patient.startDate}"></td> 
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>          
+            </div>
+        </div>                  
+         </div>
 
-
-              </div>
-          </div>
-      </div>
-
-      <!-- Content -- Contacto,Direccion -->
-      <div class="row">
-          <!--Contacto-->
-          <div class="col-md-6">
-              <div class="card shadow mb-4">
-              <!--Título-->
-              <div class="card-header text-center">
-              <div class="d-flex justify-content-center">
-                  <h6 class="m-0 font-weight-bold"><i class="fas fa-user-md"></i> Contact</h6>
-              </div>
-              </div>
-              <div class="card-body">
-              <div class="table-responsive">
-              <table class ="table table-sm">
-                  <thead>
-                  <tr>
-                      <th scope="col">Mail</th>
-                      <!-- <th scope="col">Phone</th>
-                      <th scope="col">Phone Sec.</th> -->
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                      <td th:text="${patient.mail}">example@gmail.com</td>
-                      <!-- <td th:text="${patient.phone}"></td>
-                      <td th:text="${patient.phoneSecond}" >telefono(opc)</td> -->
-                  </tr>
-                  </tbody>
-              </table>
-              </div>
-              </div>
-              </div>
-          </div>
-          <!-- address -->
-          <div class="col-md-6" >
-              <div class="card shadow mb-4">
-              <div class="card-header text-center">
-                  <h6 class="m-0 font-weight-bold"> Address</h6>
-              </div>
-              <div class= "card-body">
-              <div class="table-responsive">
-              <table class ="table table-sm">
-                  <thead>
-                  <tr>
-                      <th scope="col">Región.</th>
-                      <th scope="col">Comuna.</th>
-                      <th scope="col">Dirección.</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                      <!-- <th th:text="${paciente.region}">Valparaiso</th>
-                      <td th:text="${paciente.comuna}">Valparaiso</td>
-                      <td th:text="${paciente.direccion}">San felipe</td> -->
-                      
-                      <td>Valparaiso</td>
-                      <td>Valparaiso</td>
-                      <td>Valparaiso</td>
-                  </tr>
-                  </tbody>
-              </table>
-              </div>
-              </div>
-              </div>
-          </div>
-      </div>
+        <!-- Contact adress -->
+        <div class="row">
+            <!--Contacto-->
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                <!--Título-->
+                <div class="card-header text-center">
+                <div class="d-flex justify-content-center">
+                    <h6 class="m-0 font-weight-bold"><i class="fas fa-user-md"></i> Contact</h6>
+                </div>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
+                <table class ="table table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col">Mail</th>
+                        <!-- <th scope="col">Phone</th>
+                        <th scope="col">Phone Sec.</th> -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${patient.mail}">example@gmail.com</td>
+                        <!-- <td th:text="${patient.phone}"></td>
+                        <td th:text="${patient.phoneSecond}" >telefono(opc)</td> -->
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+            </div>
+            <!-- address -->
+            <div class="col-md-6" >
+                <div class="card shadow mb-4">
+                <div class="card-header text-center">
+                    <h6 class="m-0 font-weight-bold"> <i class="fas fa-street-view" aria-hidden="true"></i> Address</h6>
+                </div>
+                <div class= "card-body">
+                <div class="table-responsive">
+                <table class ="table table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col">Región.</th>
+                        <th scope="col">Comuna.</th>
+                        <th scope="col">Dirección.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <!-- <th th:text="${paciente.region}">Valparaiso</th>
+                        <td th:text="${paciente.comuna}">Valparaiso</td>
+                        <td th:text="${paciente.direccion}">San felipe</td> -->
+                        
+                        <td>Valparaiso</td>
+                        <td>Valparaiso</td>
+                        <td>Valparaiso</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
 
       </div>
       <!-- /.container-fluid -->

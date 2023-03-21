@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WorkerService {
+    List<Worker> getListOfDoctor();
     Boolean existsById(Long id);
     Boolean existsByRut(String rut);
     List<Worker> findAllWorker();

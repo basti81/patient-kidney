@@ -5,6 +5,7 @@ import com.mySystem.patientekidney.librery.StatePatient;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -15,9 +16,10 @@ public class Patient extends User {
     private String nationality;
     private String region;
     private String city;
-    private String address;
+    private String address;*/
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Meeting> meetings;
-    */
+
     private Prevision prevision;
     @Column(name = "state_patient")
     private StatePatient statePatient;
@@ -36,6 +38,14 @@ public class Patient extends User {
         this.prevision = prevision;
         this.statePatient = statePatient;
         this.record = record;
+    }
+
+    public List<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings = meetings;
     }
 
     public Prevision getPrevision() {

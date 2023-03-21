@@ -3,7 +3,7 @@ package com.mySystem.patientekidney.models.entities;
 import com.mySystem.patientekidney.librery.Specialty;
 import jakarta.persistence.*;
 
-import java.time.Instant;
+
 import java.util.List;
 
 @Entity
@@ -11,11 +11,12 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Worker  extends User {
 
-    /*@OneToMany(mappedBy = "workers", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Meeting> meeting; */
     private Specialty specialty;
+    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Meeting> meeting;
+
     public Worker() {
-        this.setStartDate(Instant.now());
+
     }
 
     public Worker(String rut, String name, String lastName, String mail, Boolean enabled, Specialty specialty) {
@@ -29,5 +30,20 @@ public class Worker  extends User {
 
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
+    }
+
+    public List<Meeting> getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(List<Meeting> meeting) {
+        this.meeting = meeting;
+    }
+
+    @Override
+    public String toString() {
+        return "Worker{" +
+                "specialty=" + specialty +
+                "} " + super.toString();
     }
 }

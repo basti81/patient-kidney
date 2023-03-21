@@ -16,6 +16,17 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
     }
+
+    @Override
+    public Boolean existsByMail(String mail) {
+        return userRepository.existsByMail(mail);
+    }
+
+    @Override
+    public Boolean existsByRut(String rut) {
+        return userRepository.existsByRut(rut);
+    }
+
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);

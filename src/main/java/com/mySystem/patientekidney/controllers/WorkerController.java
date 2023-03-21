@@ -3,6 +3,7 @@ package com.mySystem.patientekidney.controllers;
 import com.mySystem.patientekidney.models.entities.Patient;
 import com.mySystem.patientekidney.models.entities.Worker;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
+import com.mySystem.patientekidney.services.interfaces.UserService;
 import com.mySystem.patientekidney.services.interfaces.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,12 @@ public class WorkerController {
     @Autowired
     private WorkerService workerService;
 
-    public WorkerController(WorkerService workerService){
+    @Autowired
+    private UserService userService;
+
+    public WorkerController(WorkerService workerService, UserService userService){
         this.workerService = workerService;
+        this.userService = userService;
     }
 
 
@@ -37,34 +42,53 @@ public class WorkerController {
 
     /** Save and Update Worker*/
     @PostMapping("/create")
-    public ModelAndView create(Worker worker, BindingResult result, RedirectAttributes attributes ) {
+    public ModelAndView create(Worker worker, BindingResult result, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:/worker/new");
-
         if (result.hasErrors()) {
             System.out.println("There are mistakes");
             attributes.addFlashAttribute("worker", "The worker was not admitted");
             return mv;
         }
 
+        /**
+         * Save Worker
+         */
+        if(worker.getId() == null){
+            mv.setViewName("/workers/new");
+            if(userService.existsByRut(worker.getRut())){
+                mv.addObject("msgDelete",
+                        "'Rut - "+worker.getRut()+"' is already registered in the system");
+                mv.addObject("worker",worker);
+                return mv;
+            }
+            if(userService.existsByMail(worker.getMail())){
+                mv.addObject("msgDelete",
+                        "'Mail - "+worker.getMail()+"' is already registered in the system");
+                mv.addObject("worker",worker);
+                return mv;
+            }
 
-        if(!workerService.existsByRut(worker.getRut())){
             Worker savedWorker = workerService.saveWorker(worker);
             mv.addObject("worker",savedWorker);
-            attributes.addFlashAttribute("msg",
-                    "The worker "+worker.getName()+" has been entered successfully!");
+            attributes.addFlashAttribute("msgSave",
+                    "The worker "+worker.getForename()+" has been entered successfully!");
             return mv;
         }
 
-        if(workerService.existsById(worker.getId())){
+        /**
+         * Update Worker
+         */
+        if(worker.getId() != null){
+            mv.setViewName("redirect:/worker/new");
             Worker updatedWorker = workerService.saveWorker(worker);
             mv.addObject("worker",updatedWorker);
-            attributes.addFlashAttribute("msg",
-                    "The worker "+worker.getName()+" has been successfully modified!");
+            attributes.addFlashAttribute("msgUpdate",
+                    "The worker "+worker.getForename()+" has been successfully modified!");
             return mv;
         }
-        mv.addObject("worker",null);
-        attributes.addFlashAttribute("worker", "The worker was not admitted");
+
+        mv.addObject("worker",worker);
+        attributes.addFlashAttribute("msgWarning", "The worker was not admitted");
         return mv;
     }
 
@@ -119,12 +143,13 @@ public class WorkerController {
 
     /** Update Worker*/
     @GetMapping("/update")
-    public ModelAndView update(@RequestParam("id") Long idUser) {
+    public ModelAndView update(@RequestParam("id") Long id, RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        if(workerService.existsById(idUser)){
-            Optional<Worker> worker = workerService.getWorkerById(idUser);
-            mv.setViewName("/workers/new");
+        if(workerService.existsById(id)){
+            Optional<Worker> worker = workerService.getWorkerById(id);
+            mv.setViewName("redirect:/workers/new");
             mv.addObject("worker", worker.get());
+            attributes.addFlashAttribute("msgWarning", "Modifying the worker ...");
             return mv;
         }
         mv.setViewName("redirect:/worker/");

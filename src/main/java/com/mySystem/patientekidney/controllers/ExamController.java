@@ -159,7 +159,6 @@ public class ExamController {
                                RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
         if (examService.existsById(idExam)) {
-            System.out.println("Entre a update y existe el examen");
             Optional<Exam> exam = examService.getExamById(idExam);
             mv.setViewName("redirect:/exam/new?id=" + idRecord);
             mv.addObject("exam", exam.get());
