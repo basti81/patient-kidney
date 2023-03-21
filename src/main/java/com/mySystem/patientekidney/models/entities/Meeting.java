@@ -18,8 +18,13 @@ public class Meeting {
     private StateMeeting stateMeeting;
     @Column(name = "note_meeting",columnDefinition = "TEXT")
     private String noteMeeting;
+    @Column(name = "start_date_meeting")
+    private Instant startDateMeeting;
+    @Column(name = "end_date_meeting")
+    private Instant endDateMeeting;
     @Column(name = "meeting_date")
     private Instant meetingDate;
+    private boolean viewed;
 
     @ManyToOne
     @JoinColumn(name = "worker_id", nullable = false)
@@ -31,6 +36,29 @@ public class Meeting {
 
     }
 
+    public Instant getStartDateMeeting() {
+        return startDateMeeting;
+    }
+
+    public void setStartDateMeeting(Instant startDateMeeting) {
+        this.startDateMeeting = startDateMeeting;
+    }
+
+    public Instant getEndDateMeeting() {
+        return endDateMeeting;
+    }
+
+    public void setEndDateMeeting(Instant endDateMeeting) {
+        this.endDateMeeting = endDateMeeting;
+    }
+
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+    }
 
     public Long getIdMeeting() {
         return idMeeting;

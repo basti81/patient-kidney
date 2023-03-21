@@ -38,18 +38,24 @@ public class MeetingController {
     /**
      * New Time Meeting
      */
-    @GetMapping("/newTime")
-    public ModelAndView newFormTime(@RequestParam(name = "id", required = false) Long idMeeting, Meeting meeting) {
+    @GetMapping("/time/new")
+    public ModelAndView newFormTime(@RequestParam(name = "id", required = true) Long idPatient, Meeting meeting) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/meetings/time");
+        mv.setViewName("/meetings/timeTest");
         mv.addObject("meeting",meeting);
-        return mv;
+        Optional<Patient> patient = patientService.getPatientById(idPatient);
+        if(patient.isPresent()){
+            mv.addObject("listOfDoctor", workerService.getListOfDoctor());
+            mv.addObject("patient",patient.get());
+            return mv;
+        }
+        return new ModelAndView().addObject("patient",null);
     }
 
     /**
      * New Running Meeting
      */
-    @GetMapping("/newRunning")
+    @GetMapping("/running/new")
     public ModelAndView newFormRunning(@RequestParam("id") Long idMeeting, Meeting meeting) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/meetings/running");

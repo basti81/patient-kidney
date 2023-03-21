@@ -44,7 +44,7 @@
                 <a class="btn btn-sm btn-warning" th:href="@{/patient/update(id = ${patient.id})}" type="button"  title="Meetings of patient"><i class="fas fa-pen"></i></a>
                 <a class="btn btn-sm btn-success" th:href="@{/exam/byRecord(id = ${patient.record.id})}" type="button"  title="Exams of patient"><i class="fas fa-vials" aria-hidden="true"></i></a>
                 <a class="btn btn-sm btn-danger" th:href="@{/vitalSign/byRecord(id = ${patient.record.id})}" type="button"  title="Vital signs of patient"><i class="fas fa-heart" aria-hidden="true"></i></a>
-                <a class="btn btn-sm btn-secondary" th:href="@{/meeting/byPatient/(id = ${patient.id})}" type="button" title="Meeting of patient" ><i class="fas fa-book" aria-hidden="true"></i></a>
+                <a class="btn btn-sm btn-secondary" th:href="@{/meeting/byPatient(id = ${patient.id})}" type="button" title="Meeting of patient" ><i class="fas fa-book" aria-hidden="true"></i></a>
             </div>
         </div>
 

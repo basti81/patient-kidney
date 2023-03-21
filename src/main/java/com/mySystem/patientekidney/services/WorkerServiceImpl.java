@@ -19,6 +19,12 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
+    public List<Worker> getListOfDoctor() {
+        //Falta implementar
+        return workerRepository.findAll();
+    }
+
+    @Override
     public Boolean existsById(Long id) {
         return workerRepository.existsById(id);
     }

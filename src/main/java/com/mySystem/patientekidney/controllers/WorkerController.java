@@ -47,12 +47,13 @@ public class WorkerController {
             return mv;
         }
 
+        
 
         if(!workerService.existsByRut(worker.getRut())){
             Worker savedWorker = workerService.saveWorker(worker);
             mv.addObject("worker",savedWorker);
             attributes.addFlashAttribute("msg",
-                    "The worker "+worker.getName()+" has been entered successfully!");
+                    "The worker "+worker.getForename()+" has been entered successfully!");
             return mv;
         }
 
@@ -60,7 +61,7 @@ public class WorkerController {
             Worker updatedWorker = workerService.saveWorker(worker);
             mv.addObject("worker",updatedWorker);
             attributes.addFlashAttribute("msg",
-                    "The worker "+worker.getName()+" has been successfully modified!");
+                    "The worker "+worker.getForename()+" has been successfully modified!");
             return mv;
         }
         mv.addObject("worker",null);
