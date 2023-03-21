@@ -45,75 +45,76 @@
                 <div class="d-flex justify-content-center">
                     <!-- Content Row -->
                     <div class="row">
-                    <!-- form vitalSign  -->
-                    <div class="card shadow mb-4">
-                        <!-- <div class="card-header text-center">
-                            <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-vials"></i>vitalSign</h6>
-                        </div> -->
-                        <div class="card-body">
-                            <form th:action="@{/vitalSign/create(id = ${patient.record.id})}" th:object="${vitalSign}" method="post">
-                                <!-- Warning messege-->
-                                <div th:if="${#fields.hasErrors('*')}">
-                                    <h2> Please checkout this errors</h2>
-                                    <ul>
-                                        <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
-                                    </ul>
-                                </div>
+                        <!-- form vitalSign  -->
+                        <div class="card shadow mb-4">
+                            <!-- <div class="card-header text-center">
+                                <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-vials"></i>vitalSign</h6>
+                            </div> -->
+                            <div class="card-body">
+                                <form th:action="@{/vitalSign/create(id = ${patient.record.id})}" th:object="${vitalSign}" method="post">
+                                    <!-- Warning messege-->
+                                    <div th:if="${#fields.hasErrors('*')}">
+                                        <h2> Please checkout this errors</h2>
+                                        <ul>
+                                            <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                        </ul>
+                                    </div>
 
-                                <!--Id Vital Sign-->
-                                <input type="hidden" th:field="*{idVitalSign}">
-                                <input type="hidden" th:value="'id record =  '+${patient.record.id}">
+                                    <!--Id Vital Sign-->
+                                    <input type="hidden" th:field="*{idVitalSign}">
+                                    <input type="hidden" th:value="'id record =  '+${patient.record.id}">
 
-                                <!--Pressure high/low-->
-                                <div class="d-flex justify-content-center">
-                                    <div class="form-group col-md-10">
-                                        <label class="col-form-label col-form-label">Pressure</label>
-                                        <div class="input-group">
-                                            <input type="number" id="pressureHigh" placeholder="mmHg" max ="200" class="form-control form-control text-right" th:field="*{pressureHigh}">
-                                            <input type="number" id="pressureLow" placeholder="mmHg" max="200" class="form-control form-control text-right" th:field="*{pressureLow}">
+                                    <!--Pressure high/low-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label col-form-label">Pressure</label>
+                                            <div class="input-group">
+                                                <input type="number" id="pressureHigh" placeholder="mmHg" max ="200" class="form-control form-control text-right" th:field="*{pressureHigh}">
+                                                <input type="number" id="pressureLow" placeholder="mmHg" max="200" class="form-control form-control text-right" th:field="*{pressureLow}">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                        
-                                <!--Breathing-->
-                                <div class="d-flex justify-content-center">
-                                    <div class="form-group col-md-10">
-                                        <label class="col-form-label col-form-label" for="inputBreathing">Breathing</label>
-                                        <input placeholder="x min"  type="number" class="form-control form-control text-right" th:field="*{breathing}"  id="inputBreathing"  required="required" />
+                            
+                                    <!--Breathing-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label col-form-label" for="inputBreathing">Breathing</label>
+                                            <input placeholder="x min"  type="number" class="form-control form-control text-right" th:field="*{breathing}"  id="inputBreathing"  required="required" />
+                                        </div>
                                     </div>
-                                </div>
-    
-                                <!--Temperature-->
-                                <div class="d-flex justify-content-center">
-                                    <div class="form-group col-md-10">
-                                        <label class="col-form-label col-form-label" for="inputTemperature">Temperature</label>
-                                        <input placeholder="°C"  type="number" class="form-control form-control text-right" th:field="*{temperature}"  id="inputTemperature" required="required" />
+        
+                                    <!--Temperature-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label col-form-label" for="inputTemperature">Temperature</label>
+                                            <input placeholder="°C"  type="number" class="form-control form-control text-right" th:field="*{temperature}"  id="inputTemperature" required="required" />
+                                        </div>
                                     </div>
-                                </div>
-    
-                                <!--Pulse-->
-                                <div class="d-flex justify-content-center">
-                                    <div class="form-group col-md-10">
-                                        <label class="col-form-label col-form-label" for="inputPulse">Pulse</label>
-                                        <input placeholder="x min"  type="number" class="form-control form-control text-right" th:field="*{pulse}"  id="inputPulse"   required="required" />
+        
+                                    <!--Pulse-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label col-form-label" for="inputPulse">Pulse</label>
+                                            <input placeholder="x min"  type="number" class="form-control form-control text-right" th:field="*{pulse}"  id="inputPulse"   required="required" />
+                                        </div>
                                     </div>
-                                </div>
-    
-                                <!--Saturation-->
-                                <div class="d-flex justify-content-center">
-                                    <div class="form-group col-md-10">
-                                        <label class="col-form-label col-form-label" for="inputSaturation">Saturación</label>
-                                        <input placeholder="%"  type="number" class="form-control form-control text-right" th:field="*{saturation}"  id="inputSaturation" name="saturation"  required="required" />
+        
+                                    <!--Saturation-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label col-form-label" for="inputSaturation">Saturación</label>
+                                            <input placeholder="%"  type="number" class="form-control form-control text-right" th:field="*{saturation}"  id="inputSaturation" name="saturation"  required="required" />
+                                        </div>
                                     </div>
-                                </div>
-                                <br>
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-secondary" href="javascript: history.go(-1)">Cancel</a>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
-                                </div>
-                            </form>
+                                    <br>
+                                    <div class="d-flex justify-content-between">
+                                        <a class="btn btn-secondary" th:href="@{/vitalSign/byRecord(id=${})}">Cancel</a>
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+
                     </div>
                 </div>
             </div>
