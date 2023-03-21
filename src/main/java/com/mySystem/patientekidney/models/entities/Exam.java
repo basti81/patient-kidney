@@ -1,5 +1,6 @@
 package com.mySystem.patientekidney.models.entities;
 
+import com.mySystem.patientekidney.librery.StateExam;
 import jakarta.persistence.*;
 
 import java.time.Instant;

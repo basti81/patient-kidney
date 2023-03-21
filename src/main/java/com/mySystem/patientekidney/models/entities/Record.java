@@ -1,11 +1,10 @@
 package com.mySystem.patientekidney.models.entities;
 
+import com.mySystem.patientekidney.librery.Genre;
+import com.mySystem.patientekidney.librery.Race;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.text.DateFormat;
-import java.text.Format;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -15,6 +14,10 @@ import java.util.List;
 public class Record {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name ="genre")
+    private Genre genre;
+    @Column(name = "ethnicity")
+    private Race race;
     @Column(name="birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
@@ -41,6 +44,22 @@ public class Record {
 
     public Record(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
     }
 
     public Long getId() {

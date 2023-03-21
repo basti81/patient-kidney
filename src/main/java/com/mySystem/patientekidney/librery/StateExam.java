@@ -1,0 +1,25 @@
+package com.mySystem.patientekidney.librery;
+
+public enum StateExam {
+
+    CHRONIC_KIDNEY_DISEASE,
+    G1_NORMAL,
+    G2_SLIGHTLY_DECREASED,
+    G3a_LEADS_A_MODERATELY_DECREASED,
+    G3b_MODERATE_TO_SEVERELY_DIMINISHED,
+    G4_SEVERELY_DECREASED,
+    G5_KIDNEY_FAILURE,
+    NORMAL,
+    //Potassium
+    HYPOKALEMIA,
+    HYPERKALEMIA,
+    //albumin
+    HYPERALBUMINEMIA,
+    HYPOALBUMINEMIA,
+    //Chlorine
+    HYPOCHLOREMIA,
+    HYPERCHLOREMIA,
+    //Sodium
+    HYPONATREMIA,
+    HYPERNATRIMIA,
+}

@@ -13,7 +13,7 @@ public class Anthropometry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAnthropometry;
     private Double height;
-    private Double mass;
+    private Double weight;
     private Double imc;
     @Column(name= "state_imc")
     private StateImc stateImc;
@@ -42,12 +42,12 @@ public class Anthropometry {
         this.height = height;
     }
 
-    public Double getMass() {
-        return mass;
+    public Double getWeight() {
+        return weight;
     }
 
-    public void setMass(Double mass) {
-        this.mass = mass;
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     public Double getImc() {
