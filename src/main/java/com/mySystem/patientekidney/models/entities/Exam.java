@@ -21,6 +21,8 @@ public class Exam {
     @Column(name = "cl_cr")
     private Double clCr;
     private Double rac;
+    @OneToOne(mappedBy = "exam",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Diagnosis diagnosis;
     @ManyToOne
     @JoinColumn(name = "record_id", nullable = false)
     private Record record;
@@ -125,6 +127,21 @@ public class Exam {
 
     public void setRecord(Record record) {
         this.record = record;
+    }
+
+    public Diagnosis getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(Diagnosis diagnosis) {
+        if(diagnosis == null){
+            if(this.diagnosis != null){
+                this.diagnosis.setExam(null);
+            }
+        }else{
+            diagnosis.setExam(this);
+        }
+        this.diagnosis = diagnosis;
     }
 
     @Override

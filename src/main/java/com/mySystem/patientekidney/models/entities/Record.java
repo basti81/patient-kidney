@@ -121,4 +121,14 @@ public class Record {
     public void setAnthropometries(List<Anthropometry> anthropometries) {
         this.anthropometries = anthropometries;
     }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", genre=" + genre +
+                ", race=" + race +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }

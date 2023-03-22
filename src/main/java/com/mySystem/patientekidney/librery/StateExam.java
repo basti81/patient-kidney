@@ -1,8 +1,6 @@
 package com.mySystem.patientekidney.librery;
 
 public enum StateExam {
-
-    CHRONIC_KIDNEY_DISEASE,
     G1_NORMAL,
     G2_SLIGHTLY_DECREASED,
     G3a_LEADS_A_MODERATELY_DECREASED,

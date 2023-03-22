@@ -1,5 +1,7 @@
 package com.mySystem.patientekidney.controllers;
 
+import com.mySystem.patientekidney.librery.ToolsDiagnosis;
+import com.mySystem.patientekidney.models.entities.Diagnosis;
 import com.mySystem.patientekidney.models.entities.Exam;
 import com.mySystem.patientekidney.models.entities.Patient;
 import com.mySystem.patientekidney.models.entities.Record;
@@ -26,6 +28,7 @@ public class ExamController {
     @Autowired
     private RecordService recordService;
 
+    private ToolsDiagnosis tools = new ToolsDiagnosis();
     public ExamController(ExamService examService, PatientService patientService, RecordService recordService) {
         this.examService = examService;
         this.patientService = patientService;
@@ -81,26 +84,39 @@ public class ExamController {
             return mv;
         }
         Optional<Record> record = recordService.getRecordById(idRecord);
-        if (!record.isPresent()) {
-            mv.addObject("exam", null);
-            attributes.addFlashAttribute("msg", "The exam was not admitted");
-        }
-        mv.setViewName("redirect:/exam/new?id=" + record.get().getId());
         exam.setRecord(record.get());
 
-        if (exam.getIdExam() == null) {
-            Exam savedExam = examService.saveExam(exam);
-            mv.addObject("exam", savedExam);
-            attributes.addFlashAttribute("msgSave",
-                    "The exam has been entered successfully!");
-            return mv;
-        }
+        System.out.println("Result -> " + tools.createDiagnosis(record.get().getPatient(),exam,null).toString());
 
-        Exam updatedExam = examService.saveExam(exam);
-        mv.addObject("exam", updatedExam);
-        attributes.addFlashAttribute("msgUpdate", "The exam has been successfully modified!");
+        /**
+         * Save Exam
+         */
+//        if (exam.getIdExam() == null) {
+//            mv.setViewName("/exams/new");
+//            Exam savedExam = examService.saveExam(exam);
+//            mv.addObject("exam", savedExam);
+//            mv.addObject("msgSave",
+//                    "The exam has been entered successfully!");
+//            return mv;
+//        }
+
+        /**
+         * Update Exam
+         */
+//        if (exam.getIdExam() != null) {
+//            mv.setViewName("redirect:/exam/new?id="+idRecord);
+//            Exam updatedExam = examService.saveExam(exam);
+//            mv.addObject("exam", updatedExam);
+//            attributes.addFlashAttribute("msgUpdate",
+//                    "The exam has been entered successfully!");
+//            return mv;
+//        }
+        mv.setViewName("redirect:/exam/new?id="+idRecord);
+        attributes.addFlashAttribute("msgWarning", "The exam has problems!");
         return mv;
     }
+
+
 
     /**
      * Detail Exam
