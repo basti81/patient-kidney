@@ -2,6 +2,7 @@ package com.mySystem.patientekidney.controllers;
 
 
 import com.mySystem.patientekidney.models.entities.Patient;
+import com.mySystem.patientekidney.models.entities.Record;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
 import com.mySystem.patientekidney.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,6 +166,36 @@ public class PatientController {
             return mv;
         }
         mv.setViewName("redirect:/patient/");
+        return mv;
+    }
+
+
+
+    //-----------------------------------------//
+    @PostMapping("/createTest")
+    public ModelAndView createTest(Patient patient, BindingResult result, RedirectAttributes attributes,
+                                   @RequestParam("fileProfile") MultipartFile multiPart) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors()) {
+            System.out.println("There are mistakes");
+            attributes.addFlashAttribute("patient", "The patient was not admitted");
+            return mv;
+        }
+
+        mv.setViewName("/patients/newInWorking");
+        System.out.println("Entre al metodo craeteTest ");
+        System.out.println("Entre a patient -> "+patient.toString());
+
+      return mv;
+    }
+
+    @GetMapping("/newTest")
+    public ModelAndView test(Patient patient, Record record){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/patients/newInWorking");
+        mv.addObject("patient",patient);
+
+
         return mv;
     }
 

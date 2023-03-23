@@ -24,6 +24,10 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false)
     private String mail;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Column(name = "phone_number_second")
+    private String phoneNumberSecond;
    /* private String password;
     private String img;*/
    @NonNull
@@ -96,6 +100,26 @@ public class User implements Serializable {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumberSecond() {
+        return phoneNumberSecond;
+    }
+
+    public void setPhoneNumberSecond(String phoneNumberSecond) {
+        this.phoneNumberSecond = phoneNumberSecond;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public String getForename(){
