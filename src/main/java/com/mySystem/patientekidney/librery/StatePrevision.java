@@ -1,5 +1,5 @@
 package com.mySystem.patientekidney.librery;
 
-public enum Prevision {
+public enum StatePrevision {
     FONASA,ISAPRE
 }

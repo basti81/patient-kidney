@@ -36,15 +36,19 @@
                     <!-- Messege  -->
                     <div th:insert="~{fragments/imports :: alert-msg}"></div>
                     <!-- Form patient -->
-                    <form th:action="@{/patient/createTest}" id="formPatient" th:object="${patient}" method="post"
+                    <form th:action="@{/patient/createTest}" th:object="${patient}" method="post"
                         enctype="multipart/form-data">
 
-                        <input type="hidden" th:field="*{id}">
-                        <input type="hidden" th:field="*{record.id}">
+                        <input type="text" th:field="*{id}">
+                        <input type="text" th:field="*{record.id}">
+
                         <div class="row">
                             <!-- Card 1 -->
                             <div class="col-md-6">
                                 <div class="card shadow mb-4">
+                                    <div class="card-header text-primary font-weight-bold text-center">
+                                        <i class="bi bi-person-add"></i> Patient Information
+                                    </div>
                                     <div class="card-body">
                                         <div class="form-row">
                                             <!-- Rut -->
@@ -55,11 +59,11 @@
                                             </div>
 
                                             <!--Foto perfil-->
-                                            <div class="form-group col-md-6">
-                                                <small>Select a profile picture</small>
+                                            <!-- <div class="form-group col-md-4">
+                                                <label for="inputName">Select a profile picture</label>
                                                 <input type="file" class="form-control" name="fileProfile"
                                                     aria-describedby="helpId">
-                                            </div>
+                                            </div> -->
                                         </div>
 
                                         <!-- Full Name -->
@@ -76,23 +80,41 @@
                                             </div>
                                         </div>
 
-                                        <!--Mail-->
-                                        <div class="form-group">
-                                            <label for="inputMail">Mail</label>
-                                            <input type="email" class="form-control" th:field="*{mail}" id="inputMail"
-                                                placeholder="Example@mail.com" required="required">
+                                        <div class="form-row">
+
+                                            <!--Mail-->
+                                            <div class="form-group col-md-6">
+                                                <label for="inputMail">Mail</label>
+                                                <input type="email" class="form-control" th:field="*{mail}"
+                                                    id="inputMail" placeholder="Example@mail.com" required="required">
+                                            </div>
+
+                                            <!-- Prevision -->
+                                            <div class="form-group col-md-6">
+                                                <label for="inputPrevision">Prevision</label>
+                                                <select class="selectpicker show-tick form-control"
+                                                    th:field="*{statePrevision}" id="statePrevision" required="required">
+                                                    <option value="-1" selected>Select prevision ...</option>
+                                                    <option th:value="0" th:text="Fonasa">Fonasa</option>
+                                                    <option th:value="1" th:text="Isapre">Isapre</option>
+                                                </select>
+                                            </div>
+
                                         </div>
 
 
-                                        <!-- Phone-->
+                                        <!-- Phones Number-->
                                         <div class="form-row">
+                                            <!-- Phone 1 -->
                                             <div class="form-group col-md-6">
-                                                <label for="inputPhone">Phone</label>
+                                                <label for="inputPhone">Phone N° 1</label>
                                                 <input type="text" class="form-control" th:field="*{phoneNumber}"
                                                     id="inputPhone" placeholder="Phone number" required="required">
                                             </div>
+
+                                            <!-- Phone 2 -->
                                             <div class="form-group col-md-6">
-                                                <label for="inputLastPhone">Phone Sec.</label>
+                                                <label for="inputLastPhone">Phone N° 2</label>
                                                 <input type="text" class="form-control" th:field="*{phoneNumberSecond}"
                                                     id="inputPhoneSecond" placeholder="Phone number"
                                                     required="required">
@@ -115,77 +137,91 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Card 2 -->
                             <div class="col-md-6">
                                 <!-- Record -->
                                 <div class="card shadow mb-4">
+                                    <div class="card-header text-white bg-danger font-weight-bold">
+                                        <i class="bi bi-exclamation-triangle"></i> Important data
+                                    </div>
                                     <div class="card-body">
-                                        <div class="form-row">
 
+                                        <div class="form-row">
                                             <!-- Birth date -->
-                                            <div class="form-group col-md-4">
+                                            <!-- <div class="form-group col-md-4">
                                                 <input class="form-control" title="Birth date" type="date"
                                                     th:field="*{record.birthDate}" id="birthDate" required="required">
-                                            </div>
+                                                Birth Date
+                                            </div> -->
 
                                             <!-- Genre -->
                                             <!-- <div class="form-group col-md-4">
-                                                <select class="selectpicker show-tick form-control" th:field="*{}"
-                                                    id="genre" required="required">
+                                                <select class="selectpicker show-tick form-control"
+                                                    th:field="*{record.genre}" id="genre" required="required">
                                                     <option value="Genre" selected>Genre</option>
-                                                    <option th:value="0" th:text="Male">MALE</option>
-                                                    <option th:value="1" th:text="Female">FEMALE</option>
+                                                    <option th:value="0" th:text="Male">Male</option>
+                                                    <option th:value="1" th:text="Female">Female</option>
                                                 </select>
                                             </div> -->
 
                                             <!-- Ethnicity -->
                                             <!-- <div class="form-group col-md-4">
-                                                <select class="selectpicker show-tick form-control" th:field="*{}"
-                                                    id="ethnicity" required="required">
+                                                <select class="selectpicker show-tick form-control"
+                                                    th:field="*{record.race}" id="ethnicity" required="required">
                                                     <option value="Ethnicity" selected>Ethnicity</option>
-                                                    <option th:value="0" th:text="CAUCASIAN">CAUCASIAN</option>
-                                                    <option th:value="1" th:text="AFRO_AMERICAN">AFRO_AMERICAN
+                                                    <option th:value="0" th:text="Caucasian">Caucasian</option>
+
+                                                    <option th:value="1" th:text="AfroAmerican">AfroAmerican
                                                     </option>
-                                                    <option th:value="2" th:text="JAPANESE">JAPANESE</option>
-                                                    <option th:value="3" th:text="CHINESE">CHINESE</option>
+                                                    <option th:value="2" th:text="Japanese">Japanese</option>
+                                                    <option th:value="3" th:text="Chinese">Chinese</option>
                                                 </select>
                                             </div> -->
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <!-- Address -->
                                 <div class="card shadow mb-4">
+                                    <div class="card-header text-primary">
+                                        <i class="bi bi-geo-alt-fill"></i> Address
+                                    </div>
                                     <div class="card-body">
-                                        <!-- <form>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="inputNationality">Nationality</label>
-                                                    <select id="inputNationality" class="form-control">
-                                                        <option selected>Choose...</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="inputRegion">Region</label>
-                                                    <select id="inputRegion" class="form-control">
-                                                        <option selected>Choose...</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                </div>
+                                        <div class="form-row">
+                                            <!-- <div class="form-group col-md-6">
+                                                <label for="inputNationality">Nationality</label>
+                                                <select id="inputNationality" class="form-control"  th:field="*{nationality}">
+                                                    <option value="Ethnicity" selected>Select nationality</option>
+                                                    <option th:value="0" th:text="Chile">Chile</option>
+                                                    <option th:value="1" th:text="Argentina">Argentina </option>
+                                                    <option th:value="2" th:text="Peru">Peru</option>
+                                                    <option th:value="3" th:text="Bolivia">Bolivia</option>
+
+                                                </select>
+                                            </div> -->
+                                            <!-- <div class="form-group col-md-6">
+                                                <label for="inputRegion">Region</label>
+                                                <select id="inputRegion" class="form-control" th:field="*{region}">
+                                                    <option value="" selected>Select region</option>
+                                                    <option th:value="0" th:text="Valparaiso">Valparaiso</option>
+                                                    <option th:value="1" th:text="Metropolitana">Metropolitana </option>
+                                                    <option th:value="2" th:text="Antofagasta">Antofagasta</option>
+                                                    <option th:value="3" th:text="Rios">Rios</option>
+                                                </select>
+                                            </div> -->
+                                        </div>
+                                        <div class="form-row">
+                                            <!-- <div class="form-group col-md-5">
+                                                <label for="inputCity">City</label>
+                                                <input type="text" class="form-control" id="inputCity" th:field="*{city}">
                                             </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-5">
-                                                    <label for="inputCity">City</label>
-                                                    <input type="text" class="form-control" id="inputCity">
-                                                </div>
-                                                <div class="form-group col-md-7">
-                                                    <label for="inputAddress">Address</label>
-                                                    <input type="text" class="form-control" id="inputAddress"
-                                                        placeholder="Apartment, studio, or floor">
-                                                </div>
-                                            </div>
-                                        </form> -->
+                                            <div class="form-group col-md-7">
+                                                <label for="inputAddress">Address</label>
+                                                <input type="text" class="form-control" id="inputAddress"
+                                                    th:field="*{address}" placeholder="Apartment, studio, or floor">
+                                            </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>

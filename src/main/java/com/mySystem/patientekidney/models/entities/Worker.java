@@ -1,6 +1,6 @@
 package com.mySystem.patientekidney.models.entities;
 
-import com.mySystem.patientekidney.librery.Specialty;
+import com.mySystem.patientekidney.librery.StateSpecialty;
 import jakarta.persistence.*;
 
 
@@ -11,7 +11,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Worker  extends User {
 
-    private Specialty specialty;
+    private StateSpecialty stateSpecialty;
     @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Meeting> meeting;
 
@@ -19,17 +19,17 @@ public class Worker  extends User {
 
     }
 
-    public Worker(String rut, String name, String lastName, String mail, Boolean enabled, Specialty specialty) {
+    public Worker(String rut, String name, String lastName, String mail, Boolean enabled, StateSpecialty stateSpecialty) {
         super(rut, name, lastName, mail, enabled);
-        this.specialty = specialty;
+        this.stateSpecialty = stateSpecialty;
     }
 
-    public Specialty getSpecialty() {
-        return specialty;
+    public StateSpecialty getSpecialty() {
+        return stateSpecialty;
     }
 
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
+    public void setSpecialty(StateSpecialty stateSpecialty) {
+        this.stateSpecialty = stateSpecialty;
     }
 
     public List<Meeting> getMeeting() {
@@ -43,7 +43,7 @@ public class Worker  extends User {
     @Override
     public String toString() {
         return "Worker{" +
-                "specialty=" + specialty +
+                "specialty=" + stateSpecialty +
                 "} " + super.toString();
     }
 }

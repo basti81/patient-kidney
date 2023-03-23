@@ -1,7 +1,7 @@
 package com.mySystem.patientekidney.models.entities;
 
-import com.mySystem.patientekidney.librery.Genre;
-import com.mySystem.patientekidney.librery.Race;
+import com.mySystem.patientekidney.librery.StateGenre;
+import com.mySystem.patientekidney.librery.StateRace;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,9 +15,9 @@ public class Record {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name ="genre")
-    private Genre genre;
+    private StateGenre stateGenre;
     @Column(name = "ethnicity")
-    private Race race;
+    private StateRace stateRace;
     @Column(name="birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
@@ -46,20 +46,20 @@ public class Record {
         this.birthDate = birthDate;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public StateGenre getGenre() {
+        return stateGenre;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setGenre(StateGenre stateGenre) {
+        this.stateGenre = stateGenre;
     }
 
-    public Race getRace() {
-        return race;
+    public StateRace getRace() {
+        return stateRace;
     }
 
-    public void setRace(Race race) {
-        this.race = race;
+    public void setRace(StateRace stateRace) {
+        this.stateRace = stateRace;
     }
 
     public Long getId() {
@@ -126,8 +126,8 @@ public class Record {
     public String toString() {
         return "Record{" +
                 "id=" + id +
-                ", genre=" + genre +
-                ", race=" + race +
+                ", genre=" + stateGenre +
+                ", race=" + stateRace +
                 ", birthDate=" + birthDate +
                 '}';
     }

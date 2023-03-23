@@ -1,5 +1,5 @@
 package com.mySystem.patientekidney.librery;
 
-public enum Specialty {
+public enum StateSpecialty {
     NONE,NEPHROLOGIST
 }

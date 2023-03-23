@@ -173,14 +173,17 @@ public class PatientController {
 
     //-----------------------------------------//
     @PostMapping("/createTest")
-    public ModelAndView createTest(Patient patient, BindingResult result, RedirectAttributes attributes,
-                                   @RequestParam("fileProfile") MultipartFile multiPart) {
+    public ModelAndView createTest(Patient patient, BindingResult result, RedirectAttributes attributes
+//                                   @RequestParam("fileProfile") MultipartFile multiPart
+    ) {
         ModelAndView mv = new ModelAndView();
-        if (result.hasErrors()) {
-            System.out.println("There are mistakes");
-            attributes.addFlashAttribute("patient", "The patient was not admitted");
-            return mv;
-        }
+        System.out.println("entre al metodo create Test");
+
+//        if (result.hasErrors()) {
+//            System.out.println("There are mistakes");
+//            attributes.addFlashAttribute("patient", "The patient was not admitted");
+//            return mv;
+//        }
 
         mv.setViewName("/patients/newInWorking");
         System.out.println("Entre al metodo craeteTest ");
