@@ -73,7 +73,8 @@ public class ToolsDiagnosis {
      * @param stateExamSet
      * @return msg
      */
-    public String getDescription(Patient patient, Exam exam, Anthropometry anthropometry, Set<StateExam> stateExamSet) {
+    public String getDescription(Patient patient, Exam exam,
+                                 Anthropometry anthropometry, Set<StateExam> stateExamSet) {
         double fgCag = fgByCaG(patient.getRecord(), exam, anthropometry);
         double fgMdrd = fgByMdrd4(patient.getRecord(), exam);
         double fgCk = fgByCkdEpi(patient.getRecord(), exam);

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+    <title>New Exam</title>
+    <div th:insert="~{fragments/imports :: head}"></div>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div th:insert="~{fragments/imports :: sidebar}"></div>
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Top bar -->
+            <div th:insert="~{fragments/imports :: topbar}"></div>
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                
+                <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+                    <li class="breadcrumb-item active"><a th:href="@{/patient/}">List of Patient</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form of Exam</li>
+                </ol>
+                </nav>
+
+                
+                <!-- Messege  -->
+                <div th:insert="~{fragments/imports :: alert-msg}"></div>
+
+                <!--  Personal Information -->
+                <div class= "card shadow mb-4">
+                    <div th:insert = "~{fragments/imports :: card-patient}"></div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <!-- Form Exam -->
+                    <div class="col-sm-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <div class="m-0 font-weight-bold text-primary ">
+                                        <i class="fas fa-vials"></i> Exam
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-primary" id="btnCardDiagnosisExam"><i class="bi bi-arrow-repeat"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form th:object="${exam}" method="get">
+                                    <input type="hidden" th:field="*{idExam}">
+
+                                    <!--Creatine-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label" for="inputCreatine">Creatine</label>
+                                            <input type="number" class="form-control text-center"
+                                                placeholder="mg/dL" th:field="*{creatine}+' mg/dL'"
+                                                id="inputCreatine" required="required" />
+                                        </div>
+                                    </div>
+
+                                    <!--Chlorine-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label" for="inputChlorine">Chlorine</label>
+                                            <input type="number" class="form-control text-center"
+                                                placeholder="mEq/L" th:field="*{chlorine}+' mEq/L'"
+                                                id="inputChlorine" required="required" />
+                                        </div>
+                                    </div>
+
+                                    <!--Albumin-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label" for="inputAlbumin">Albumin</label>
+                                            <input type="number" class="form-control text-center" placeholder="g/L"
+                                                th:field="*{albumin}+' g/L'" id="inputAlbumin"
+                                                required="required" />
+                                        </div>
+                                    </div>
+
+                                    <!--Potassium-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label" for="inputPotassium">Potassium</label>
+                                            <input type="number" class="form-control text-center"
+                                                placeholder="mmol/L" th:field="*{potassium}+' mmol/L'"
+                                                id="inputPotassium" required="required" />
+                                        </div>
+                                    </div>
+
+                                    <!--Sodium-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label" for="inputSodium">Sodium</label>
+                                            <input type="number" class="form-control text-center"
+                                                placeholder="mEq/L" th:field="*{sodium}+' mEq/L'" id="inputSodium"
+                                                required="required" />
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Auto diagnostico -->
+                    <div class="card-diagnosis col-sm-8" id="state-card-diagnosis" >
+                        <!-- <div class="card-diagnosis col-sm-8" id="state-card-diagnosis" style="display: none"> -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header text-center">
+                                <h6 class="m-0 font-weight-bold text-primary"> Diagnosis of Exam</h6>
+                            </div>
+                            <div class="card-body">
+                                <form th:object="${exam}" method="get">
+                                    <div class="d-flex justify-content-center">
+                                    <div class="input-group col-md-10">
+                                        <label th:text="'Date of Exam: '+ ${examDate}" type="text"></label>
+                                        <textarea class="form-control" th:field="*{diagnosis.description}"
+                                            id="floatingTextarea" style="height: 200px ;width: 500px">
+                                        </textarea>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script src="/static/js/tools/exams.js"></script>
+
+
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer th:insert="~{fragments/imports :: footer}"></footer>
+        <!-- End Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<div th:insert ="~{fragments/imports :: display-topbar}"></div>
+<div th:insert = "~{fragments/imports :: scripts}"></div>
+</body>
+</html>

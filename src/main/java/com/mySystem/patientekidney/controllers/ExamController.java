@@ -116,8 +116,6 @@ public class ExamController {
         return mv;
     }
 
-
-
     /**
      * Detail Exam
      */

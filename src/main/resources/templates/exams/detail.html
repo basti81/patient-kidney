@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+    <title>Borrador</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Custom fonts for this template -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="/css/sb-admin-2.min.css" rel="stylesheet"> -->
+    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        a:link {
+            text-decoration: none
+        }
+
+        a:visited {
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            sidebar
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Top bar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb">
+                        breadcrumb
+                    </nav>
+
+                    <!-- Page Heading -->
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>msg</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+
+                    <div class="row justify-content-center">
+                        <!-- Form Exam -->
+                        <div class="col-sm-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between">
+                                        <div></div>
+                                        <div class="m-0 font-weight-bold text-primary ">
+                                            <i class="fas fa-vials"></i> Exam
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-primary" id="btnCardDiagnosisExam"><i class="bi bi-arrow-repeat"></i></button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form th:object="${exam}" method="get">
+                                        <input type="hidden" th:field="*{idExam}">
+
+                                        <!--Creatine-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputCreatine">Creatine</label>
+                                                <input type="number" class="form-control text-center"
+                                                    placeholder="mg/dL" th:field="*{creatine}+' mg/dL'"
+                                                    id="inputCreatine" required="required" />
+                                            </div>
+                                        </div>
+
+                                        <!--Chlorine-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputChlorine">Chlorine</label>
+                                                <input type="number" class="form-control text-center"
+                                                    placeholder="mEq/L" th:field="*{chlorine}+' mEq/L'"
+                                                    id="inputChlorine" required="required" />
+                                            </div>
+                                        </div>
+
+                                        <!--Albumin-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputAlbumin">Albumin</label>
+                                                <input type="number" class="form-control text-center" placeholder="g/L"
+                                                    th:field="*{albumin}+' g/L'" id="inputAlbumin"
+                                                    required="required" />
+                                            </div>
+                                        </div>
+
+                                        <!--Potassium-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputPotassium">Potassium</label>
+                                                <input type="number" class="form-control text-center"
+                                                    placeholder="mmol/L" th:field="*{potassium}+' mmol/L'"
+                                                    id="inputPotassium" required="required" />
+                                            </div>
+                                        </div>
+
+                                        <!--Sodium-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputSodium">Sodium</label>
+                                                <input type="number" class="form-control text-center"
+                                                    placeholder="mEq/L" th:field="*{sodium}+' mEq/L'" id="inputSodium"
+                                                    required="required" />
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Auto diagnostico -->
+                        <div class="card-diagnosis col-sm-8" id="state-card-diagnosis" >
+                            <!-- <div class="card-diagnosis col-sm-8" id="state-card-diagnosis" style="display: none"> -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header text-center">
+                                    <h6 class="m-0 font-weight-bold text-primary"> Diagnosis of Exam</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form th:object="${exam}" method="get">
+                                        <div class="d-flex justify-content-center">
+                                        <div class="input-group col-md-10">
+                                            <label th:text="'Date of Exam: '+ ${examDate}" type="text"></label>
+                                            <textarea class="form-control" th:field="*{diagnosis.description}"
+                                                id="floatingTextarea" style="height: 200px ;width: 500px">
+                                            </textarea>
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="/static/js/tools/exams.js"></script>
+
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <div th:insert="~{fragments/imports :: display-topbar}"></div>
+
+</body>
+
+</html>
