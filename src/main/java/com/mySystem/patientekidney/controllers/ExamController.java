@@ -107,9 +107,7 @@ public class ExamController {
          * Update Exam
          */
         if (exam.getIdExam() != null && exam.getDiagnosis() != null) {
-            System.out.println("entre a update exam");
             mv.setViewName("/exams/new");
-            diagnosisService.deleteDiagnosisById(exam.getDiagnosis().getIdDiagnosis());
             exam.setDiagnosis(tools.createDiagnosis(record.get().getPatient(),exam,null));
             Exam updatedExam = examService.saveExam(exam);
             mv.addObject("patient",record.get().getPatient());

@@ -23,14 +23,13 @@ public class ToolsDiagnosis {
      * @return
      */
     public Diagnosis createDiagnosis(Patient patient, Exam exam, Anthropometry anthropometry) {
-        Diagnosis diagnosis = new Diagnosis();
         Set<StateExam> createdStatesExams = getStateExams(patient.getRecord(), exam);
-        System.out.println("Before: "+diagnosis.toString());
-        diagnosis.setFg(fgByCkdEpi(patient.getRecord(), exam));
-        diagnosis.setStateExamSet(createdStatesExams);
-        //diagnosis.setDescription(getDescription(patient,exam,null,createdStatesExams));
-        System.out.println("After: "+diagnosis.toString());
-        return diagnosis;
+        System.out.println("Before: "+exam.getDiagnosis().toString());
+        exam.getDiagnosis().setFg(fgByCkdEpi(patient.getRecord(), exam));
+        exam.getDiagnosis().setStateExamSet(createdStatesExams);
+        //exam.getDiagnosis().setDescription(getDescription(patient,exam,null,createdStatesExams));
+        System.out.println("After: "+exam.getDiagnosis().toString());
+        return exam.getDiagnosis();
     }
 
     /**
