@@ -1,162 +1,183 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
 <head>
     <title>New Worker</title>
     <div th:insert="~{fragments/imports :: head}"></div>
 </head>
 
 <body id="page-top">
-<!-- Page Wrapper -->
-<div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-        <div th:insert="~{fragments/imports :: sidebar}"></div>
-    </ul>
-    <!-- End of Sidebar -->
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <div th:insert="~{fragments/imports :: sidebar}"></div>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
 
-            <!-- Top bar -->
-            <div th:insert="~{fragments/imports :: topbar}"></div>
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-                <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
-                    <li class="breadcrumb-item active"><a th:href="@{/worker/}">List of Worker</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Form of Worker</li>
-                </ol>
-                </nav>
+                <!-- Top bar -->
+                <div th:insert="~{fragments/imports :: topbar}"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+                            <li class="breadcrumb-item active"><a th:href="@{/worker/}">List of Worker</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Form of Worker</li>
+                        </ol>
+                    </nav>
 
-                
-                <!-- Messege  -->
-                <div th:insert="~{fragments/imports :: alert-msg}"></div>
 
-                <div class= "card shadow mb-4">
+                    <!-- Messege  -->
+                    <div th:insert="~{fragments/imports :: alert-msg}"></div>
 
-                    <div class="card-header text-center">
-                        <h6 class="m-0 font-weight "><i class="fas fa-file-medical"></i> Form Worker</h6>
-                    </div>
-        
-                    <div class= "card-body">
-                        <form class="row g-3"  th:action="@{/worker/create}" th:object="${worker}" method="post">
-                            <!-- Warning messege-->
-                            <div th:if="${#fields.hasErrors('*')}">
-                            <h2> Please checkout this errors</h2>
-                            <ul>
-                            <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
-                            </ul>
-                            </div>
-                            
-                            <input type="hidden"  th:field="*{id}">
-              
-                            <div class="col-12"><label class="text-dark" >Personal Information</label><br></div>
-                            <!--RUT-->
-                            <div class="col-12">
-                              <input type="text" class="form-control col-md-2"
-                                     th:field="*{rut}"  id="rut" name="rut" placeholder="Rut"  oninput="checkRut(this)"   required="required">
-                              <script th:src="@{/js/myFunctions.js}"></script>
-                              <br>
-                            </div>
-              
-                            <!--name-->
-                            <div class="col-md-3">
-                              <input type="text" class=" form-control"
-                                     th:field="*{name}"  id="name" placeholder="name"  required="required">
-                            </div>
-              
-                            <!--lastName-->
-                            <div class="col-md-4">
-                              <input type="text" class="form-control"
-                                     th:field="*{lastName}"  placeholder="last name" id="lastName"  required="required">
-              
-                            </div>
-                            <div class="col-12"><br><label class="text-dark" >Account</label><br></div>
+                    <form th:action="@{/worker/create}" th:object="${worker}" method="post">
+                        <div class="row">
+                            <!-- Form user -->
+                            <div class="col-md-6">
 
-                            <!-- ROL -->
-<!--                            <div class="col-md-3">-->
-<!--                              <select class="selectpicker show-tick form-control"  th:field="*{roles}" required="required">-->
-<!--                                <option value="" selected>Rol</option>-->
-<!--                                <option th:value="1" th:text="ADMIN"></option>-->
-<!--                                <option th:value="3" th:text="DOCTOR"></option>-->
-<!--                                <option th:value="4" th:text="NURSE"></option>-->
-<!--                                <option th:value="5" th:text="ASSITANT"></option>-->
-<!--                                <option th:value="6" th:text="LABORATORY"></option>-->
-<!--                                <option th:value="7" th:text="TENS"></option>-->
-<!--                              </select>-->
-<!--                            </div>-->
-              
-                            <!-- specialty -->
-<!--                            <div class="col-md-2">-->
-<!--                              <select class="selectpicker show-tick form-control"  th:field="*{specialty}" required="required">-->
-<!--                                <option value="" selected>specialty</option>-->
-<!--                                <option th:value="1" th:text="NINGUNA"></option>-->
-<!--                                <option th:value="2" th:text="NEPHROLOGIST"></option>                            -->
-<!--                              </select>-->
-<!--                            </div>-->
+                                <!-- DataTales Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header bg-primary text-white font-weight-bold text-center">
+                                        <i class="bi bi-person-add"></i> Worker Information
+                                    </div>
 
-                            <!--PASSWORD-->
-                            <!-- <div class="col-md-4">
-                              <input type="password" class="form-control"
-                                     th:field="*{password}"  placeholder="password" id="password" name="password" required="required">
-                            </div> -->
+                                    <div class="card-body">
 
-                            <div class="col-12"><br><label class="text-dark" >Contact</label><br></div>
-                            <!--MAIL-->
-                            <div class="input-group col-md-4">
-                              <span class="input-group-text" >@</span>
-                              <input type="email" th:field="*{mail}" id="mail" placeholder="mail" class="form-control" required="required">
+                                        <!-- Warning messege-->
+                                        <div th:if="${#fields.hasErrors('*')}">
+                                            <h2> Please checkout this errors</h2>
+                                            <ul>
+                                                <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                            </ul>
+                                        </div>
+
+                                        <input type="hidden" th:field="*{id}">
+
+                                        <!-- Rut -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-5">
+                                                <label for="inputRut">Rut</label>
+                                                <input type="text" class="form-control" th:field="*{rut}" id="inputRut"
+                                                    placeholder="12345678-9" maxlength="10" oninput="checkRut(this)"
+                                                    required="required">
+                                            </div>
+                                            <script src="/js/tools/user.js"></script>
+                                        </div>
+
+                                        <!-- Full Name -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputName">Name</label>
+                                                <input type="text" class="form-control" th:field="*{name}"
+                                                    id="inputName" placeholder="name" required="required">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputLastName">Last Name</label>
+                                                <input type="text" class="form-control" th:field="*{lastName}"
+                                                    id="inputLastName" placeholder="last name" required="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+
+                                            <!-- Role -->
+                                            <div class="form-group col-md-4">
+                                                <label for="inputRole">Role</label>
+                                                <select 
+                                                    class="selectpicker show-tick form-control">
+                                                    <option value="" selected>Select Role ... </option>
+                                                    <option th:each="p : ${selectRole}" th:value="${p}" th:text="${p}">
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Specialty -->
+                                            <div class="form-group col-md-4">
+                                                <label for="inputSpecialty">¿Specialty?</label>
+                                                <select th:field="*{stateSpecialty}"
+                                                    class="selectpicker show-tick form-control">
+                                                    <option value="" selected>Select Specialty ... </option>
+                                                    <option th:each="p : ${selectSpecialty}" th:value="${p}"
+                                                        th:text="${p}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!--Enabled-->
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" th:field="*{enabled}"
+                                                    id="enabledPatient">
+                                                <label class="form-check-label" for="enabledPatient">
+                                                    ¿Enable User?
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Sign in</button>
+
+                                    </div>
+
+                                </div>
+
                             </div>
-              
-                            <!--PHONE-->
-<!--                            <div class="col-md-2">-->
-<!--                              <input type="text" class="form-control"-->
-<!--                                     th:field="*{phone}"  id="phone"  placeholder="Telephone number" required="required">-->
-<!--                            </div>-->
-              
-                            <!--PHONE SECOND -->
-<!--                            <div class="col-md-2">-->
-<!--                              <input type="text" class="form-control"-->
-<!--                                     th:field="*{phoneSec}" placeholder="Phone Second" id="phoneSec">-->
-<!--                            </div>-->
-              
-                            <div class="col-12"><br></div>
-                            <!--ENABLED-->
-                            <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="flexCheckDefault"
-                                    th:field="*{enabled}">
-                                <label class="form-check-label" for="flexCheckDefault"> ¿Enable User? </label>
+
+                            <div class="col-md-6">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header text-primary font-weight-bold text-center">
+                                        <i class="bi bi-person-vcard-fill"></i> User account
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Row Mail,Password -->
+                                        <div class="form-row">
+
+                                            <!--Mail-->
+                                            <div class="form-group col-md-7">
+                                                <label for="inputMail">Mail</label>
+                                                <input type="email" class="form-control" th:field="*{mail}"
+                                                    id="inputMail" placeholder="Example@mail.com" required="required">
+                                            </div>
+
+                                            <!--Password-->
+                                            <div class="form-group col-md-4">
+                                                <label for="inputPassword">Password</label>
+                                                <input type="password" class="form-control" th:field="*{password}"
+                                                    id="inputPassword" placeholder="abc123" required="required">
+                                                <input type="checkbox" onclick="showPass()"> Show Password
+                                            </div>
+
+
+                                        </div>
+                                        <script src="/js/tools/workers.js"></script>
+                                    </div>
+                                </div>
                             </div>
-                            </div>
-                            <div class="col-12"><br></div>
-                            <div class="col-12">
-                                <button class="btn btn-primary" type="submit">Submit</button>
-                            </div>
-                          </form>
-                    </div>
-                    </div>
+                        </div>
+                    </form>
+                    
+                </div>
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer th:insert="~{fragments/imports :: footer}"></footer>
+            <!-- End Footer -->
         </div>
-        <!-- End of Main Content -->
-        <!-- Footer -->
-        <footer th:insert="~{fragments/imports :: footer}"></footer>
-        <!-- End Footer -->
+        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
+    <!-- End of Page Wrapper -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-<div th:insert ="~{fragments/imports :: display-topbar}"></div>
-<div th:insert = "~{fragments/imports :: scripts}"></div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <div th:insert="~{fragments/imports :: display-topbar}"></div>
+    <div th:insert="~{fragments/imports :: scripts}"></div>
 </body>
+
 </html>

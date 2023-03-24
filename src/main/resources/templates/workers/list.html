@@ -45,6 +45,7 @@
               <div></div>
             </div>
           </div>
+          
           <div class="card-body">
             <div class="table-responsive">
               <table class="table" id="dataTable" width="100%" cellspacing="0">
@@ -74,8 +75,6 @@
                   <td>DOCTOR</td>
                   <td>
                     <div sec:authorize="hasAuthority('DOCTOR')">
-                      <!-- <a th:href = "@{/worker/detail(id = ${worker.id})}" class="btn btn-success btn-sm" title="Detail">
-                        <i class="fas fa-eye" aria-hidden="true"></i></a> -->
                       <a th:href = "@{/worker/update(id = ${worker.id})}" class="btn btn-warning btn-sm" title="Update">
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
                       <a th:href = "@{/worker/delete(id = ${worker.id})}" class="btn btn-danger btn-sm" title="Delete"

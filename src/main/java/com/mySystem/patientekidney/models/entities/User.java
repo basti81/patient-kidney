@@ -28,8 +28,8 @@ public class User implements Serializable {
     private String phoneNumber;
     @Column(name = "phone_number_second")
     private String phoneNumberSecond;
-   /* private String password;
-    private String img;*/
+    private String password;
+   // private String img;
    @NonNull
     @Column(name = "start_date")
     private Instant startDate;
@@ -125,6 +125,14 @@ public class User implements Serializable {
     public String getForename(){
         String[] newName = name.trim().split("\\s+");
         return newName[0];
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

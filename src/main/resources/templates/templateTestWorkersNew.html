@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+  <title>Borrador</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Custom fonts for this template -->
+  <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!-- Custom styles for this template -->
+  <!-- <link href="/css/sb-admin-2.min.css" rel="stylesheet"> -->
+  <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+  <style>
+    a:link {
+      text-decoration: none
+    }
+
+    a:visited {
+      text-decoration: none
+    }
+  </style>
+</head>
+
+<body id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      sidebar
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Top bar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        </nav>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <nav aria-label="breadcrumb">
+            breadcrumb
+          </nav>
+
+          <!-- Page Heading -->
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>msg</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+
+          <form th:action="@{/worker/create}" th:object="${worker}" method="post">
+          <div class="row">
+            <!-- Form user -->
+            <div class="col-md-6">
+
+              <!-- DataTales Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white font-weight-bold text-center">
+                  <i class="bi bi-person-add"></i> Worker Information
+                </div>
+
+                <div class="card-body">
+
+                  
+                    <!-- Warning messege-->
+                    <div th:if="${#fields.hasErrors('*')}">
+                      <h2> Please checkout this errors</h2>
+                      <ul>
+                        <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                      </ul>
+                    </div>
+
+                    <input type="hidden" th:field="*{id}">
+
+                    <!-- Rut -->
+                    <div class="form-row">
+                      <div class="form-group col-md-5">
+                        <label for="inputRut">Rut</label>
+                        <input type="text" class="form-control" th:field="*{rut}" id="inputRut" placeholder="12345678-9"
+                          oninput="checkRut(this)" required="required">
+                      </div>
+                      <script src="/js/tools/patients.js"></script>
+                    </div>
+                    <!-- Full Name -->
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputName">Name</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="inputName" placeholder="name"
+                          required="required">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputLastName">Last Name</label>
+                        <input type="text" class="form-control" th:field="*{lastName}" id="inputLastName"
+                          placeholder="last name" required="required">
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+
+                      <!-- Role -->
+                      <div class="form-group col-md-4">
+                        <label for="inputRole">Role</label>
+                        <select th:field="*{stateRole}" class="selectpicker show-tick form-control">
+                          <option value="" selected>Select Role ... </option>
+                          <option th:each="p : ${selectRole}" th:value="${p}" th:text="${p}"></option>
+                        </select>
+                      </div>
+
+                      <!-- Specialty -->
+                      <div class="form-group col-md-4">
+                        <label for="inputSpecialty">¿Specialty?</label>
+                        <select th:field="*{stateSpecialty}" class="selectpicker show-tick form-control">
+                          <option value="" selected>Select Specialty ... </option>
+                          <option th:each="p : ${selectSpecialty}" th:value="${p}" th:text="${p}"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!--Enabled-->
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" th:field="*{enabled}" id="enabledPatient">
+                        <label class="form-check-label" for="enabledPatient">
+                          ¿Enable User?
+                        </label>
+                      </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+
+                </div>
+              
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <div class="card shadow mb-4">
+                <div class="card-header text-primary font-weight-bold text-center">
+                  <i class="bi bi-person-vcard-fill"></i> User account
+                </div>
+                <div class="card-body">
+                  <!-- Row Mail,Password -->
+                  <div class="form-row">
+
+                    <!--Mail-->
+                    <div class="form-group col-md-7">
+                      <label for="inputMail">Mail</label>
+                      <input type="email" class="form-control" th:field="*{mail}" id="inputMail"
+                        placeholder="Example@mail.com" required="required">
+                    </div>
+
+                    <!--Password-->
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword">Password</label>
+                      <input type="password" class="form-control" th:field="*{password}" id="inputPassword"
+                        placeholder="abc123" required="required">
+                        <input type="checkbox" onclick="showPass()"> Show Password 
+                    </div>
+
+                    
+                  </div>
+                  <script src="/static/js/tools/workers.js"></script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2021</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- End of Content Wrapper -->
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <div th:insert="~{fragments/imports :: display-topbar}"></div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="/static/js/sb-admin-2.min.js"></script>
+  <!-- Page level plugins -->
+  <script src="/static/vendor/chart.js/Chart.min.js"></script>
+  <!-- Page level custom scripts -->
+  <script src="/static/js/demo/chart-area-demo.js"></script>
+  <script src="/static/js/demo/chart-pie-demo.js"></script>
+  <!-- Page level plugins -->
+  <script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <!-- Page level custom scripts -->
+  <script src="/static/js/demo/datatables-demo.js"></script>
+  <!--functions js-->
+  <script src="/static/js/myFunctions.js"></script>
+</body>
+
+</html>

@@ -10,8 +10,10 @@ import java.util.List;
 @Table(name = "workers")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Worker  extends User {
-
+    @Column(name ="specialty")
+    @Enumerated(value = EnumType.ORDINAL)
     private StateSpecialty stateSpecialty;
+
     @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Meeting> meeting;
 
@@ -24,11 +26,11 @@ public class Worker  extends User {
         this.stateSpecialty = stateSpecialty;
     }
 
-    public StateSpecialty getSpecialty() {
+    public StateSpecialty getStateSpecialty() {
         return stateSpecialty;
     }
 
-    public void setSpecialty(StateSpecialty stateSpecialty) {
+    public void setStateSpecialty(StateSpecialty stateSpecialty) {
         this.stateSpecialty = stateSpecialty;
     }
 

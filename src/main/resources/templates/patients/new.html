@@ -56,11 +56,11 @@
                                             <div class="form-group col-md-5">
                                                 <label for="inputRut">Rut</label>
                                                 <input type="text" class="form-control" th:field="*{rut}" id="inputRut"
-                                                    placeholder="12345678-9" oninput="checkRut(this)"
+                                                    placeholder="12345678-9" maxlength="10" oninput="checkRut(this)"
                                                     required="required">
                                             </div>
 
-                                            <script src="/js/tools/patients.js"></script>
+                                            <script src="/js/tools/user.js"></script>
 
                                             <!--Foto perfil-->
                                             <div class="form-group col-md-4">
