@@ -124,4 +124,20 @@ public class Meeting {
     public void setMeetingDate(Instant meetingDate) {
         this.meetingDate = meetingDate;
     }
+
+    @Override
+    public String toString() {
+        return "Meeting{" +
+                "idMeeting=" + idMeeting +
+                ", dateTimeMeeting=" + dateTimeMeeting +
+                ", stateMeeting=" + stateMeeting +
+                ", noteMeeting='" + noteMeeting + '\'' +
+                ", startDateMeeting=" + startDateMeeting +
+                ", endDateMeeting=" + endDateMeeting +
+                ", meetingDate=" + meetingDate +
+                ", viewed=" + viewed +
+                ", worker=" + worker +
+                ", patient=" + patient +
+                '}';
+    }
 }

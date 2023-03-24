@@ -4,7 +4,7 @@ $(".btn_getDoctor").on("click", function() {
     const idWorker =$(this).closest('tr').children()[0].textContent;
     const rut = $(this).closest('tr').children()[1].textContent;
     const name = $(this).closest('tr').children()[2].textContent;
-    $("#inputNameWorker").val(name);
+    $("#inputAssignedDoctor").val(name);
     $("#inputIdWorker").val(idWorker);
  });
 
