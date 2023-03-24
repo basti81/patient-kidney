@@ -15,8 +15,8 @@ public class Diagnosis {
     private Long idDiagnosis;
     private Double fg;
     @ElementCollection
-    @CollectionTable(name="diagnosis_state", joinColumns=@JoinColumn(name="diagnosis_id"))
-    @Column(name="set_state_exam")
+    @CollectionTable(name="diagnosis_states", joinColumns=@JoinColumn(name="diagnosis_id"))
+    @Column(name="state_exam_set")
     private Set<StateExam> stateExamSet;
     @Column(name = "description",columnDefinition="TEXT")
     private String description;

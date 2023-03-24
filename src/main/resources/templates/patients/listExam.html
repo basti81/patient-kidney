@@ -83,7 +83,7 @@
                     <td th:text= "${exam.viewed}"></td>
             
                     <td>
-                    <a th:href="@{/exam/detail(id=${exam.idExam})}" class="btn btn-success btn-sm" title="Detail">
+                    <a th:href="@{/exam/detail(idExam=${exam.idExam}, idRecord=${patient.record.id})}" class="btn btn-success btn-sm" title="Detail">
                         <i class="fas fa-eye" aria-hidden="true"></i></a>
                     <a th:href="@{/exam/update(idExam=${exam.idExam}, idRecord=${patient.record.id})}" class="btn btn-warning btn-sm" title="Update">
                         <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>

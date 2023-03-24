@@ -45,82 +45,84 @@
                 <div class="d-flex justify-content-center">
                 <!-- Content Row -->
                 <div class="row">
-                <!-- form exam  -->
-                <div class="card shadow mb-4">
-                <div class="card-header text-center">
-                    <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-vials"></i>Exam</h6>
-                </div>
-                <div class="card-body">
-                <form th:action="@{/exam/create(id = ${patient.record.id})}" th:object="${exam}" method="post">
-                  
-                    <!-- Warning messege-->
-                    <div th:if="${#fields.hasErrors('*')}">
-                    <h2> Please checkout this errors</h2>
-                    <ul>
-                        <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
-                    </ul>
-                    </div>
-
-                    <!--Id exam-->
-                    <input type="hidden" th:field="*{idExam}">
-                    <!-- <input type="hidden" th:field="*{autoDiagnostico.id_autoDiagnostico}"> -->
+                    <!-- form exam  -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header text-white bg-success font-weight-bold text-center ">
+                            <i class="bi bi-clipboard-pulse"></i> Exam
+                        </div>
                 
-            
-                    <!--creatine-->
-                    <div class="d-flex justify-content-center">
-                    <div class="input-group col-md-8">
-                        <input placeholder="creatine" class="form-control" type="number" th:field="*{creatine}"  id="creatine"  required="required"/>
-                        <span class="input-group-text">mg/dL</span>
-                    </div>
-                    </div>
-                    <br>
+                        <div class="card-body">
+                            <form th:action="@{/exam/create(id = ${patient.record.id})}" th:object="${exam}" method="post">                  
 
-                    <!--chlorine-->
-                    <div class="d-flex justify-content-center">
-                    <div class="input-group col-md-8">
-                        <input placeholder="chlorine" type="text" class="form-control" th:field="*{chlorine}"  id="chlorine"  required="required" />
-                        <span class="input-group-text">mEq/L</span>
-                    </div>
-                    </div>
-                    <br>
+                                <!-- Warning messege-->
+                                <div th:if="${#fields.hasErrors('*')}">
+                                <h2> Please checkout this errors</h2>
+                                <ul>
+                                    <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                </ul>
+                                </div>
 
-                    <!--albumin-->
-                    <div class="d-flex justify-content-center">
-                    <div class="input-group col-md-8">
-                        <input placeholder="albumin" class="form-control" type="text" th:field="*{albumin}"  id="albumin"  required="required"/>
-                        <span class="input-group-text">g/L</span>
-                    </div>
-                    </div>
-                    <br>
+                                <!--Id exam-->
+                                <input type="text" th:field="*{idExam}">
+                                <!-- Id diagnosis -->
+                                <input type="text" th:field="*{diagnosis.idDiagnosis}">
+                            
+                        
+                                <!--creatine-->
+                                <div class="d-flex justify-content-center">
+                                <div class="input-group col-md-8">
+                                    <input placeholder="creatine" class="form-control" type="number" th:field="*{creatine}"  id="creatine"  required="required"/>
+                                    <span class="input-group-text">mg/dL</span>
+                                </div>
+                                </div>
+                                <br>
 
-                    <!--potassium-->
-                    <div class="d-flex justify-content-center">
-                    <div class="input-group col-md-8">
-                        <input placeholder="potassium" class="form-control" type="text" th:field="*{potassium}"  id="potassium"  required="required" />
-                        <span class="input-group-text">mmol/L</span>
-                    </div>
-                    </div>
-                    <br>
+                                <!--chlorine-->
+                                <div class="d-flex justify-content-center">
+                                <div class="input-group col-md-8">
+                                    <input placeholder="chlorine" type="text" class="form-control" th:field="*{chlorine}"  id="chlorine"  required="required" />
+                                    <span class="input-group-text">mEq/L</span>
+                                </div>
+                                </div>
+                                <br>
 
-                    <!--sodium-->
-                    <div class="d-flex justify-content-center">
-                    <div class="input-group col-md-8">
-                        <input placeholder="sodium" class="form-control" type="text" th:field="*{sodium}"  id="sodium" required="required" />
-                        <span class="input-group-text">mEq/L</span>
-                    </div>
-                    </div>
-                    <br>
+                                <!--albumin-->
+                                <div class="d-flex justify-content-center">
+                                <div class="input-group col-md-8">
+                                    <input placeholder="albumin" class="form-control" type="text" th:field="*{albumin}"  id="albumin"  required="required"/>
+                                    <span class="input-group-text">g/L</span>
+                                </div>
+                                </div>
+                                <br>
 
-                    <div class="d-flex justify-content-between">
-                        <a th:href = "@{/exam/byRecord(id = ${patient.record.id})}" class="btn btn-secondary" title="Back to list Exam">
-                          Back</a>
-                    
-                    <button class="btn btn-primary" type="submit">Submit</button>
-                    </div>
+                                <!--potassium-->
+                                <div class="d-flex justify-content-center">
+                                <div class="input-group col-md-8">
+                                    <input placeholder="potassium" class="form-control" type="text" th:field="*{potassium}"  id="potassium"  required="required" />
+                                    <span class="input-group-text">mmol/L</span>
+                                </div>
+                                </div>
+                                <br>
 
-                </form>
-                </div>
-                </div>
+                                <!--sodium-->
+                                <div class="d-flex justify-content-center">
+                                <div class="input-group col-md-8">
+                                    <input placeholder="sodium" class="form-control" type="text" th:field="*{sodium}"  id="sodium" required="required" />
+                                    <span class="input-group-text">mEq/L</span>
+                                </div>
+                                </div>
+                                <br>
+
+                                <div class="d-flex justify-content-between">
+                                    <a th:href = "@{/exam/byRecord(id = ${patient.record.id})}" class="btn btn-secondary" title="Back to list Exam">
+                                    Back</a>
+                                
+                                <button class="btn btn-success" type="submit">Submit</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 </div>
             </div>

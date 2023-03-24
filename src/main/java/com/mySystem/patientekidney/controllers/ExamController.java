@@ -5,6 +5,7 @@ import com.mySystem.patientekidney.models.entities.Diagnosis;
 import com.mySystem.patientekidney.models.entities.Exam;
 import com.mySystem.patientekidney.models.entities.Patient;
 import com.mySystem.patientekidney.models.entities.Record;
+import com.mySystem.patientekidney.services.interfaces.DiagnosisService;
 import com.mySystem.patientekidney.services.interfaces.ExamService;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
 import com.mySystem.patientekidney.services.interfaces.RecordService;
@@ -24,15 +25,17 @@ public class ExamController {
     private ExamService examService;
     @Autowired
     private PatientService patientService;
-
     @Autowired
     private RecordService recordService;
+    @Autowired
+    private DiagnosisService diagnosisService;
 
     private ToolsDiagnosis tools = new ToolsDiagnosis();
-    public ExamController(ExamService examService, PatientService patientService, RecordService recordService) {
+    public ExamController(ExamService examService, PatientService patientService, RecordService recordService, DiagnosisService diagnosisService) {
         this.examService = examService;
         this.patientService = patientService;
         this.recordService = recordService;
+        this.diagnosisService = diagnosisService;
     }
 
 
@@ -86,31 +89,34 @@ public class ExamController {
         Optional<Record> record = recordService.getRecordById(idRecord);
         exam.setRecord(record.get());
 
-        System.out.println("Result -> " + tools.createDiagnosis(record.get().getPatient(),exam,null).toString());
-
         /**
          * Save Exam
          */
-//        if (exam.getIdExam() == null) {
-//            mv.setViewName("/exams/new");
-//            Exam savedExam = examService.saveExam(exam);
-//            mv.addObject("exam", savedExam);
-//            mv.addObject("msgSave",
-//                    "The exam has been entered successfully!");
-//            return mv;
-//        }
+        if (exam.getIdExam() == null ) {
+            System.out.println("entre a save exam");
+            mv.setViewName("/exams/new");
+            exam.setDiagnosis(tools.createDiagnosis(record.get().getPatient(),exam,null));
+            Exam savedExam = examService.saveExam(exam);
+            mv.addObject("patient",record.get().getPatient());
+            mv.addObject("exam", savedExam);
+            mv.addObject("msgSave","The exam has been entered successfully!");
+            return mv;
+        }
 
         /**
          * Update Exam
          */
-//        if (exam.getIdExam() != null) {
-//            mv.setViewName("redirect:/exam/new?id="+idRecord);
-//            Exam updatedExam = examService.saveExam(exam);
-//            mv.addObject("exam", updatedExam);
-//            attributes.addFlashAttribute("msgUpdate",
-//                    "The exam has been entered successfully!");
-//            return mv;
-//        }
+        if (exam.getIdExam() != null && exam.getDiagnosis() != null) {
+            System.out.println("entre a update exam");
+            mv.setViewName("/exams/new");
+            diagnosisService.deleteDiagnosisById(exam.getDiagnosis().getIdDiagnosis());
+            exam.setDiagnosis(tools.createDiagnosis(record.get().getPatient(),exam,null));
+            Exam updatedExam = examService.saveExam(exam);
+            mv.addObject("patient",record.get().getPatient());
+            mv.addObject("exam", updatedExam);
+            mv.addObject("msgUpdate", "The exam has been entered successfully!");
+            return mv;
+        }
         mv.setViewName("redirect:/exam/new?id="+idRecord);
         attributes.addFlashAttribute("msgWarning", "The exam has problems!");
         return mv;
@@ -120,14 +126,19 @@ public class ExamController {
      * Detail Exam
      */
     @GetMapping("/detail")
-    public ModelAndView detail(@RequestParam("id") Long id, RedirectAttributes attributes) {
+    public ModelAndView detail(@RequestParam("idExam") Long idExam,
+                               @RequestParam("idRecord") Long idRecord,
+                               RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        if (examService.existsById(id)) {
-            Optional<Exam> exam = examService.getExamById(id);
+        Optional<Record> record = recordService.getRecordById(idRecord);
+        if (examService.existsById(idExam) && record.isPresent()) {
+            Optional<Exam> exam = examService.getExamById(idExam);
             mv.setViewName("/exams/detail");
+            mv.addObject("patient",record.get().getPatient());
             mv.addObject("exam", exam.get());
             return mv;
         }
+        mv.setViewName("redirect:/patient/");
         attributes.addFlashAttribute("msgWarning", "Exam not found ");
         return mv;
     }

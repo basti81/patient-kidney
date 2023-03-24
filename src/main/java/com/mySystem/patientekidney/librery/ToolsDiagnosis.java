@@ -24,10 +24,11 @@ public class ToolsDiagnosis {
      */
     public Diagnosis createDiagnosis(Patient patient, Exam exam, Anthropometry anthropometry) {
         Diagnosis diagnosis = new Diagnosis();
+        Set<StateExam> createdStatesExams = getStateExams(patient.getRecord(), exam);
         System.out.println("Before: "+diagnosis.toString());
         diagnosis.setFg(fgByCkdEpi(patient.getRecord(), exam));
-        diagnosis.setStateExamSet(getStateExams(patient.getRecord(), exam));
-        diagnosis.setDescription(getDescription(patient,exam,null,exam.getDiagnosis().getStateExamSet()));
+        diagnosis.setStateExamSet(createdStatesExams);
+        //diagnosis.setDescription(getDescription(patient,exam,null,createdStatesExams));
         System.out.println("After: "+diagnosis.toString());
         return diagnosis;
     }

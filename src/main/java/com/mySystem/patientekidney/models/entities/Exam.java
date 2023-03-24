@@ -156,6 +156,8 @@ public class Exam {
                 ", ma=" + ma +
                 ", clCr=" + clCr +
                 ", rac=" + rac +
+                ", diagnosis=" + diagnosis +
+                ", record=" + record +
                 ", viewed=" + viewed +
                 ", examDate=" + examDate +
                 '}';
