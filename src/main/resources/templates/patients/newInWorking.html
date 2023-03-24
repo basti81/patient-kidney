@@ -39,8 +39,8 @@
                     <form th:action="@{/patient/createTest}" th:object="${patient}" method="post"
                         enctype="multipart/form-data">
 
-                        <input type="text" th:field="*{id}">
-                        <input type="text" th:field="*{record.id}">
+                        <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{record.id}">
 
                         <div class="row">
                             <!-- Card 1 -->
@@ -89,14 +89,15 @@
                                                     id="inputMail" placeholder="Example@mail.com" required="required">
                                             </div>
 
+
                                             <!-- Prevision -->
                                             <div class="form-group col-md-6">
                                                 <label for="inputPrevision">Prevision</label>
-                                                <select class="selectpicker show-tick form-control"
-                                                    th:field="*{statePrevision}" id="statePrevision" required="required">
-                                                    <option value="-1" selected>Select prevision ...</option>
-                                                    <option th:value="0" th:text="Fonasa">Fonasa</option>
-                                                    <option th:value="1" th:text="Isapre">Isapre</option>
+                                                <select th:field="*{statePrevision}"
+                                                    class="selectpicker show-tick form-control">
+                                                    <option value="" selected>Select Prevision ... </option>
+                                                    <option th:each="p : ${selectPrevision}" th:value="${p}"
+                                                        th:text="${p}"></option>
                                                 </select>
                                             </div>
 
@@ -132,7 +133,6 @@
                                             </div>
                                         </div>
 
-
                                         <button type="submit" class="btn btn-primary">Sign in</button>
                                     </div>
                                 </div>
@@ -149,35 +149,31 @@
 
                                         <div class="form-row">
                                             <!-- Birth date -->
-                                            <!-- <div class="form-group col-md-4">
+                                            <div class="form-group col-md-4">
+                                                <label for="inputBirthDate"> Birth Date</label>
                                                 <input class="form-control" title="Birth date" type="date"
                                                     th:field="*{record.birthDate}" id="birthDate" required="required">
-                                                Birth Date
-                                            </div> -->
+                                            </div>
+
 
                                             <!-- Genre -->
-                                            <!-- <div class="form-group col-md-4">
-                                                <select class="selectpicker show-tick form-control"
-                                                    th:field="*{record.genre}" id="genre" required="required">
-                                                    <option value="Genre" selected>Genre</option>
-                                                    <option th:value="0" th:text="Male">Male</option>
-                                                    <option th:value="1" th:text="Female">Female</option>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputGenre">Genre</label>
+                                                <select th:field="*{record.stateGenre}" class="selectpicker show-tick form-control">
+                                                    <option value="" selected>Select Genre ... </option>
+                                                    <option th:each="p : ${selectGenre}" th:value="${p}" th:text="${p}"> </option>
                                                 </select>
-                                            </div> -->
+
+                                            </div>
 
                                             <!-- Ethnicity -->
-                                            <!-- <div class="form-group col-md-4">
-                                                <select class="selectpicker show-tick form-control"
-                                                    th:field="*{record.race}" id="ethnicity" required="required">
-                                                    <option value="Ethnicity" selected>Ethnicity</option>
-                                                    <option th:value="0" th:text="Caucasian">Caucasian</option>
-
-                                                    <option th:value="1" th:text="AfroAmerican">AfroAmerican
-                                                    </option>
-                                                    <option th:value="2" th:text="Japanese">Japanese</option>
-                                                    <option th:value="3" th:text="Chinese">Chinese</option>
+                                            <div class="form-group col-md-4">
+                                                <label for="inputEthnicity">Ethnicity</label>
+                                                <select th:field="*{record.stateRace}"  class="selectpicker show-tick form-control">
+                                                    <option value="" selected>Select Ethnicity ... </option>
+                                                    <option th:each="p : ${selectRace}" th:value="${p}" th:text="${p}"> </option>
                                                 </select>
-                                            </div> -->
+                                            </div>
                                         </div>
 
                                     </div>
@@ -189,6 +185,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-row">
+
                                             <!-- <div class="form-group col-md-6">
                                                 <label for="inputNationality">Nationality</label>
                                                 <select id="inputNationality" class="form-control"  th:field="*{nationality}">
@@ -200,6 +197,7 @@
 
                                                 </select>
                                             </div> -->
+
                                             <!-- <div class="form-group col-md-6">
                                                 <label for="inputRegion">Region</label>
                                                 <select id="inputRegion" class="form-control" th:field="*{region}">

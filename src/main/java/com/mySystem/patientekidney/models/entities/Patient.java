@@ -38,6 +38,14 @@ public class Patient extends User {
         this.record = record;
     }
 
+    public StatePrevision getStatePrevision() {
+        return statePrevision;
+    }
+
+    public void setStatePrevision(StatePrevision statePrevision) {
+        this.statePrevision = statePrevision;
+    }
+
     public List<Meeting> getMeetings() {
         return meetings;
     }
@@ -112,12 +120,9 @@ public class Patient extends User {
     @Override
     public String toString() {
         return "Patient{" +
-                "nationality='" + nationality + '\'' +
-                ", region='" + region + '\'' +
-                ", city='" + city + '\'' +
-                ", address='" + address + '\'' +
-                ", prevision=" + statePrevision +
+                "statePrevision=" + statePrevision +
                 ", statePatient=" + statePatient +
+                ", record=" + record +
                 "} " + super.toString();
     }
 }

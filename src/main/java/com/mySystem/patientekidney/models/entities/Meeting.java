@@ -14,6 +14,7 @@ public class Meeting {
     private Long idMeeting;
     @Column(name = "date_time_meeting")
     private LocalDateTime dateTimeMeeting;
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "state_meeting")
     private StateMeeting stateMeeting;
     @Column(name = "note_meeting",columnDefinition = "TEXT")

@@ -15,8 +15,10 @@ public class Record {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name ="genre")
+    @Enumerated(value = EnumType.STRING)
     private StateGenre stateGenre;
     @Column(name = "ethnicity")
+    @Enumerated(value = EnumType.STRING)
     private StateRace stateRace;
     @Column(name="birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -46,21 +48,6 @@ public class Record {
         this.birthDate = birthDate;
     }
 
-    public StateGenre getGenre() {
-        return stateGenre;
-    }
-
-    public void setGenre(StateGenre stateGenre) {
-        this.stateGenre = stateGenre;
-    }
-
-    public StateRace getRace() {
-        return stateRace;
-    }
-
-    public void setRace(StateRace stateRace) {
-        this.stateRace = stateRace;
-    }
 
     public Long getId() {
         return id;
@@ -82,12 +69,33 @@ public class Record {
         Period period = Period.between(birthDate,LocalDate.now());
         return period.getYears()+" years, "+period.getMonths()+" month, " +period.getDays()+" days";
     }
+
+    public StateGenre getStateGenre() {
+        return stateGenre;
+    }
+
+    public void setStateGenre(StateGenre stateGenre) {
+        this.stateGenre = stateGenre;
+    }
+
+    public StateRace getStateRace() {
+        return stateRace;
+    }
+
+    public void setStateRace(StateRace stateRace) {
+        this.stateRace = stateRace;
+    }
+
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Integer getAge() {
+        return age;
     }
 
     public Patient getPatient() {
@@ -125,9 +133,8 @@ public class Record {
     @Override
     public String toString() {
         return "Record{" +
-                "id=" + id +
-                ", genre=" + stateGenre +
-                ", race=" + stateRace +
+                "stateGenre=" + stateGenre +
+                ", stateRace=" + stateRace +
                 ", birthDate=" + birthDate +
                 '}';
     }

@@ -1,6 +1,10 @@
 package com.mySystem.patientekidney.controllers;
 
+import javax.validation.Valid;
 
+import com.mySystem.patientekidney.librery.StateGenre;
+import com.mySystem.patientekidney.librery.StatePrevision;
+import com.mySystem.patientekidney.librery.StateRace;
 import com.mySystem.patientekidney.models.entities.Patient;
 import com.mySystem.patientekidney.models.entities.Record;
 import com.mySystem.patientekidney.services.interfaces.PatientService;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +45,9 @@ public class PatientController {
        ModelAndView mv = new ModelAndView();
        mv.setViewName("/patients/new");
        mv.addObject("patient",patient);
+       mv.addObject("selectPrevision", Arrays.stream(StatePrevision.values()).toList());
+       mv.addObject("selectGenre",  Arrays.stream(StateGenre.values()).toList());
+       mv.addObject("selectRace", Arrays.stream(StateRace.values()).toList());
        return mv;
    }
 
@@ -92,7 +100,7 @@ public class PatientController {
          * Update Patient
          */
         if(patient.getId() !=  null){
-            mv.setViewName("redirect:/patient/new");
+            mv.setViewName("/patients/new");
             Patient updatedPatient = patientService.savePatient(patient);
             mv.addObject("patient",updatedPatient);
             mv.addObject("msgUpdate",
@@ -166,39 +174,6 @@ public class PatientController {
             return mv;
         }
         mv.setViewName("redirect:/patient/");
-        return mv;
-    }
-
-
-
-    //-----------------------------------------//
-    @PostMapping("/createTest")
-    public ModelAndView createTest(Patient patient, BindingResult result, RedirectAttributes attributes
-//                                   @RequestParam("fileProfile") MultipartFile multiPart
-    ) {
-        ModelAndView mv = new ModelAndView();
-        System.out.println("entre al metodo create Test");
-
-//        if (result.hasErrors()) {
-//            System.out.println("There are mistakes");
-//            attributes.addFlashAttribute("patient", "The patient was not admitted");
-//            return mv;
-//        }
-
-        mv.setViewName("/patients/newInWorking");
-        System.out.println("Entre al metodo craeteTest ");
-        System.out.println("Entre a patient -> "+patient.toString());
-
-      return mv;
-    }
-
-    @GetMapping("/newTest")
-    public ModelAndView test(Patient patient, Record record){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/patients/newInWorking");
-        mv.addObject("patient",patient);
-
-
         return mv;
     }
 
