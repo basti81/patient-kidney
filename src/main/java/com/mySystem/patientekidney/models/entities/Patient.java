@@ -17,7 +17,7 @@ public class Patient extends User {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Meeting> meetings;
 
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value = EnumType.ORDINAL)
     private StatePrevision statePrevision;
     @Column(name = "state_patient")
     private StatePatient statePatient;

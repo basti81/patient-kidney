@@ -15,10 +15,10 @@ public class Record {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name ="genre")
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value = EnumType.ORDINAL)
     private StateGenre stateGenre;
     @Column(name = "ethnicity")
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value = EnumType.ORDINAL)
     private StateRace stateRace;
     @Column(name="birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

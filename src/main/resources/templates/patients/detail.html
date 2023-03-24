@@ -86,9 +86,9 @@
                     <tbody>
                     <tr>
                         <th style="display:none;" th:text="${patient.record.id}">0</th>
-                        <!-- <td th:text="${patient.record.stateGenre}"></td>
-                        <td th:text="${patient.record.race}"></td>
-                        <td th:text="${patient.record.getAgeString()}" ></td>-->
+                        <td th:text="${patient.record.stateGenre}"></td>
+                        <td th:text="${patient.record.stateRace}"></td>
+                        <td th:text="${patient.record.getAgeString()}" ></td>
                         <td th:text="${patient.startDate}"></td> 
                     </tr>
                     </tbody>
@@ -106,9 +106,7 @@
                 <div class="card shadow mb-4">
                 <!--Título-->
                 <div class="card-header text-center">
-                <div class="d-flex justify-content-center">
-                    <h6 class="m-0 font-weight-bold"><i class="fas fa-user-md"></i> Contact</h6>
-                </div>
+                    <div class="m-0 font-weight-bold"><i class="fas fa-user-md"></i> Contact</div>
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
@@ -116,15 +114,15 @@
                     <thead>
                     <tr>
                         <th scope="col">Mail</th>
-                        <!-- <th scope="col">Phone</th>
-                        <th scope="col">Phone Sec.</th> -->
+                        <th scope="col">Phone</th>
+                        <th scope="col">Phone Sec.</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td th:text="${patient.mail}">example@gmail.com</td>
-                        <!-- <td th:text="${patient.phone}"></td>
-                        <td th:text="${patient.phoneSecond}" >telefono(opc)</td> -->
+                        <td th:text="${patient.mail}">example@mail.com</td>
+                        <td th:text="${patient.phoneNumber}"></td>
+                        <td th:text="${patient.phoneNumberSecond}">Phone </td>
                     </tr>
                     </tbody>
                 </table>
@@ -132,31 +130,31 @@
                 </div>
                 </div>
             </div>
+
+
             <!-- address -->
             <div class="col-md-6" >
                 <div class="card shadow mb-4">
                 <div class="card-header text-center">
-                    <h6 class="m-0 font-weight-bold"> <i class="fas fa-street-view" aria-hidden="true"></i> Address</h6>
+                    <div class="m-0 font-weight-bold"> <i class="fas fa-street-view" aria-hidden="true"></i> Address</div>
                 </div>
                 <div class= "card-body">
                 <div class="table-responsive">
                 <table class ="table table-sm">
                     <thead>
                     <tr>
-                        <th scope="col">Región.</th>
-                        <th scope="col">Comuna.</th>
-                        <th scope="col">Dirección.</th>
+                        <th scope="col">Nationality</th>
+                        <th scope="col">Región</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Address</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <!-- <th th:text="${paciente.region}">Valparaiso</th>
-                        <td th:text="${paciente.comuna}">Valparaiso</td>
-                        <td th:text="${paciente.direccion}">San felipe</td> -->
-                        
-                        <td>Valparaiso</td>
-                        <td>Valparaiso</td>
-                        <td>Valparaiso</td>
+                        <th th:text="${patinet.nationality}"> </th>
+                        <th th:text="${patinet.region}"></th>
+                        <td th:text="${patinet.city}"></td>
+                        <td th:text="${patinet.address}"></td>
                     </tr>
                     </tbody>
                 </table>
