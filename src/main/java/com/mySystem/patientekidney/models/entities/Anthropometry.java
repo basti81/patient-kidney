@@ -23,7 +23,13 @@ public class Anthropometry {
     @ManyToOne
     @JoinColumn(name = "record_id", nullable = true)
     private Record record;
+
     public Anthropometry() {
+    }
+
+    public Anthropometry(Double height, Double weight) {
+        this.height = height;
+        this.weight = weight;
     }
 
     public Long getIdAnthropometry() {

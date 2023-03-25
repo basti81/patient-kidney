@@ -13,7 +13,13 @@ public class Diagnosis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long idDiagnosis;
-    private Double fg;
+
+    @Column(name = "fg_cock_croft")
+    private Double fgCockCroft;
+    @Column(name = "fg_mdrd")
+    private Double fgMdrd;
+    @Column(name = "fg_ckd_epi")
+    private Double fgCkdEpi;
     @ElementCollection
     @CollectionTable(name="diagnosis_states", joinColumns=@JoinColumn(name="diagnosis_id"))
     @Column(name="state_exam_set")
@@ -35,12 +41,28 @@ public class Diagnosis {
         this.idDiagnosis = idDiagnosis;
     }
 
-    public Double getFg() {
-        return fg;
+    public Double getFgCockCroft() {
+        return fgCockCroft;
     }
 
-    public void setFg(Double fg) {
-        this.fg = fg;
+    public void setFgCockCroft(Double fgCockCroft) {
+        this.fgCockCroft = fgCockCroft;
+    }
+
+    public Double getFgMdrd() {
+        return fgMdrd;
+    }
+
+    public void setFgMdrd(Double fgMdrd) {
+        this.fgMdrd = fgMdrd;
+    }
+
+    public Double getFgCkdEpi() {
+        return fgCkdEpi;
+    }
+
+    public void setFgCkdEpi(Double fgCkdEpi) {
+        this.fgCkdEpi = fgCkdEpi;
     }
 
     public Set<StateExam> getStateExamSet() {
@@ -87,10 +109,13 @@ public class Diagnosis {
     public String toString() {
         return "Diagnosis{" +
                 "idDiagnosis=" + idDiagnosis +
-                ", fg=" + fg +
+                ", fgCockCroft=" + fgCockCroft +
+                ", fgMdrd=" + fgMdrd +
+                ", fgCkdEpi=" + fgCkdEpi +
                 ", stateExamSet=" + stateExamSet +
                 ", description='" + description + '\'' +
                 ", diagnosisDate=" + diagnosisDate +
+                ", exam=" + exam +
                 ", viewed=" + viewed +
                 '}';
     }

@@ -17,31 +17,43 @@ public class ToolsDiagnosis {
 
     /**
      * Create - Diagnosis
+     *
      * @param patient
      * @param exam
      * @param anthropometry
      * @return
      */
     public Diagnosis createDiagnosis(Patient patient, Exam exam, Anthropometry anthropometry) {
+
+        System.out.println("Entre al metodo create diagnosis");
+        //Double fgCag = fgByCaG(patient.getRecord(), exam, anthropometry);
+        //Double fgMdrd = fgByMdrd4(patient.getRecord(), exam);
+        Double fgCk = fgByCkdEpi(patient.getRecord(), exam);
+
+        System.out.println("Before: " + exam.getDiagnosis().toString());
         Set<StateExam> createdStatesExams = getStateExams(patient.getRecord(), exam);
-        System.out.println("Before: "+exam.getDiagnosis().toString());
-        exam.getDiagnosis().setFg(fgByCkdEpi(patient.getRecord(), exam));
+       // exam.getDiagnosis().setFgCockCroft(fgCag);
+        //exam.getDiagnosis().setFgMdrd(fgMdrd);
+        exam.getDiagnosis().setFgCkdEpi(fgCk);
         exam.getDiagnosis().setStateExamSet(createdStatesExams);
-        //exam.getDiagnosis().setDescription(getDescription(patient,exam,null,createdStatesExams));
-        System.out.println("After: "+exam.getDiagnosis().toString());
+        exam.getDiagnosis().setDescription(getDescription(patient, exam, anthropometry, createdStatesExams));
+
+        System.out.println("After: " + exam.getDiagnosis().toString());
         return exam.getDiagnosis();
     }
 
     /**
      * Get - State Patient
+     *
      * @param exam
      * @return
      */
-    public StatePatient changeStatePatient(Exam exam){
+    public StatePatient changeStatePatient(Exam exam) {
         Set<StateExam> states = exam.getDiagnosis().getStateExamSet();
-        for (StateExam state: states) {
-            if(state.equals(StateExam.G5_KIDNEY_FAILURE) || state.equals(StateExam.G4_SEVERELY_DECREASED)) return StatePatient.DANGER;
-            if(state.equals(StateExam.G3b_MODERATE_TO_SEVERELY_DIMINISHED)) return StatePatient.WARNING;
+        for (StateExam state : states) {
+            if (state.equals(StateExam.G5_KIDNEY_FAILURE) || state.equals(StateExam.G4_SEVERELY_DECREASED))
+                return StatePatient.DANGER;
+            if (state.equals(StateExam.G3b_MODERATE_TO_SEVERELY_DIMINISHED)) return StatePatient.WARNING;
         }
         return StatePatient.FINE;
     }
@@ -73,19 +85,16 @@ public class ToolsDiagnosis {
      * @param stateExamSet
      * @return msg
      */
-    public String getDescription(Patient patient, Exam exam,
-                                 Anthropometry anthropometry, Set<StateExam> stateExamSet) {
-        double fgCag = fgByCaG(patient.getRecord(), exam, anthropometry);
-        double fgMdrd = fgByMdrd4(patient.getRecord(), exam);
-        double fgCk = fgByCkdEpi(patient.getRecord(), exam);
-        String msg =
-                " Patient: " + patient.getName() + " " + patient.getLastName() + "\n"
-                + "Fg - Cock croft: " + fgCag + " \n"
-                + "Fg - Mdrd: " + fgMdrd + "\n"
-                + "Fg - Ckd epi: " + fgCk + "\n"
-                + "Results needing attention: \n"
-                + "{ " + stateExamSet.toString() + " }";
-        return msg;
+    public String getDescription(Patient patient, Exam exam, Anthropometry anthropometry,
+                                 Set<StateExam> stateExamSet) {
+        return  " Patient: " + patient.getName() + " " + patient.getLastName() + "\n"
+                        + "Category of FG: " + getCategoryOfFg(exam.getDiagnosis().getFgCkdEpi()) + " \n"
+                        //+ "Fg - Cock croft: " + exam.getDiagnosis().getFgCockCroft() + " \n"
+                       // + "Fg - Mdrd: " + exam.getDiagnosis().getFgMdrd() + "\n"
+                        + "Fg - Ckd epi: " + exam.getDiagnosis().getFgCkdEpi() + "\n"
+                        + "Results needing attention: \n"
+                        + "{ " + stateExamSet.stream().toList() + " }";
+
     }
 
     /**
@@ -159,8 +168,9 @@ public class ToolsDiagnosis {
      * @param anthropometry
      * @return double fg
      */
-    public double fgByCaG(Record record, Exam exam, Anthropometry anthropometry) {
-        double fg = ((140 - record.getAgeInteger()) * anthropometry.getWeight()) / 7.2 * exam.getCreatine();
+    public Double fgByCaG(Record record, Exam exam, Anthropometry anthropometry) {
+        if (anthropometry == null) return (double)0;
+        Double fg = ((140 - record.getAgeInteger()) * anthropometry.getWeight()) / 7.2 * exam.getCreatine();
         if (record.getStateGenre() == StateGenre.FEMALE) {
             return fg * 0.85;
         }
@@ -174,8 +184,8 @@ public class ToolsDiagnosis {
      * @param exam
      * @return
      */
-    public double fgByMdrd4(Record record, Exam exam) {
-        double fg = 186 * Math.pow(exam.getCreatine(), -1.154) * Math.pow(record.getAgeInteger(), -0.203);
+    public Double fgByMdrd4(Record record, Exam exam) {
+        Double fg = 186 * Math.pow(exam.getCreatine(), -1.154) * Math.pow(record.getAgeInteger(), -0.203);
         if (record.getStateGenre() == StateGenre.FEMALE) fg *= 0.742;
         if (record.getStateRace() == StateRace.AFRO_AMERICAN) fg *= 1.21;
         if (record.getStateRace() == StateRace.JAPANESE) fg *= 0.763;
@@ -190,8 +200,8 @@ public class ToolsDiagnosis {
      * @param exam
      * @return
      */
-    public double fgByCkdEpi(Record record, Exam exam) {
-        double fg = 0;
+    public Double fgByCkdEpi(Record record, Exam exam) {
+        Double fg = (double)0;
         if (record.getStateRace() == StateRace.CAUCASIAN) {
             if (record.getStateGenre() == StateGenre.FEMALE) {
                 if (exam.getCreatine() <= 0.7)

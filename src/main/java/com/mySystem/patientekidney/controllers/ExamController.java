@@ -1,9 +1,7 @@
 package com.mySystem.patientekidney.controllers;
 
 import com.mySystem.patientekidney.librery.ToolsDiagnosis;
-import com.mySystem.patientekidney.models.entities.Diagnosis;
-import com.mySystem.patientekidney.models.entities.Exam;
-import com.mySystem.patientekidney.models.entities.Patient;
+import com.mySystem.patientekidney.models.entities.*;
 import com.mySystem.patientekidney.models.entities.Record;
 import com.mySystem.patientekidney.services.interfaces.DiagnosisService;
 import com.mySystem.patientekidney.services.interfaces.ExamService;
@@ -92,10 +90,14 @@ public class ExamController {
         /**
          * Save Exam
          */
-        if (exam.getIdExam() == null ) {
+        if (exam.getIdExam() == null) {
             System.out.println("entre a save exam");
             mv.setViewName("/exams/new");
-            exam.setDiagnosis(tools.createDiagnosis(record.get().getPatient(),exam,null));
+            exam.setDiagnosis(tools.createDiagnosis(
+                    record.get().getPatient(),
+                    exam,
+                    new Anthropometry(1.0,1.0))
+            );
             Exam savedExam = examService.saveExam(exam);
             mv.addObject("patient",record.get().getPatient());
             mv.addObject("exam", savedExam);
@@ -108,7 +110,7 @@ public class ExamController {
          */
         if (exam.getIdExam() != null && exam.getDiagnosis() != null) {
             mv.setViewName("/exams/new");
-            exam.setDiagnosis(tools.createDiagnosis(record.get().getPatient(),exam,null));
+            exam.setDiagnosis(tools.createDiagnosis(record.get().getPatient(),exam,new Anthropometry(0.0,0.0)));
             Exam updatedExam = examService.saveExam(exam);
             mv.addObject("patient",record.get().getPatient());
             mv.addObject("exam", updatedExam);

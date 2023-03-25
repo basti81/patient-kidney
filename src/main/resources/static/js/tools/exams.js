@@ -1,9 +1,22 @@
-$('#btnCardDiagnosisExam').click(function() { 
-    if( $('#state-card-diagnosis').is(':visible') ) { 
-        $(".card-diagnosis").hide();
+
+
+const btnVisibleDiagnosisExam = () => {
+    
+    if( $('#extends-form-diagnosis').is(':visible') ) { 
+        $(".card-extends-form-diagnosis").hide();
         console.log("Entre a visible") 
     }else{
-        $(".card-diagnosis").show();
+        $(".card-extends-form-diagnosis").show();
         console.log("Entre a invisible")
     } 
-});
+}
+
+const btnVisibleExendsExam = () => {
+    if( $('#extends-form-exam').is(':visible') ) { 
+        $(".card-extends-from-exam").hide();
+        console.log("Entre a visible") 
+    }else{
+        $(".card-extends-from-exam").show();
+        console.log("Entre a invisible")
+    }
+}

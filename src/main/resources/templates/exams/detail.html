@@ -5,13 +5,14 @@
     <title>Detail Exam</title>
     <div th:insert="~{fragments/imports :: head}"></div>
     <style>
-        a:link{
-          text-decoration:none
+        a:link {
+            text-decoration: none
         }
-        a:visited{
-          text-decoration:none
+
+        a:visited {
+            text-decoration: none
         }
-     </style>
+    </style>
 </head>
 
 <body id="page-top">
@@ -54,11 +55,9 @@
                         <!-- Form Exam -->
                         <div class="col-sm-4">
                             <div class="card shadow mb-4">
-                                <div class="card-header bg-success text-center">
-                                    <a class="m-0 font-weight-bold text-white"
-                                        id="btnCardDiagnosisExam" title="Show Diagnosis of Exam">
-                                        <i class="fas fa-vials"></i> Exam
-                                    </a>
+                                <div class="card-header bg-success text-center text-white m-0 font-weight-bold"
+                                    title="Show Diagnosis of Exam" onclick="btnVisibleDiagnosisExam()">
+                                    <i class="bi bi-clipboard-pulse"></i> Exam
                                 </div>
 
                                 <div class="card-body">
@@ -87,8 +86,8 @@
                                         <div class="form-group col-md-10">
                                             <label class="col-form-label" for="inputAlbumin">Albumin</label>
                                             <input type="text" class="form-control text-center" placeholder="g/L"
-                                                th:value="${exam.albumin}+' g/L'" id="inputAlbumin"
-                                                required="required" disabled />
+                                                th:value="${exam.albumin}+' g/L'" id="inputAlbumin" required="required"
+                                                disabled />
                                         </div>
                                     </div>
 
@@ -107,8 +106,8 @@
                                         <div class="form-group col-md-10">
                                             <label class="col-form-label" for="inputSodium">Sodium</label>
                                             <input type="text" class="form-control text-center" placeholder="mEq/L"
-                                                th:value="${exam.sodium}+' mEq/L'" id="inputSodium"
-                                                required="required" disabled />
+                                                th:value="${exam.sodium}+' mEq/L'" id="inputSodium" required="required"
+                                                disabled />
                                         </div>
                                     </div>
 
@@ -117,16 +116,16 @@
                         </div>
 
                         <!-- Card Auto diagnostico -->
-                        <div class="card-diagnosis col-sm-8" id="state-card-diagnosis">
-                            <!-- <div class="card-diagnosis col-sm-8" id="state-card-diagnosis" style="display: none"> -->
+                        <div class="card-extends-from-exam col-sm-8" id="extends-form-exam" style="display: none">
                             <div class="card shadow mb-4">
-                                <div class="card-header text-center">
-                                    <h6 class="m-0 font-weight-bold text-primary"> Diagnosis of Exam</h6>
+                                <div class="card-header text-success text-center">
+                                    <i class="fas fa-vials"></i> Diagnosis of Exam                                   
                                 </div>
+
                                 <div class="card-body">
                                     <div class="form-row">
-
-                                        <label class="col-form-label" th:text="'Date of Exam: '+ ${exam.examDate}" type="text"></label>
+                                        <label class="col-form-label" th:text="'Date of Exam: '+ ${exam.examDate}"
+                                            type="text"></label>
                                         <textarea class="form-control" th:value="${exam.diagnosis.description}"
                                             id="floatingTextarea" style="height: 200px ;width: 500px">
                                                     </textarea>
