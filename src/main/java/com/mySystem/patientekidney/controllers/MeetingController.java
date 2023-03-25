@@ -45,13 +45,14 @@ public class MeetingController {
         mv.addObject("meeting",meeting);
         Optional<Patient> patient = patientService.getPatientById(idPatient);
         if(patient.isPresent()){
-            List<Worker> workers = workerService.getListOfDoctor();
-            System.out.println(workers);
-            mv.addObject("listOfDoctor", workers);
+            List<Worker> listOfDoctor = workerService.getListOfDoctor();
+            System.out.println(listOfDoctor);
             mv.addObject("patient",patient.get());
+            mv.addObject("listOfDoctor", listOfDoctor);
             return mv;
         }
-        return new ModelAndView().addObject("patient",null);
+        mv.setViewName("redirect:/patient/");
+        return mv;
     }
 
     /**
