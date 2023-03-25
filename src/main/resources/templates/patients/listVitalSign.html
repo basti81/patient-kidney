@@ -47,7 +47,6 @@
                             <a class="btn-sm" th:href="@{/vitalSign/new(id = ${patient.record.id})}"> <i class="fas fa-plus"></i> New </a>
                             <a class="btn-sm" th:href="@{/patient/detail(id = ${patient.id})}">   <i class="fas fa-arrow-left" aria-hidden="true"></i> Back</a>
                         </div>
-                        <!-- <h6 class="m-0 font-weight "> My Vital Sing</h6> -->
                         <a class="btn-sm" th:href="@{/vitalSign/report(id = ${patient.record.id})}"> <i class="fas fa-chart-line"></i> Reports </a>
                     </div>
                     </div>
@@ -62,7 +61,7 @@
                                 <th>Breath.</th>
                                 <th>Satu.</th>
                                 <th>Tem°</th>
-                                <th>Date</th>
+                                <th>Create Date</th>
                                 <th>Accitions</th>
                             </tr>
                             </thead>
@@ -74,7 +73,7 @@
                                 <th>Breath.</th>
                                 <th>Satu.</th>
                                 <th>Tem°</th>
-                                <th>Date</th>
+                                <th>Create Date</th>
                                 <th>Accitions</th>
                             </tr>
                             </tfoot>
@@ -88,7 +87,7 @@
                                     <td th:text="${vitalSign.temperature}+'°C'"></td>
                                     <td th:text="${vitalSign.vitalSignDate}"></td>
                                     <td>
-                                        <a th:href = "@{/vitalSign/detail(id=${vitalSign.idVitalSign})}" class="btn btn-success btn-sm" title="Detail">
+                                        <a th:href = "@{/vitalSign/detail(idVitalSign=${vitalSign.idVitalSign},idRecord=${patient.record.id})}" class="btn btn-success btn-sm" title="Detail">
                                             <i class="fas fa-eye" aria-hidden="true"></i></a>
                                         <a th:href = "@{/vitalSign/update(idVitalSign=${vitalSign.idVitalSign}, idRecord=${patient.record.id})}" class="btn btn-warning btn-sm" title="Update">
                                              <i class="fas fa-pencil-alt" aria-hidden="true"></i> </a>
