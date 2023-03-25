@@ -1,5 +1,6 @@
 package com.mySystem.patientekidney.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mySystem.patientekidney.librery.StateExam;
 import jakarta.persistence.*;
 
@@ -28,6 +29,7 @@ public class Exam {
     private Record record;
     private Boolean viewed;
     @Column(name ="exam_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Instant examDate;
 
     public Exam() {
@@ -156,7 +158,6 @@ public class Exam {
                 ", ma=" + ma +
                 ", clCr=" + clCr +
                 ", rac=" + rac +
-                ", diagnosis=" + diagnosis +
                 ", record=" + record +
                 ", viewed=" + viewed +
                 ", examDate=" + examDate +

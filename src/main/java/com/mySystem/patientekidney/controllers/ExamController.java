@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/exam")
@@ -86,17 +91,18 @@ public class ExamController {
         }
         Optional<Record> record = recordService.getRecordById(idRecord);
         exam.setRecord(record.get());
+        exam.setExamDate(Instant.now());
+        exam.setViewed(false);
 
         /**
          * Save Exam
          */
         if (exam.getIdExam() == null) {
-            System.out.println("entre a save exam");
             mv.setViewName("/exams/new");
             exam.setDiagnosis(tools.createDiagnosis(
                     record.get().getPatient(),
                     exam,
-                    new Anthropometry(1.0,1.0))
+                    null)
             );
             Exam savedExam = examService.saveExam(exam);
             mv.addObject("patient",record.get().getPatient());
@@ -110,7 +116,11 @@ public class ExamController {
          */
         if (exam.getIdExam() != null && exam.getDiagnosis() != null) {
             mv.setViewName("/exams/new");
-            exam.setDiagnosis(tools.createDiagnosis(record.get().getPatient(),exam,new Anthropometry(0.0,0.0)));
+            exam.setDiagnosis(
+                    tools.createDiagnosis(record.get().getPatient(),
+                            exam,
+                            new Anthropometry(0.0,0.0))
+            );
             Exam updatedExam = examService.saveExam(exam);
             mv.addObject("patient",record.get().getPatient());
             mv.addObject("exam", updatedExam);
@@ -191,6 +201,23 @@ public class ExamController {
             return mv;
         }
         mv.setViewName("redirect:/exam/");
+        return mv;
+    }
+
+    @GetMapping("/report")
+    public ModelAndView report(@RequestParam(name = "idRecord", required = true) Long idRecord,
+                               RedirectAttributes attributes){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/exams/report");
+        Optional<Record> record = recordService.getRecordById(idRecord);
+        mv.addObject("patient",record.get().getPatient());
+        List<Exam> examList = examService.findAllByIdRecord(idRecord);
+
+        ArrayList<Instant> vExamDate = (ArrayList<Instant>) examList.stream().map(exam -> exam.getExamDate()).toList();
+        ArrayList<Double> vCreatine = (ArrayList<Double>) examList.stream().map(exam -> exam.getCreatine()).toList();
+        mv.setViewName("redirect: /exam/byRecord?id="+idRecord);
+
+        attributes.addFlashAttribute("msgWarning","Report not found");
         return mv;
     }
 }

@@ -53,7 +53,7 @@
 
                     <div class="row justify-content-center">
                         <!-- Form Exam -->
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="card shadow mb-4">
                                 <div class="card-header bg-success text-center text-white m-0 font-weight-bold"
                                     title="Show Diagnosis of Exam" onclick="btnVisibleDiagnosisExam()">
@@ -116,19 +116,37 @@
                         </div>
 
                         <!-- Card Auto diagnostico -->
-                        <div class="card-extends-from-exam col-sm-8" id="extends-form-exam" style="display: none">
+                        <div class="col-sm-5 card-extends-form-diagnosis" id="extends-form-diagnosis" style="display: none;">
                             <div class="card shadow mb-4">
                                 <div class="card-header text-success text-center">
-                                    <i class="fas fa-vials"></i> Diagnosis of Exam                                   
+                                    <i class="fas fa-vials"></i> Diagnosis of Exam
                                 </div>
 
                                 <div class="card-body">
-                                    <div class="form-row">
-                                        <label class="col-form-label" th:text="'Date of Exam: '+ ${exam.examDate}"
-                                            type="text"></label>
-                                        <textarea class="form-control" th:value="${exam.diagnosis.description}"
-                                            id="floatingTextarea" style="height: 200px ;width: 500px">
-                                                    </textarea>
+                                    <!--Content Diagnosis-->
+                                    <div class="d-flex justify-content-center">
+                                        <div class="form-group col-md-10">
+                                            <label class="col-form-label" for="inputExamDate">Exam Date</label>
+                                            <input type="datetime-local" class="form-control text-center"
+                                                th:value="${exam.examDate}" id="inputExamDate" />
+
+                                            <label class="col-form-label" for="inputFgCockCroft">Fg - Cock Gault</label>
+                                            <input type="text" class="form-control text-center"
+                                                th:value="${exam.diagnosis.fgCockCroft}+' (ml/min)'" id="inputFgCockCroft" />
+
+                                            <label class="col-form-label" for="inputfgMdrd">Fg - MDRD</label>
+                                            <input type="text" class="form-control text-center"
+                                                th:value="${exam.diagnosis.fgMdrd}+' (ml/min/1.73 m^2)'" id="inputfgMdrd" />
+
+                                            <label class="col-form-label" for="inputfgCkdEpi">Fg - Ckd Epi</label>
+                                            <input type="text" class="form-control text-center"
+                                                th:value="${exam.diagnosis.fgCkdEpi}+' (ml/min/1.73 m^2)'" id="inputfgCkdEpi" />
+
+                                            <label class="col-form-label" for="inputDescription">Description</label>
+                                            <textarea type="text" class="form-control"
+                                                th:text="${exam.diagnosis.description}" id="inputDescription" rows="3"></textarea>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>

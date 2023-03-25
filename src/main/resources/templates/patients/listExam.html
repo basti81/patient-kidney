@@ -57,30 +57,45 @@
                 <div class="card-body">
                 <div class="table-responsive">
                 <table class="table table-sm" id="dataTable" width="100%" cellspacing="0">
+        
                 <thead>
                     <tr>
                     <th>#</th>
-                    <th>Tipo Examen</th>
-                    <th>Fecha Emitida</th>
-                    <th>Visto</th>
+                    <th>Creatine</th>
+                    <th>Albumin</th>
+                    <th>Cl</th>
+                    <th>K</th>
+                    <th>Na</th>
+                    <th>Exam Date</th>
+                    <th>viewed</th>
                     <th>Acciones</th>
                     </tr>
                 </thead>
                 <tfoot>
                 <tr>
                     <th>#</th>
-                    <th>Tipo Examen</th>
-                    <th>Fecha Emitida</th>
-                    <th>Visto</th>
+                    <th>Creatine</th>
+                    <th>Albumin</th>
+                    <th>Cl</th>
+                    <th>K</th>
+                    <th>Na</th>
+                    <th>Exam Date</th>
+                    <th>viewed</th>
                     <th>Acciones</th>
+                    </tr>
                 </tr>
                 </tfoot>
                 <tbody>
+                    
                     <tr th:each="exam : ${patient.record.exams}">
                     <td th:text="'#'+${exam.idExam}"></td>
-                    <td> Sanguineo </td>
+                    <td th:text="${exam.creatine} +' mg/dL'"></td>
+                    <td th:text="${exam.albumin} +' g/L'"></td>
+                    <td th:text="${exam.chlorine} +' mEq/L'"></td>
+                    <td th:text="${exam.potassium} +' mmol/L'"></td>
+                    <td th:text="${exam.sodium} +' mEq/L'"></td>       
                     <td th:text="${exam.examDate}"></td>
-                    <td th:text= "${exam.viewed}"></td>
+                    <td class="form-check-input" type="checkbox" id="flexCheckDefault" th:text="${exam.viewed}"></td>
             
                     <td>
                     <a th:href="@{/exam/detail(idExam=${exam.idExam}, idRecord=${patient.record.id})}" class="btn btn-success btn-sm" title="Detail">

@@ -24,20 +24,22 @@ public class ToolsDiagnosis {
      * @return
      */
     public Diagnosis createDiagnosis(Patient patient, Exam exam, Anthropometry anthropometry) {
-
-        System.out.println("Entre al metodo create diagnosis");
-        //Double fgCag = fgByCaG(patient.getRecord(), exam, anthropometry);
-        //Double fgMdrd = fgByMdrd4(patient.getRecord(), exam);
-        Double fgCk = fgByCkdEpi(patient.getRecord(), exam);
+        Double fgCag = 0.0;
+        if (anthropometry != null){
+            fgCag = (double)Math.round(fgByCaG(patient.getRecord(), exam, anthropometry) * 100d) / 100d ;
+        }
+        Double fgMdrd = (double)Math.round(fgByMdrd4(patient.getRecord(), exam) * 100d) / 100d;
+        Double fgCk = (double)Math.round(fgByCkdEpi(patient.getRecord(), exam) * 100d) / 100d;
 
         System.out.println("Before: " + exam.getDiagnosis().toString());
         Set<StateExam> createdStatesExams = getStateExams(patient.getRecord(), exam);
-       // exam.getDiagnosis().setFgCockCroft(fgCag);
-        //exam.getDiagnosis().setFgMdrd(fgMdrd);
+        exam.getDiagnosis().setFgCockCroft(fgCag);
+        exam.getDiagnosis().setFgMdrd(fgMdrd);
         exam.getDiagnosis().setFgCkdEpi(fgCk);
         exam.getDiagnosis().setStateExamSet(createdStatesExams);
         exam.getDiagnosis().setDescription(getDescription(patient, exam, anthropometry, createdStatesExams));
-
+        patient.setStatePatient(changeStatePatient(exam));
+        exam.getRecord().setPatient(patient);
         System.out.println("After: " + exam.getDiagnosis().toString());
         return exam.getDiagnosis();
     }
@@ -89,8 +91,8 @@ public class ToolsDiagnosis {
                                  Set<StateExam> stateExamSet) {
         return  " Patient: " + patient.getName() + " " + patient.getLastName() + "\n"
                         + "Category of FG: " + getCategoryOfFg(exam.getDiagnosis().getFgCkdEpi()) + " \n"
-                        //+ "Fg - Cock croft: " + exam.getDiagnosis().getFgCockCroft() + " \n"
-                       // + "Fg - Mdrd: " + exam.getDiagnosis().getFgMdrd() + "\n"
+                        + "Fg - Cock croft: " + exam.getDiagnosis().getFgCockCroft() + " \n"
+                        + "Fg - Mdrd: " + exam.getDiagnosis().getFgMdrd() + "\n"
                         + "Fg - Ckd epi: " + exam.getDiagnosis().getFgCkdEpi() + "\n"
                         + "Results needing attention: \n"
                         + "{ " + stateExamSet.stream().toList() + " }";
@@ -169,7 +171,6 @@ public class ToolsDiagnosis {
      * @return double fg
      */
     public Double fgByCaG(Record record, Exam exam, Anthropometry anthropometry) {
-        if (anthropometry == null) return (double)0;
         Double fg = ((140 - record.getAgeInteger()) * anthropometry.getWeight()) / 7.2 * exam.getCreatine();
         if (record.getStateGenre() == StateGenre.FEMALE) {
             return fg * 0.85;

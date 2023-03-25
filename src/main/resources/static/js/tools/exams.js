@@ -1,13 +1,10 @@
 
 
 const btnVisibleDiagnosisExam = () => {
-    
     if( $('#extends-form-diagnosis').is(':visible') ) { 
         $(".card-extends-form-diagnosis").hide();
-        console.log("Entre a visible") 
     }else{
         $(".card-extends-form-diagnosis").show();
-        console.log("Entre a invisible")
     } 
 }
 
@@ -17,6 +14,5 @@ const btnVisibleExendsExam = () => {
         console.log("Entre a visible") 
     }else{
         $(".card-extends-from-exam").show();
-        console.log("Entre a invisible")
     }
 }

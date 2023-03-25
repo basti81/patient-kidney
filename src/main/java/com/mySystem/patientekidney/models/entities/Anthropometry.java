@@ -87,4 +87,17 @@ public class Anthropometry {
     public void setRecord(Record record) {
         this.record = record;
     }
+
+    @Override
+    public String toString() {
+        return "Anthropometry{" +
+                "idAnthropometry=" + idAnthropometry +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", imc=" + imc +
+                ", stateImc=" + stateImc +
+                ", anthropometryDate=" + anthropometryDate +
+                ", record=" + record +
+                '}';
+    }
 }
