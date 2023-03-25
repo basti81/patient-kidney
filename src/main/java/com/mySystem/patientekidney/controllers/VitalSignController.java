@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -206,19 +207,30 @@ public class VitalSignController {
     public ModelAndView report(@RequestParam(name = "id", required = true) Long idRecord,
                                RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/vitalSigns/report");
+        List<LocalDate> vCreateVitalSign = new ArrayList<>();
+        ArrayList<Integer> vPressureHigh =  new ArrayList<>();
+        ArrayList<Integer> vPressureLow =  new ArrayList<>();
         Optional<Record> record = recordService.getRecordById(idRecord);
         List<VitalSign> vitalSignList = vitalSignService.findAllByIdRecord(idRecord);
+
         if (record.isPresent() && !vitalSignList.isEmpty()) {
-            ArrayList<LocalDate> vCreateVitalSign = (ArrayList<LocalDate>) vitalSignList.stream().map(vitalSign -> vitalSign.getVitalSignDate());
-            ArrayList<Double> vPressureHigh = (ArrayList<Double>) vitalSignList.stream().map(vitalSign -> vitalSign.getPressureHigh());
-            ArrayList<Double> vPressureLow = (ArrayList<Double>) vitalSignList.stream().map(vitalSign -> vitalSign.getPressureLow());
+            mv.setViewName("/vitalSigns/report");
+            for (VitalSign vital: vitalSignList) {
+                vCreateVitalSign.add(vital.getVitalSignInstantToLocalDate());
+                vPressureHigh.add(vital.getPressureHigh());
+                vPressureLow.add(vital.getPressureLow());
+            }
+            System.out.println(vCreateVitalSign);
+            System.out.println(vPressureHigh);
+            System.out.println(vPressureLow);
             mv.addObject("vCreateVitalSign",vCreateVitalSign);
             mv.addObject("vPressureHigh", vPressureHigh);
             mv.addObject("vPressureLow",vPressureLow);
+            mv.addObject("vitalSign",vitalSignList.get(vitalSignList.size()-1));
             mv.addObject("patient",record.get().getPatient());
             return mv;
         }
+        mv.setViewName("redirect: /vitalSign/byRecord?id="+idRecord);
         attributes.addFlashAttribute("msgWarning","The report of vital signs is empty");
         return mv;
     }
