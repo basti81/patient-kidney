@@ -41,17 +41,18 @@ public class MeetingController {
     @GetMapping("/time/new")
     public ModelAndView newFormTime(@RequestParam(name = "id", required = true) Long idPatient, Meeting meeting) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/meetings/timeTest");
+        mv.setViewName("/meetings/time");
         mv.addObject("meeting",meeting);
         Optional<Patient> patient = patientService.getPatientById(idPatient);
         if(patient.isPresent()){
-            List<Worker> workers = workerService.getListOfDoctor();
-            System.out.println(workers);
-            mv.addObject("listOfDoctor", workers);
+            List<Worker> listOfDoctor = workerService.getListOfDoctor();
+            System.out.println(listOfDoctor);
             mv.addObject("patient",patient.get());
+            mv.addObject("listOfDoctor", listOfDoctor);
             return mv;
         }
-        return new ModelAndView().addObject("patient",null);
+        mv.setViewName("redirect:/patient/");
+        return mv;
     }
 
     /**
@@ -114,6 +115,8 @@ public class MeetingController {
          * Save Meeting
          */
         if (meeting.getIdMeeting() == null) {
+            System.out.println("Entre al metodo de create meeting");
+            System.out.println(meeting.toString());
             Meeting meetingSaved = meetingService.saveMeeting(meeting);
             if (!meetingSaved.equals(null)) {
                 mv.setViewName("redirect:/meeting/new?id=" + meetingSaved.getIdMeeting());
