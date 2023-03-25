@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mySystem.patientekidney.librery.StateExam;
 import jakarta.persistence.*;
 
+import java.sql.Date;
 import java.time.Instant;
 
 @Entity
@@ -29,12 +30,14 @@ public class Exam {
     private Record record;
     private Boolean viewed;
     @Column(name ="exam_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Instant examDate;
 
     public Exam() {
     }
 
+    public Date getExamInstantToDate(){
+        return Date.from(examDate);
+    }
     public Boolean getViewed() {
         return viewed;
     }
