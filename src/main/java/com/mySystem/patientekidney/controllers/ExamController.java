@@ -204,20 +204,4 @@ public class ExamController {
         return mv;
     }
 
-    @GetMapping("/report")
-    public ModelAndView report(@RequestParam(name = "idRecord", required = true) Long idRecord,
-                               RedirectAttributes attributes){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/exams/report");
-        Optional<Record> record = recordService.getRecordById(idRecord);
-        mv.addObject("patient",record.get().getPatient());
-        List<Exam> examList = examService.findAllByIdRecord(idRecord);
-
-        ArrayList<Instant> vExamDate = (ArrayList<Instant>) examList.stream().map(exam -> exam.getExamDate()).toList();
-        ArrayList<Double> vCreatine = (ArrayList<Double>) examList.stream().map(exam -> exam.getCreatine()).toList();
-        mv.setViewName("redirect: /exam/byRecord?id="+idRecord);
-
-        attributes.addFlashAttribute("msgWarning","Report not found");
-        return mv;
-    }
 }
