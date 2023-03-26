@@ -6,12 +6,18 @@ import com.mySystem.patientekidney.services.interfaces.PatientService;
 import com.mySystem.patientekidney.services.interfaces.RecordService;
 import com.mySystem.patientekidney.services.interfaces.VitalSignService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -57,13 +63,13 @@ public class VitalSignController {
                                              RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
         Optional<Record> record = recordService.getRecordById(idRecord);
-        if(record.isPresent()){
+        if (record.isPresent()) {
             record.get().setVitalSigns(vitalSignService.findAllByIdRecord(idRecord));
-            mv.addObject("patient",record.get().getPatient());
+            mv.addObject("patient", record.get().getPatient());
             mv.setViewName("/patients/listVitalSign");
             return mv;
         }
-        attributes.addFlashAttribute("msg","Patient not found");
+        attributes.addFlashAttribute("msg", "Patient not found");
         mv.addObject("patient", null);
         return mv;
     }
@@ -90,21 +96,32 @@ public class VitalSignController {
             mv.addObject("vitalSign", null);
             attributes.addFlashAttribute("msg", "The vitalSign was not admitted");
         }
-        mv.setViewName("redirect:/vitalSign/new?id=" + idRecord);
         vitalSign.setRecord(record.get());
+        vitalSign.setVitalSignDate(Instant.now());
+        /**
+         * Save Vital Sign
+         */
         if (vitalSign.getIdVitalSign() == null) {
-            System.out.println(vitalSign.toString());
+            mv.setViewName("/vitalSigns/new");
             VitalSign savedVitalSign = vitalSignService.saveVitalSign(vitalSign);
+            mv.addObject("patient", record.get().getPatient());
             mv.addObject("vitalSign", savedVitalSign);
-            attributes.addFlashAttribute("msgSave",
+            mv.addObject("msgSave",
                     "The vitalSign has been entered successfully!");
 
             return mv;
         }
-        VitalSign updatedVitalSign = vitalSignService.saveVitalSign(vitalSign);
-        mv.addObject("vitalSign", updatedVitalSign);
-        attributes.addFlashAttribute("msgUpdate",
-                "The Vital sign has been successfully modified!");
+        /**
+         * Update Vital Sign
+         */
+        if (vitalSign.getIdVitalSign() != null) {
+            mv.setViewName("redirect:/vitalSign/new?id=" + idRecord);
+            VitalSign updatedVitalSign = vitalSignService.saveVitalSign(vitalSign);
+            mv.addObject("vitalSign", updatedVitalSign);
+            attributes.addFlashAttribute("msgUpdate",
+                    "The Vital sign has been successfully modified!");
+            return mv;
+        }
         return mv;
     }
 
@@ -112,14 +129,19 @@ public class VitalSignController {
      * Detail VitalSign
      */
     @GetMapping("/detail")
-    public ModelAndView detail(@RequestParam("id") Long id, RedirectAttributes attributes) {
+    public ModelAndView detail(@RequestParam(name = "idVitalSign") Long idVitalSign,
+                               @RequestParam(name = "idRecord", required = true) Long idRecord,
+                               RedirectAttributes attributes) {
         ModelAndView mv = new ModelAndView();
-        if (vitalSignService.existsById(id)) {
-            Optional<VitalSign> vitalSign = vitalSignService.getVitalSignById(id);
+        if (vitalSignService.existsById(idVitalSign) && recordService.existsById(idRecord)) {
+            Optional<VitalSign> vitalSign = vitalSignService.getVitalSignById(idVitalSign);
+            Optional<Record> record = recordService.getRecordById(idRecord);
             mv.setViewName("/vitalSigns/detail");
+            mv.addObject("patient", record.get().getPatient());
             mv.addObject("vitalSign", vitalSign.get());
             return mv;
         }
+        mv.setViewName("redirect: /vitalSign/byRecord?id=" + idRecord);
         attributes.addFlashAttribute("msgWarning", "Vital sign not found ");
         return mv;
     }
@@ -172,6 +194,44 @@ public class VitalSignController {
             return mv;
         }
         mv.setViewName("redirect:/vitalSign/");
+        return mv;
+    }
+
+    /**
+     * Report of Vital Signs
+     *
+     * @param idRecord
+     * @return
+     */
+    @GetMapping("/report")
+    public ModelAndView report(@RequestParam(name = "id", required = true) Long idRecord,
+                               RedirectAttributes attributes) {
+        ModelAndView mv = new ModelAndView();
+        List<LocalDate> vCreateVitalSign = new ArrayList<>();
+        ArrayList<Integer> vPressureHigh =  new ArrayList<>();
+        ArrayList<Integer> vPressureLow =  new ArrayList<>();
+        Optional<Record> record = recordService.getRecordById(idRecord);
+        List<VitalSign> vitalSignList = vitalSignService.findAllByIdRecord(idRecord);
+
+        if (record.isPresent() && !vitalSignList.isEmpty()) {
+            mv.setViewName("/vitalSigns/report");
+            for (VitalSign vital: vitalSignList) {
+                vCreateVitalSign.add(vital.getVitalSignInstantToLocalDate());
+                vPressureHigh.add(vital.getPressureHigh());
+                vPressureLow.add(vital.getPressureLow());
+            }
+            System.out.println(vCreateVitalSign);
+            System.out.println(vPressureHigh);
+            System.out.println(vPressureLow);
+            mv.addObject("vCreateVitalSign",vCreateVitalSign);
+            mv.addObject("vPressureHigh", vPressureHigh);
+            mv.addObject("vPressureLow",vPressureLow);
+            mv.addObject("vitalSign",vitalSignList.get(vitalSignList.size()-1));
+            mv.addObject("patient",record.get().getPatient());
+            return mv;
+        }
+        mv.setViewName("redirect: /vitalSign/byRecord?id="+idRecord);
+        attributes.addFlashAttribute("msgWarning","The report of vital signs is empty");
         return mv;
     }
 }

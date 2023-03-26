@@ -66,125 +66,98 @@
           </div>
 
 
-          <form th:action="@{/worker/create}" th:object="${worker}" method="post">
+          
           <div class="row">
             <!-- Form user -->
             <div class="col-md-6">
+              <div class="d-flex justify-content-center">
+                <!-- Content Row -->
+                <div class="row">
+                  <div class="col">
 
-              <!-- DataTales Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header bg-primary text-white font-weight-bold text-center">
-                  <i class="bi bi-person-add"></i> Worker Information
-                </div>
+                    <!-- form vitalSign  -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header text-white bg-danger font-weight-bold text-center">
+                            <i class="bi bi-activity"></i> Vital Sign
+                        </div>
 
-                <div class="card-body">
+                        <div class="card-body">
 
-                     
+                            <!--Pressure high/low-->
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-10">
+                                    <label class="col-form-label">Pressure</label>
+                                    <div class="input-group">
+                                        <input type="text" id="pressureHigh" placeholder="mmHg" max="200"
+                                            class="form-control text-right"  disabled th:text="${exam.pressureHigh}">
+                                        <input type="text" id="pressureLow" placeholder="mmHg" max="200"
+                                            class="form-control text-right"  disabled th:text="${exam.pressureLow}">
+                                    </div>
+                                </div>
+                            </div>
 
-                    <!-- Warning messege-->
-                    <div th:if="${#fields.hasErrors('*')}">
-                      <h2> Please checkout this errors</h2>
-                      <ul>
-                        <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
-                      </ul>
+                            <!--Breathing-->
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-10">
+                                    <label class="col-form-label" for="inputBreathing">Breathing</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-center"
+                                             disabled th:text="${exam.breathing}" id="inputBreathing" />
+                                        <span class="input-group-text">x min</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Temperature-->
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-10">
+                                    <label class="col-form-label" for="inputTemperature">Temperature</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-center"
+                                             disabled th:text="${exam.temperature}" id="inputTemperature" />
+                                        <span class="input-group-text">°C</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Pulse-->
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-10">
+                                    <label class="col-form-label" for="inputPulse">Pulse</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-center"  disabled th:text="${exam.pulse}"
+                                            id="inputPulse" />
+                                        <span class="input-group-text">°C</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Saturation-->
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-10">
+                                    <label class="col-form-label" for="inputSaturation">Saturation</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-center"
+                                             disabled th:text="${exam.saturation}" id="inputSaturation" />
+                                        <span class="input-group-text">°C</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <a class="btn btn-secondary"
+                                th:href="@{/vitalSign/byRecord(id=${patient.record.id})}">Cancel</a>
+                        
+
+                        </div>
                     </div>
-
-                    <input type="hidden" th:field="*{id}">
-
-                    <!-- Rut -->
-                    <div class="form-row">
-                      <div class="form-group col-md-5">
-                        <label for="inputRut">Rut</label>
-                        <input type="text" class="form-control" th:field="*{rut}" id="inputRut" placeholder="12345678-9"
-                          oninput="checkRut(this)" required="required">
-                      </div>
-                      <script src="/js/tools/patients.js"></script>
-                    </div>
-                    <!-- Full Name -->
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label for="inputName">Name</label>
-                        <input type="text" class="form-control" th:field="*{name}" id="inputName" placeholder="name"
-                          required="required">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="inputLastName">Last Name</label>
-                        <input type="text" class="form-control" th:field="*{lastName}" id="inputLastName"
-                          placeholder="last name" required="required">
-                      </div>
-                    </div>
-
-                    <div class="form-row">
-
-                      <!-- Role -->
-                      <div class="form-group col-md-4">
-                        <label for="inputRole">Role</label>
-                        <select th:field="*{stateRole}" class="selectpicker show-tick form-control">
-                          <option value="" selected>Select Role ... </option>
-                          <option th:each="p : ${selectRole}" th:value="${p}" th:text="${p}"></option>
-                        </select>
-                      </div>
-
-                      <!-- Specialty -->
-                      <div class="form-group col-md-4">
-                        <label for="inputSpecialty">¿Specialty?</label>
-                        <select th:field="*{stateSpecialty}" class="selectpicker show-tick form-control">
-                          <option value="" selected>Select Specialty ... </option>
-                          <option th:each="p : ${selectSpecialty}" th:value="${p}" th:text="${p}"></option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <!--Enabled-->
-                    <div class="form-group">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" th:field="*{enabled}" id="enabledPatient">
-                        <label class="form-check-label" for="enabledPatient">
-                          ¿Enable User?
-                        </label>
-                      </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-
-                </div>
-              
-              </div>
-
-            </div>
-
-            <div class="col-md-6">
-              <div class="card shadow mb-4">
-                <div class="card-header text-primary font-weight-bold text-center">
-                  <i class="bi bi-person-vcard-fill"></i> User account
-                </div>
-                <div class="card-body">
-                  <!-- Row Mail,Password -->
-                  <div class="form-row">
-
-                    <!--Mail-->
-                    <div class="form-group col-md-7">
-                      <label for="inputMail">Mail</label>
-                      <input type="email" class="form-control" th:field="*{mail}" id="inputMail"
-                        placeholder="Example@mail.com" required="required">
-                    </div>
-
-                    <!--Password-->
-                    <div class="form-group col-md-4">
-                      <label for="inputPassword">Password</label>
-                      <input type="password" class="form-control" th:field="*{password}" id="inputPassword"
-                        placeholder="abc123" required="required">
-                        <input type="checkbox" onclick="showPass()"> Show Password 
-                    </div>
-
-                    
                   </div>
-                  <script src="/static/js/tools/workers.js"></script>
+
                 </div>
-              </div>
+            </div>
             </div>
           </div>
-        </form>
+     
 
 
         </div>

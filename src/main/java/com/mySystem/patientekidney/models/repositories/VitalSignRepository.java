@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface VitalSignRepository extends JpaRepository<VitalSign, Long> {
-    @Query(value = "SELECT * FROM vital_signs WHERE record_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM vital_signs WHERE record_id = ?1 ORDER BY vital_sign_date ASC", nativeQuery = true)
     List<VitalSign> findAllByIdRecord(Long id);
 }

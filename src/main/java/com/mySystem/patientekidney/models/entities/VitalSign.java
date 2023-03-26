@@ -2,7 +2,8 @@ package com.mySystem.patientekidney.models.entities;
 
 import jakarta.persistence.*;
 
-import java.time.Instant;
+import java.time.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "vital_signs")
@@ -90,6 +91,17 @@ public class VitalSign {
 
     public Instant getVitalSignDate() {
         return vitalSignDate;
+    }
+
+    public Date getVitalSignInstantToDate(){
+        return Date.from(vitalSignDate);
+    }
+
+    public LocalDate getVitalSignInstantToLocalDate(){
+        return LocalDate.ofInstant(vitalSignDate,ZoneOffset.UTC);
+    }
+    public LocalDateTime getVitalSignInstantToLocalDateTime(){
+        return LocalDateTime.ofInstant(vitalSignDate, ZoneOffset.UTC);
     }
 
     public void setVitalSignDate(Instant vitalSignDate) {

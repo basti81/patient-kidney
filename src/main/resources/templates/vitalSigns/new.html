@@ -1,139 +1,162 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
 <head>
     <title>New vitalSign</title>
     <div th:insert="~{fragments/imports :: head}"></div>
 </head>
 
 <body id="page-top">
-<!-- Page Wrapper -->
-<div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-        <div th:insert="~{fragments/imports :: sidebar}"></div>
-    </ul>
-    <!-- End of Sidebar -->
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <div th:insert="~{fragments/imports :: sidebar}"></div>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
 
-            <!-- Top bar -->
-            <div th:insert="~{fragments/imports :: topbar}"></div>
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
+                <!-- Top bar -->
+                <div th:insert="~{fragments/imports :: topbar}"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
-                        <li class="breadcrumb-item active"><a th:href="@{/patient/}">List of Patient</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Form of Vital Sign <i class="fas fa-heart"></i></li>
-                    </ol>
-                </nav>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+                            <li class="breadcrumb-item active"><a th:href="@{/patient/}">List of Patient</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Form of Vital Sign <i
+                                    class="fas fa-heart"></i></li>
+                        </ol>
+                    </nav>
 
 
-                <!-- Messege  -->
-                <div th:insert="~{fragments/imports :: alert-msg}"></div>
+                    <!-- Messege  -->
+                    <div th:insert="~{fragments/imports :: alert-msg}"></div>
 
-                <!--  Personal Information -->
-                <div class= "card shadow mb-4">
-                    <div th:insert = "~{fragments/imports :: card-patient}"></div>
-                </div>
+                    <!--  Personal Information -->
+                    <div class="card shadow mb-4">
+                        <div th:insert="~{fragments/imports :: card-patient}"></div>
+                    </div>
 
-                <div class="d-flex justify-content-center">
-                    <!-- Content Row -->
-                    <div class="row">
-                        <!-- form vitalSign  -->
-                        <div class="card shadow mb-4">
-                            <!-- <div class="card-header text-center">
-                                <h6 class="m-0 font-weight-bold text-primary "><i class="fas fa-vials"></i>vitalSign</h6>
-                            </div> -->
-                            <div class="card-body">
-                                <form th:action="@{/vitalSign/create(id = ${patient.record.id})}" th:object="${vitalSign}" method="post">
-                                    <!-- Warning messege-->
-                                    <div th:if="${#fields.hasErrors('*')}">
-                                        <h2> Please checkout this errors</h2>
-                                        <ul>
-                                            <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
-                                        </ul>
-                                    </div>
+                    <div class="d-flex justify-content-center">
+                        <!-- Content Row -->
+                        <div class="row">
+                            <!-- form vitalSign  -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header text-white bg-danger font-weight-bold text-center">
+                                    <i class="bi bi-activity"></i> Vital Sign
+                                </div>
 
-                                    <!--Id Vital Sign-->
-                                    <input type="hidden" th:field="*{idVitalSign}">
-                                    <input type="hidden" th:value="'id record =  '+${patient.record.id}">
+                                <div class="card-body">
+                                    <form th:action="@{/vitalSign/create(id = ${patient.record.id})}"
+                                        th:object="${vitalSign}" method="post">
+                                        <!-- Warning messege-->
+                                        <div th:if="${#fields.hasErrors('*')}">
+                                            <h2> Please checkout this errors</h2>
+                                            <ul>
+                                                <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                            </ul>
+                                        </div>
 
-                                    <!--Pressure high/low-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="form-group col-md-10">
-                                            <label class="col-form-label">Pressure</label>
-                                            <div class="input-group">
-                                                <input type="number" id="pressureHigh" placeholder="mmHg" max ="200" class="form-control text-right" th:field="*{pressureHigh}">
-                                                <input type="number" id="pressureLow" placeholder="mmHg" max="200" class="form-control text-right" th:field="*{pressureLow}">
+                                        <!--Id Vital Sign-->
+                                        <input type="hidden" th:field="*{idVitalSign}">
+
+
+                                        <!--Pressure high/low-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label">Pressure</label>
+                                                <div class="input-group">
+                                                    <input type="number" id="pressureHigh" placeholder="mmHg" max="200"
+                                                        class="form-control text-right" th:field="*{pressureHigh}">
+                                                    <input type="number" id="pressureLow" placeholder="mmHg" max="200"
+                                                        class="form-control text-right" th:field="*{pressureLow}">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                            
-                                    <!--Breathing-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="form-group col-md-10">
-                                            <label class="col-form-label" for="inputBreathing">Breathing</label>
-                                            <input placeholder="x min"  type="number" class="form-control text-right" th:field="*{breathing}"  id="inputBreathing"  required="required" />
-                                        </div>
-                                    </div>
-        
-                                    <!--Temperature-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="form-group col-md-10">
-                                            <label class="col-form-label" for="inputTemperature">Temperature</label>
-                                            <input placeholder="°C"  type="number" class="form-control text-right" th:field="*{temperature}"  id="inputTemperature" required="required" />
-                                        </div>
-                                    </div>
-        
-                                    <!--Pulse-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="form-group col-md-10">
-                                            <label class="col-form-label" for="inputPulse">Pulse</label>
-                                            <input placeholder="x min"  type="number" class="form-control text-right" th:field="*{pulse}"  id="inputPulse"   required="required" />
-                                        </div>
-                                    </div>
-        
-                                    <!--Saturation-->
-                                    <div class="d-flex justify-content-center">
-                                        <div class="form-group col-md-10">
-                                            <label class="col-form-label" for="inputSaturation">Saturación</label>
-                                            <input placeholder="%"  type="number" class="form-control text-right" th:field="*{saturation}"  id="inputSaturation" name="saturation"  required="required" />
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="d-flex justify-content-between">
-                                        <a class="btn btn-secondary" th:href="@{/vitalSign/byRecord(id=${})}">Cancel</a>
-                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
 
+                                        <!--Breathing-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputBreathing">Breathing</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{breathing}" id="inputBreathing" />
+                                                    <span class="input-group-text">x min</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Temperature-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputTemperature">Temperature</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{temperature}" id="inputTemperature" />
+                                                    <span class="input-group-text">°C</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Pulse-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputPulse">Pulse</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{pulse}" id="inputPulse" />
+                                                    <span class="input-group-text">°C</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Saturation-->
+                                        <div class="d-flex justify-content-center">
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputSaturation">Saturation</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{saturation}" id="inputSaturation" />
+                                                    <span class="input-group-text">°C</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="d-flex justify-content-between">
+                                            <a class="btn btn-secondary"
+                                                th:href="@{/vitalSign/byRecord(id=${patient.record.id})}">Cancel</a>
+                                            <button class="btn btn-danger" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer th:insert="~{fragments/imports :: footer}"></footer>
+            <!-- End Footer -->
         </div>
-        <!-- End of Main Content -->
-        <!-- Footer -->
-        <footer th:insert="~{fragments/imports :: footer}"></footer>
-        <!-- End Footer -->
+        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
+    <!-- End of Page Wrapper -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-<div th:insert ="~{fragments/imports :: display-topbar}"></div>
-<div th:insert = "~{fragments/imports :: scripts}"></div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <div th:insert="~{fragments/imports :: display-topbar}"></div>
+    <div th:insert="~{fragments/imports :: scripts}"></div>
 </body>
+
 </html>
