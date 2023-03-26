@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+    <title>Detail Exam</title>
+    <div th:insert="~{fragments/imports :: head}"></div>
+    <script src="/vendor/chart.js/Chart.min.js"></script>
+    <script src="/js/demo/chart-area-demo.js"></script>
+
+    <style>
+        a:link {
+            text-decoration: none
+        }
+
+        a:visited {
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <div th:insert="~{fragments/imports :: sidebar}"></div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Top bar -->
+                <div th:insert="~{fragments/imports :: topbar}"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+                            <li class="breadcrumb-item active"><a th:href="@{/patient/}">List of Patient</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Form of Exam</li>
+                        </ol>
+                    </nav>
+
+
+                    <!-- Messege  -->
+                    <div th:insert="~{fragments/imports :: alert-msg}"></div>
+
+                    <!--  Personal Information -->
+                    <div class="card shadow mb-4">
+                        <div th:insert="~{fragments/imports :: card-patient}"></div>
+                    </div>
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-md-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <h6 class="m-0 font-weight-bold text-primary">Creatinina v/s Tiempo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <script th:inline="javascript">
+                                            /*<![CDATA[*/
+                                            var vCreateCreatine = /*[[${vCreateCreatine}]]*/ 'default';
+                                            var vCreatine = /*[[${vCreatine}]]*/ 'default';
+                                            /*]]>*/
+                                        </script>
+                                        <canvas id="myAreaChartCvsT"></canvas>
+                                        <script type="text/javascript" th:src="@{/js/tools/exams.js}"></script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Last form exam -->
+                        <div class="col-md-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header text-white bg-success font-weight-bold text-center ">
+                                    <i class="bi bi-clipboard-pulse"></i> Exam
+                                </div>
+                                <form th:object="${exam}" method="get">
+                                    <!-- Warning messege-->
+                                    <div th:if="${#fields.hasErrors('*')}">
+                                        <h2> Please checkout this errors</h2>
+                                        <ul>
+                                            <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                        </ul>
+                                    </div>
+
+                                    <!--Id exam-->
+                                    <input type="hidden" th:field="*{idExam}">
+                                    <!-- Id diagnosis -->
+                                    <input type="hidden" th:field="*{diagnosis.idDiagnosis}">
+                                    <div class="card-body">
+
+                                        <div class="d-flex justify-content-center">
+                                            <!--Creatine-->
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputCreatine">Creatine</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{creatine}" id="inputCreatine" />
+                                                    <span class="input-group-text">mg/dL</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center">
+                                            <!--Chlorine-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputChlorine">Chlorine</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{chlorine}" id="inputChlorine" />
+                                                    <span class="input-group-text">mEq/L</span>
+                                                </div>
+                                            </div>
+
+                                            <!--Sodium-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputSodium">Sodium</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{sodium}" id="inputSodium" />
+                                                    <span class="input-group-text">mEq/L</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="d-flex justify-content-center">
+                                            <!--Albumin-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputAlbumin">Albumin</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{albumin}" id="inputAlbumin" />
+                                                    <span class="input-group-text">g/L</span>
+                                                </div>
+                                            </div>
+                                            <!--Potassium-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputPotassium">Potassium</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{potassium}" id="inputPotassium" />
+                                                    <span class="input-group-text">mmol/L</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <a th:href="@{/exam/byRecord(id = ${patient.record.id})}"
+                                            class="btn btn-secondary" title="Back to list Exam">
+                                            Back</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer th:insert="~{fragments/imports :: footer}"></footer>
+            <!-- End Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <div th:insert="~{fragments/imports :: display-topbar}"></div>
+    <div th:insert="~{fragments/imports :: scripts}"></div>
+</body>
+
+</html>

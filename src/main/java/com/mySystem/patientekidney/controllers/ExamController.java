@@ -204,4 +204,32 @@ public class ExamController {
         return mv;
     }
 
+
+    @GetMapping("/report")
+    public ModelAndView report(@RequestParam(name = "id", required = true) Long idRecord,
+                               RedirectAttributes attributes){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/exams/report");
+        Optional<Record> record = recordService.getRecordById(idRecord);
+        mv.addObject("patient",record.get().getPatient());
+        List<Exam> examList = examService.findAllByIdRecord(idRecord);
+        if(record.isPresent() && !examList.isEmpty()){
+            ArrayList<LocalDate> vCreateCreatine = new ArrayList<>();
+            ArrayList<Double> vCreatine = new ArrayList<>();
+
+            for(Exam exam: examList){
+                vCreateCreatine.add(exam.getExamInstantToLocalDate());
+                vCreatine.add(exam.getCreatine());
+            }
+            mv.addObject("patient",record.get().getPatient());
+            mv.addObject("exam",examList.get(examList.size()-1));
+            mv.addObject("vCreateCreatine",vCreateCreatine);
+            mv.addObject("vCreatine",vCreatine);
+            return mv;
+        }
+
+        attributes.addFlashAttribute("msgWarning","Report has problem");
+        return mv;
+    }
+
 }

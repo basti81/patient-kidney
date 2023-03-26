@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mySystem.patientekidney.librery.StateExam;
 import jakarta.persistence.*;
 
+import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "exams")
@@ -29,10 +33,17 @@ public class Exam {
     private Record record;
     private Boolean viewed;
     @Column(name ="exam_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Instant examDate;
 
     public Exam() {
+    }
+
+
+    public LocalDate getExamInstantToLocalDate(){
+        return LocalDate.ofInstant(examDate,ZoneOffset.UTC);
+    }
+    public LocalDateTime getExamInstantToLocalDateTime(){
+        return LocalDateTime.ofInstant(examDate, ZoneOffset.UTC);
     }
 
     public Boolean getViewed() {

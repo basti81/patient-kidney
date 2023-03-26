@@ -127,24 +127,24 @@
                                     <div class="d-flex justify-content-center">
                                         <div class="form-group col-md-10">
                                             <label class="col-form-label" for="inputExamDate">Exam Date</label>
-                                            <input type="datetime-local" class="form-control text-center"
-                                                th:value="${exam.examDate}" id="inputExamDate" />
+                                            <input type="text" class="form-control text-center"
+                                                disabled th:value="${exam.getExamInstantToLocalDate}" id="inputExamDate" />
 
                                             <label class="col-form-label" for="inputFgCockCroft">Fg - Cock Gault</label>
                                             <input type="text" class="form-control text-center"
-                                                th:value="${exam.diagnosis.fgCockCroft}+' (ml/min)'" id="inputFgCockCroft" />
+                                                disabled th:value="${exam.diagnosis.fgCockCroft}+' (ml/min)'" id="inputFgCockCroft" />
 
                                             <label class="col-form-label" for="inputfgMdrd">Fg - MDRD</label>
                                             <input type="text" class="form-control text-center"
-                                                th:value="${exam.diagnosis.fgMdrd}+' (ml/min/1.73 m^2)'" id="inputfgMdrd" />
+                                                disabled th:value="${exam.diagnosis.fgMdrd}+' (ml/min/1.73 m^2)'" id="inputfgMdrd" />
 
                                             <label class="col-form-label" for="inputfgCkdEpi">Fg - Ckd Epi</label>
                                             <input type="text" class="form-control text-center"
-                                                th:value="${exam.diagnosis.fgCkdEpi}+' (ml/min/1.73 m^2)'" id="inputfgCkdEpi" />
+                                                disabled th:value="${exam.diagnosis.fgCkdEpi}+' (ml/min/1.73 m^2)'" id="inputfgCkdEpi" />
 
                                             <label class="col-form-label" for="inputDescription">Description</label>
                                             <textarea type="text" class="form-control"
-                                                th:text="${exam.diagnosis.description}" id="inputDescription" rows="3"></textarea>
+                                                disabled th:text="${exam.diagnosis.description}" id="inputDescription" rows="3"></textarea>
 
                                         </div>
                                     </div>

@@ -94,7 +94,7 @@
                     <td th:text="${exam.chlorine} +' mEq/L'"></td>
                     <td th:text="${exam.potassium} +' mmol/L'"></td>
                     <td th:text="${exam.sodium} +' mEq/L'"></td>       
-                    <td th:text="${exam.examDate}"></td>
+                    <td th:text="${exam.getExamInstantToLocalDate}"></td>
                     <td class="form-check-input" type="checkbox" id="flexCheckDefault" th:text="${exam.viewed}"></td>
             
                     <td>
