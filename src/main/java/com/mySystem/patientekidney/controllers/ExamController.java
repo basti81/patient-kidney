@@ -205,19 +205,29 @@ public class ExamController {
     }
 
     @GetMapping("/report")
-    public ModelAndView report(@RequestParam(name = "idRecord", required = true) Long idRecord,
+    public ModelAndView report(@RequestParam(name = "id", required = true) Long idRecord,
                                RedirectAttributes attributes){
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/exams/report");
         Optional<Record> record = recordService.getRecordById(idRecord);
         mv.addObject("patient",record.get().getPatient());
         List<Exam> examList = examService.findAllByIdRecord(idRecord);
+        if(record.isPresent() && !examList.isEmpty()){
+            ArrayList<LocalDate> vCreateCreatine = new ArrayList<>();
+            ArrayList<Double> vCreatine = new ArrayList<>();
 
-        ArrayList<Instant> vExamDate = (ArrayList<Instant>) examList.stream().map(exam -> exam.getExamDate()).toList();
-        ArrayList<Double> vCreatine = (ArrayList<Double>) examList.stream().map(exam -> exam.getCreatine()).toList();
-        mv.setViewName("redirect: /exam/byRecord?id="+idRecord);
+            for(Exam exam: examList){
+                vCreateCreatine.add(exam.getExamInstantToLocalDate());
+                vCreatine.add(exam.getCreatine());
+            }
+            mv.addObject("patient",record.get().getPatient());
+            mv.addObject("exam",examList.get(examList.size()-1));
+            mv.addObject("vCreateCreatine",vCreateCreatine);
+            mv.addObject("vCreatine",vCreatine);
+            return mv;
+        }
 
-        attributes.addFlashAttribute("msgWarning","Report not found");
+        attributes.addFlashAttribute("msgWarning","Report has problem");
         return mv;
     }
 }

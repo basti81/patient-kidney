@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "exams")
@@ -35,9 +38,14 @@ public class Exam {
     public Exam() {
     }
 
-    public Date getExamInstantToDate(){
-        return Date.from(examDate);
+
+    public LocalDate getExamInstantToLocalDate(){
+        return LocalDate.ofInstant(examDate,ZoneOffset.UTC);
     }
+    public LocalDateTime getExamInstantToLocalDateTime(){
+        return LocalDateTime.ofInstant(examDate, ZoneOffset.UTC);
+    }
+
     public Boolean getViewed() {
         return viewed;
     }

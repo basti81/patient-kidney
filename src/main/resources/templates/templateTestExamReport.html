@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+    <title>Borrador</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Custom fonts for this template -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="/css/sb-admin-2.min.css" rel="stylesheet"> -->
+    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <style>
+        a:link {
+            text-decoration: none
+        }
+
+        a:visited {
+            text-decoration: none
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            sidebar
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Top bar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb">
+                        breadcrumb
+                    </nav>
+
+                    <!-- Page Heading -->
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>msg</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-md-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <h6 class="m-0 font-weight-bold text-primary">Creatinina v/s Tiempo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <script th:inline="javascript">
+                                            /*<![CDATA[*/
+                                            var vCreateCreatine = /*[[${v_date_crea}]]*/ 'default';
+                                            var vCreatine = /*[[${v_crea}]]*/ 'default';
+                            /*]]>*/
+                                        </script>
+                                        <canvas id="myAreaChartCvsT"></canvas>
+                                        <script type="text/javascript" th:src="@{/js/tools/exams.js}"></script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Last form exam -->
+                        <div class="col-md-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header text-white bg-success font-weight-bold text-center ">
+                                    <i class="bi bi-clipboard-pulse"></i> Exam
+                                </div>
+                                <form th:object="${exam}" method="get">
+                                    <!-- Warning messege-->
+                                    <div th:if="${#fields.hasErrors('*')}">
+                                        <h2> Please checkout this errors</h2>
+                                        <ul>
+                                            <li th:each="err :${#fields.errors('*')}" th:text="${err}"></li>
+                                        </ul>
+                                    </div>
+
+                                    <!--Id exam-->
+                                    <input type="hidden" th:field="*{idExam}">
+                                    <!-- Id diagnosis -->
+                                    <input type="hidden" th:field="*{diagnosis.idDiagnosis}">
+                                    <div class="card-body">
+
+                                        <div class="d-flex justify-content-center">
+                                            <!--Creatine-->
+                                            <div class="form-group col-md-10">
+                                                <label class="col-form-label" for="inputCreatine">Creatine</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{creatine}" id="inputCreatine" />
+                                                    <span class="input-group-text">mg/dL</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center">
+                                            <!--Chlorine-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputChlorine">Chlorine</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{chlorine}" id="inputChlorine" />
+                                                    <span class="input-group-text">mEq/L</span>
+                                                </div>
+                                            </div>
+
+                                            <!--Sodium-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputSodium">Sodium</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{sodium}" id="inputSodium" />
+                                                    <span class="input-group-text">mEq/L</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="d-flex justify-content-center">
+                                            <!--Albumin-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputAlbumin">Albumin</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{albumin}" id="inputAlbumin" />
+                                                    <span class="input-group-text">g/L</span>
+                                                </div>
+                                            </div>
+                                            <!--Potassium-->
+                                            <div class="form-group col-md-5">
+                                                <label class="col-form-label" for="inputPotassium">Potassium</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-center"
+                                                        th:field="*{potassium}" id="inputPotassium" />
+                                                    <span class="input-group-text">mmol/L</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <a th:href="@{/exam/byRecord(id = ${patient.record.id})}"
+                                            class="btn btn-secondary" title="Back to list Exam">
+                                            Back</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <div th:insert="~{fragments/imports :: display-topbar}"></div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="/static/vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="/static/js/demo/chart-area-demo.js"></script>
+    <script src="/static/js/demo/chart-pie-demo.js"></script>
+    <!-- Page level plugins -->
+    <script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="/static/js/demo/datatables-demo.js"></script>
+    <!--functions js-->
+    <script src="/static/js/myFunctions.js"></script>
+</body>
+
+</html>
